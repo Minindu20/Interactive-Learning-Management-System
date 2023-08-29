@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  flex: 1;
+  min-height: 100vh;
+  background-color: #0d0926; /* Dark blue background */
+  color: white;
+}
+
+.sidebar-wrapper {
+  width: 250px; /* Set the desired width */
+  height: calc(100vh - 40px); /* Set the desired height */
+  border-radius: 0; /* Remove rounded corners */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px; /* Spacing inside the sidebar */
+  margin: 20px; /* Spacing from the content area */
+  background-color: #0d0926;
+  
+}
+
+/* Logo styles */
+.logo {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.logo p {
+  font-size: 24px;
+  font-weight: bold;
+  color: white; /* White text color */
+}
+
+/* List item styles */
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Remove margin to evenly spread items */
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.items li {
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%; /* Set each item to take full width */
+  color: white; /* White text color */
+}
+
+
+.items li:hover {
+  border-radius: 10px;
+  background-color: #7ea4ff; /* Soft blue on hover */
+  
+  
+}
+/* Icon styles */
+.icon {
+  font-size: 24px;
+  color: white; /* White icon color */
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/* Text with icon */
+.text-with-icon {
+  font-size: 16px;
+}
