@@ -1,5 +1,5 @@
-import Hero from '../components/Hero';
-import Navbar from '../components/Navbar';
+import Hero from '../components/Home/Hero';
+import Navbar from '../components/Home/Navbar';
 import heroImage from "../assests/hero.jpg";
 import heroImage1 from "../assests/hero1.jpg";
 import heroImage2 from "../assests/hero2.jpg";
@@ -14,9 +14,9 @@ import heroImage10 from "../assests/hero10.jpg";
 import heroImage11 from "../assests/hero11.jpg";
 import heroImage12 from "../assests/hero13.jpg";
 import heroImage13 from "../assests/hero5.jpg";
-import Destination from '../components/Destination';
-import Footer from "../components/Footer";
-import Squre from "../components/Squre";
+import Destination from '../components/Home/Destination';
+import Footer from "../components/Home/Footer";
+import Squre from "../components/Home/Squre";
 function Home(){
 return(
     <>

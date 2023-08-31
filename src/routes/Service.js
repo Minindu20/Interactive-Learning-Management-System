@@ -1,7 +1,7 @@
-import Hero from '../components/Hero';
-import Navbar from '../components/Navbar';
-import Squre from '../components/Squre';
-import Footer from'../components/Footer';
+import Hero from '../components/Home/Hero';
+import Navbar from '../components/Home/Navbar';
+import Squre from '../components/Home/Squre';
+import Footer from'../components/Home/Footer';
 import heroImage from "../assests/hero.jpg";
 import heroImage1 from "../assests/hero1.jpg";
 import heroImage2 from "../assests/hero2.jpg";

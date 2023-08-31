@@ -1,8 +1,8 @@
 import "./SqureStyle.css";
 import SqureData from "./SqureData";
-import book1 from "../assests/book1.jpg";
-import book2 from "../assests/book2.jpg";
-import book3 from "../assests/book3.jpg";
+import book1 from "../../assests/book1.jpg";
+import book2 from "../../assests/book2.jpg";
+import book3 from "../../assests/book3.jpg";
 
 function Squre(){
     return(
