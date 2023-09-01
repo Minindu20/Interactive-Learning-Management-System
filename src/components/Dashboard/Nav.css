@@ -30,11 +30,15 @@
 
 .items {
   display: flex;
-  align-items: center;;
+  align-items: end;
+  margin-right:20px;
+  width:100%
+  
 }
 
 .item {
   display:flex;
   align-items:center;
-  margin: 20px; /* Adjust this margin as needed */
+  margin-right:10px; /* Adjust this margin as needed */
+  float:right
 }

@@ -6,6 +6,7 @@ import About from './routes/About'
 import Contact from './routes/Contact'
 import Service from './routes/Service'
 import Admin from './routes/Admin'
+import User from "./routes/User"
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
            <Route path='/service' element={<Service/>}/>
            <Route path='/contact' element={<Contact/>}/>
            <Route path='/admin' element={<Admin/>}/>
+           <Route path='/user' element={<User/>}/>
         </Routes>
       </Router>
     </>
