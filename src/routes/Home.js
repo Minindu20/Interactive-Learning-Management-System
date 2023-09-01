@@ -28,7 +28,7 @@ return(
        title="Unlock the World of Knowledge"
        text="Welcome to our online library, your digital portal to a treasure trove of books, articles, and resources. Immerse yourself in stories, learn from experts, and embark on a journey of exploration."
        btnTxt="Get started"
-       url="/user"
+       url="/login"
     />
     <Destination/>
     <Squre/>

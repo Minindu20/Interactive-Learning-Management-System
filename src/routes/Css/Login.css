@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in element size */
+  }
+  
+  .container {
+    display: flex;
+    margin: auto;
+    
+    background: #ffffff;
+  }
+  
+  .left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 20px; */
+  }
+  
+  /* Style the image */
+  .background-image {
+    max-width: 100%;
+    max-height: 100%;
+
+  }
+  
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+  }
+  
+  .text {
+    color: #3c009d;
+    font-size: 48px;
+    font-weight: 700;
+  }
+  
+  .underline {
+    width: 61px;
+    height: 6px;
+    background: #3c009d;
+    border-radius: 9px;
+  }
+  .form-box {
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    border: 2px solid #4c00b4;
+    border-radius: 6px;
+    padding: 20px;
+    /* margin-top: 55px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .inputs {
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    max-width: 400px; /* Limit the maximum width of the form */
+  }
+  
+  .input {
+    width: 100%;
+    background: #eaeaea;
+    border-radius: 6px;
+    padding: 10px;
+  }
+  
+  .input input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #797979;
+    font-size: 19px;
+    padding: 5px;
+  }
+  
+  .submit-container {
+    display: flex;
+    gap: 30px;
+    margin: 60px auto;
+    justify-content: center;
+  }
+  
+  .submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 59px;
+    color: #fff;
+    background: #4c00b4;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  
+  .gray {
+    background: #eaeaea;
+    color: #676767;
+  }
+  
