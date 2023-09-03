@@ -121,4 +121,10 @@
     background: #eaeaea;
     color: #676767;
   }
+  .errorMsg{
+    color:red;
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 20px;
+  }
   
