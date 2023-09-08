@@ -1,0 +1,56 @@
+.bookcard .squre{
+    margin: 4rem 6rem;
+    color:#2a2a2a;
+    text-align:center;
+}
+.bookcard .squre h1{
+    font-size: 3rem;
+}
+.bookcard .squrecard{
+   margin-top:3rem;
+   display:flex;
+   justify-content:space-between;
+}
+.bookcard .t-card{
+    
+    
+    text-align:center;
+    box-shadow:0 5px 25px 2px rgba(0,0,0,0.11);
+    border-radius:7px;
+    cursor:pointer;
+    padding:1rem .8rem;
+    margin:0px;
+}
+.t-image{
+    object-fit: cover;
+    overflow:hidden;
+    border-radius: 7px;
+}
+.t-image img{
+    width:70%;
+    height:25vw;
+    object-fit: cover;
+    transition: 0.3s ease-in-out;
+    border-radius: 7px;
+}
+.t-image:hover img{
+    transform:scale(1.3);
+}
+
+.t-card h4{
+    font-size:1.3rem;
+    padding:.9rem 0 0.2rem;
+}
+
+@media screen and (max-width:850px){
+    .squre{
+       margin:4rem 2rem;
+    } 
+    .squrecard{
+        flex-direction: column;
+    }
+    .t-card{
+      width:100%;
+      margin:1.5rem;
+    }
+}
