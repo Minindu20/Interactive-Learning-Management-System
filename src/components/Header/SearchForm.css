@@ -1,0 +1,50 @@
+.search-form1 {
+  background-color: #fafafa; /* Background color for the search form container */
+  padding: 10px; /* Add some padding for spacing */
+  border-radius: 10px; /* Add border radius to round the corners */
+  display: flex; /* Add flex display to control child elements */
+  justify-content: space-between; /* Space between icon and input */
+  align-items: center; /* Vertically align the icon and input */
+}
+
+.search-form-content {
+ 
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.search-form {
+  
+  display: flex;
+  align-items: center;
+}
+
+.search-form-element {
+  
+  background: transparent;
+  display: flex;
+  align-items: center;
+}
+
+.form-control {
+  border: none; /* Remove the border */
+  outline: none; /* Remove the outline */
+  padding: 10px; /* Add some padding for spacing */
+  border-radius: 8px; /* Add border radius to round the corners */
+}
+
+.btnClass {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.btnClass:hover{
+  background-color: #fcfcfc;
+  
+}
+
+.text-purple {
+  color: purple; /* Change the color of the search icon */
+  margin-right: 10px; /* Add some spacing between the icon and input */
+}

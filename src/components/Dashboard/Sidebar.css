@@ -9,6 +9,7 @@
   min-height: 100vh;
   background-color: #0d0926; /* Dark blue background */
   color: white;
+  position:fixed;
 }
 
 .sidebar-wrapper {
