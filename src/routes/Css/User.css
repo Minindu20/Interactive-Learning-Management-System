@@ -32,7 +32,7 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Two columns with equal width */
+  grid-template-columns: repeat(5, 1fr); /* Two columns with equal width */
   gap: 20px; /* Gap between grid items */
   
 }
@@ -48,4 +48,8 @@
 .content-title p{
   padding-bottom:2rem;
   font-size:2rem;
+}
+.grid-item a{
+  color: black;
+  text-decoration: none;
 }

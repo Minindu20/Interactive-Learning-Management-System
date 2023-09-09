@@ -7,7 +7,8 @@ const Header = () => {
     <div className="holder">
         
             <div className='header-content'>
-               <h2 className='header-title'>
+              <div className="cont">
+              <h2 className='header-title'>
                 find your book of choice
                </h2>
                <p className='header-text'>
@@ -15,6 +16,8 @@ const Header = () => {
                Whether scanning shelves or scrolling through online catalogs, it's a journey where the next literary gem awaits, promising hours of discovery and wonder.
                </p>
                <SearchForm/>
+              </div>
+              
             </div>
         
     </div>

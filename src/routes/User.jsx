@@ -1,21 +1,19 @@
 import React from "react";
 import "./Css/User.css";
 import Sidebar from "../components/Dashboard/Sidebar";
-import Hero from "../components/Home/Hero";
 import Nav from "../components/Dashboard/Nav";
+import Navbar from "../components/Home/Navbar";
 import Header from "../components/Header/Header";
-import search from "../assests/search.jpg";
-import Squre from "../components/Home/Squre";
 import BookCard from "../components/Header/BookCard";
-import bk1 from '../assests/books/bk3.jpg'
-import book1 from '../assests/books/bk1.jpg'
 import {Books} from './BookData'
+import { Link,Outlet,useParams } from "react-router-dom";
 const User = () => {
   return (
     <div className="user">
       <Sidebar role="user" />
       <div className="userContainer">
-        <Nav role="user" />
+        {/* <Nav role="user" /> */}
+        <Navbar/>
         <Header />
         <div className="booklist">
           <div className="content-title">
@@ -25,11 +23,14 @@ const User = () => {
               {Books.map((item,index)=>{
                return(
                 <div className ="grid-item" key={index}>
-                   <BookCard
+                  <Link to={`/user/book/${item.id}`}> 
+                  <BookCard
                     image={item.image}
                     heading={item.title}
                     author={item.author}
                     />
+                   </Link>  
+                
                 </div>
                )
               })}

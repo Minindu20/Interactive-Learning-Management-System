@@ -4,7 +4,7 @@ import "./SearchForm.css";
 const SearchForm = () => {
   return (
     <div className="search-form1">
-      <div className="container">
+      <div className="formContainer">
         <div className="search-form-content">
           <form className="search-form">
             <div className="search-form-element">

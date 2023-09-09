@@ -8,6 +8,8 @@ import Service from './routes/Service'
 import Admin from './routes/Admin'
 import User from "./routes/User"
 import Login from './routes/Login';
+import BookView from './routes/BookView';
+import Forum from './components/Forum/Forum';
 function App() {
   return (
     <>
@@ -19,7 +21,9 @@ function App() {
            <Route path='/contact' element={<Contact/>}/>
            <Route path='/admin' element={<Admin/>}/>
            <Route path='/user' element={<User/>}/>
+            <Route path="user/book/:id" element={<BookView/>}/>
            <Route path='/login' element={<Login/>}/>
+           <Route path='/Forum' element={<Forum/>}/>
         </Routes>
       </Router>
     </>
