@@ -22,9 +22,11 @@ const Sidebar = (props) => {
     ],
     user:[
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/user"},
-      {icon:<AutoStoriesTwoToneIcon/>,text:"Books",path:"/profile"},
+      {icon:<AutoStoriesTwoToneIcon/>,text:"Borrowings",path:"/bookhistory"},
       {icon:<AccountCircleIcon/>,text:"profile",path:"/profile"},
+      {icon:<ForumTwoToneIcon/>,text:"Forum"},
       {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/profile"},
+      
     ]
     //need to add the librarian items
   };

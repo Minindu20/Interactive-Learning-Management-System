@@ -11,6 +11,7 @@ import Login from './routes/Login';
 import BookView from './routes/BookView';
 import Forum from './components/Forum/Forum';
 import Profile from './routes/Profile';
+import BookHistory from './routes/BookHistory';
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
            <Route path='/login' element={<Login/>}/>
            <Route path='/Forum' element={<Forum/>}/>
            <Route path='/profile' element={<Profile/>}/>
+           <Route path='/bookhistory' element={<BookHistory/>}/>
         </Routes>
       </Router>
     </>
