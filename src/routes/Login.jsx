@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Css/Login.css";
 import Footer from "../components/Home/Footer";
 import Navbar from "../components/Home/Navbar";
-import heroImage7 from "../assests/hero6.jpg";
+import heroImage7 from "../assests/hero7.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
@@ -72,15 +72,15 @@ const Login = () => {
     <>
       <Navbar />
       <form onSubmit={handleSubmit}>
-        <div className="container">
-          <div className="left">
+        <div className="login-container">
+          <div className="login-left">
             <img
-              className="background-image"
+              className="login-background-image"
               src={heroImage7}
               alt="Background"
             />
           </div>
-          <div className="right">
+           <div className="right">
             <div className="form-box">
               <div className="header">
                 <div className="text">{action}</div>
@@ -142,10 +142,10 @@ const Login = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> 
         </div>
       </form>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

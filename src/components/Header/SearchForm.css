@@ -1,10 +1,11 @@
 .search-form1 {
-  padding: 10px; /* Add some padding for spacing */
+ /* Add some padding for spacing */
   border-radius: 10px; /* Add border radius to round the corners */
   display: flex; /* Add flex display to control child elements */
   justify-content: center; /* Space between icon and input */
   align-items: center; /* Vertically align the icon and input */
   padding-bottom: 2.5rem;
+  
 }
 
 .search-form-content {
@@ -15,6 +16,7 @@
 }
 
 .search-form {
+  height:3rem;
   background-color: #fcfcfc;
   display: flex;
   align-items: center;
