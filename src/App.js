@@ -7,6 +7,7 @@ import Contact from './routes/Contact'
 import Service from './routes/Service'
 import Admin from './routes/Admin'
 import User from "./routes/User"
+import Librarian from "./routes/Librarian"
 import Login from './routes/Login';
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
            <Route path='/contact' element={<Contact/>}/>
            <Route path='/admin' element={<Admin/>}/>
            <Route path='/user' element={<User/>}/>
+           <Route path='/librarian' element={<Librarian/>}/>
            <Route path='/login' element={<Login/>}/>
         </Routes>
       </Router>

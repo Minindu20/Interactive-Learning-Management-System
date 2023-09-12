@@ -25,6 +25,13 @@ const Sidebar = (props) => {
       {icon:<AutoStoriesTwoToneIcon/>,text:"Books"},
       {icon:<AccountCircleIcon/>,text:"profile"},
       {icon:<ForumTwoToneIcon/>,text:"Notification"},
+    ],
+    librarian:[
+      {icon:<DashboardTwoToneIcon/>,text:"Dashboard"},
+      {icon:<PeopleOutlineTwoToneIcon/>,text:"Users"},
+      {icon:<ForumTwoToneIcon/>,text:"Forum"},
+      {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
+      {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ]
     //need to add the librarian items
   };
