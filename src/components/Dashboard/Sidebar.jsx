@@ -8,7 +8,7 @@ import ForumTwoToneIcon from '@mui/icons-material/ForumTwoTone';
 import RequestPageTwoToneIcon from '@mui/icons-material/RequestPageTwoTone';
 import QueryStatsTwoToneIcon from '@mui/icons-material/QueryStatsTwoTone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import { Link } from 'react-router-dom';
 const Sidebar = (props) => {
   const role=props.role;
   const sidebarItems={
@@ -21,10 +21,10 @@ const Sidebar = (props) => {
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ],
     user:[
-      {icon:<DashboardTwoToneIcon/>,text:"Dashboard"},
-      {icon:<AutoStoriesTwoToneIcon/>,text:"Books"},
-      {icon:<AccountCircleIcon/>,text:"profile"},
-      {icon:<ForumTwoToneIcon/>,text:"Notification"},
+      {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/user"},
+      {icon:<AutoStoriesTwoToneIcon/>,text:"Books",path:"/profile"},
+      {icon:<AccountCircleIcon/>,text:"profile",path:"/profile"},
+      {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/profile"},
     ]
     //need to add the librarian items
   };
@@ -34,17 +34,16 @@ const Sidebar = (props) => {
     return (
       <>
        {items.map((item,index)=>(
-        <li key={index}>
+        <Link to={item.path}><li key={index}>
           {item.icon}
           <span className="text-with-icon">{item.text}</span>
-        </li>
+        </li></Link>
       ))}</> 
   );
   };
   return (
     <>
-       <div className="sidebar">
-        <div className='sidebar-wrapper'>
+       <div className="sidebar"> 
         <div className="logo">
                    <p>LibraLink</p>
             </div>
@@ -53,7 +52,7 @@ const Sidebar = (props) => {
                 {renderSideBarItems()}
               </ul>
           </div>
-        </div>
+     
           
        </div>
     </>

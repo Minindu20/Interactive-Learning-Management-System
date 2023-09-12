@@ -29,7 +29,7 @@
   border:none;
 }
 
-.items {
+.nav-items {
   display: flex;
   align-items: end;
   margin-right:20px;
@@ -37,7 +37,7 @@
   
 }
 
-.item {
+.nav-item {
   display:flex;
   align-items:center;
   margin-right:10px; /* Adjust this margin as needed */

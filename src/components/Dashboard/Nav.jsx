@@ -16,8 +16,8 @@ const Nav = (props) => {
                      </div>
                   )
                   }    
-                <div className='items'>
-                    <div className='item'>
+                <div className='nav-items'>
+                    <div className='nav-item'>
                          <AccountCircleIcon/>
                     </div>
                 </div>

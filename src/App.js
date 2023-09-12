@@ -10,6 +10,7 @@ import User from "./routes/User"
 import Login from './routes/Login';
 import BookView from './routes/BookView';
 import Forum from './components/Forum/Forum';
+import Profile from './routes/Profile';
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
             <Route path="user/book/:id" element={<BookView/>}/>
            <Route path='/login' element={<Login/>}/>
            <Route path='/Forum' element={<Forum/>}/>
+           <Route path='/profile' element={<Profile/>}/>
         </Routes>
       </Router>
     </>

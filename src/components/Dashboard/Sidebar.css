@@ -10,17 +10,18 @@
   background-color: #0d0926; /* Dark blue background */
   color: white;
   position:fixed;
-}
-
-.sidebar-wrapper {
-  width: 250px; /* Set the desired width */
+  width: 200px; /* Set the desired width */
   height: calc(100vh - 40px); /* Set the desired height */
   border-radius: 0; /* Remove rounded corners */
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 20px; /* Spacing inside the sidebar */
-  margin: 10px; /* Spacing from the content area */
+  padding: 1rem; /* Spacing inside the sidebar */
+  margin: 1rem; /* Spacing from the content area */
   background-color: #0d0926;
  
+}
+
+.sidebar-wrapper {
+  
 }
 
 /* Logo styles */
@@ -45,7 +46,14 @@
   border-radius: 10px;
   
 }
-
+.items a,
+.items a:focus,
+.items a:hover,
+.items a:visited {
+  padding-left: 0px;
+  margin-left: 0px;
+  text-decoration: none;
+}
 .items li {
   border-radius: 10px;
   display: flex;
@@ -63,19 +71,18 @@
 .items li:hover {
   border-radius: 10px;
   background-color: #7ea4ff; /* Soft blue on hover */
-  
-  
 }
+
 /* Icon styles */
 .icon {
   
   font-size: 24px;
   color: white; /* White icon color */
-  padding-left:10px
+  padding-left:1rem
 }
 
 /* Text with icon */
 .text-with-icon {
   font-size: 16px;
-  padding-left:10px
+  padding-left:0.5rem
 }

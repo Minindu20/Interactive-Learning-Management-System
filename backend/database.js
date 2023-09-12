@@ -11,10 +11,11 @@ const pool = new Pool({
 const filterBooks = (request,response)=>{
    const { q } = request.query;
    console.log(q)
-   const qry=`SELECT * FROM books
-   WHERE title ILIKE '%' || $1 || '%' OR author ILIKE '%' || $1 || '%';`;
+  const qry=`SELECT * FROM books
+  WHERE title ILIKE '%' || $1 || '%' OR author ILIKE '%' || $1 || '%';`;
    pool.query(qry,[q],(error,results)=>{
-    console.log(qry);
+    // console.log(qry);
+    console.log('filter books');
     if(error) return response.status(500).json({error:'Internal server error'})
     else if (results.rows.length === 0) {
       return response.status(404).json({ error: 'No books found' });
@@ -23,6 +24,19 @@ const filterBooks = (request,response)=>{
     response.json(books);
    })
 
+}
+const genreRelatedBooks=(request,response)=>{
+  const { g }=request.query;
+  console.log(g);
+  const qry = `SELECT * FROM books WHERE genre ILIKE $1;`;
+  pool.query(qry,[g],(error,results)=>{
+  if(error) return response.status(500).json({error:'Internal Server Eroor'})
+  else if(results.rows.length===0){
+    return response.status(404).json({ error: 'No books found in the databse' });
+   }
+   const books = results.rows;
+   response.json(books);
+  })
 }
 
 const getBooks = (request,response)=>{
@@ -107,5 +121,6 @@ const createUser = (request, response) => {
 module.exports = {
   createUser,
   getBooks,
-  filterBooks
+  filterBooks,
+  genreRelatedBooks
 };
