@@ -8,6 +8,7 @@ import ForumTwoToneIcon from '@mui/icons-material/ForumTwoTone';
 import RequestPageTwoToneIcon from '@mui/icons-material/RequestPageTwoTone';
 import QueryStatsTwoToneIcon from '@mui/icons-material/QueryStatsTwoTone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PostAddTwoToneIcon from '@mui/icons-material/PostAddTwoTone';
 
 const Sidebar = (props) => {
   const role=props.role;
@@ -28,12 +29,14 @@ const Sidebar = (props) => {
     ],
     librarian:[
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard"},
+      {icon:<PostAddTwoToneIcon/>,text:"Add Book"},
       {icon:<PeopleOutlineTwoToneIcon/>,text:"Users"},
+      {icon:<AutoStoriesTwoToneIcon/>,text:"Books"},
       {icon:<ForumTwoToneIcon/>,text:"Forum"},
       {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ]
-    //need to add the librarian items
+
   };
 
   const renderSideBarItems=()=>{

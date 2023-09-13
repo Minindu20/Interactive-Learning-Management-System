@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './routes/Home'
-import About from './routes/About'
-import Contact from './routes/Contact'
-import Service from './routes/Service'
-import Admin from './routes/Admin'
-import User from "./routes/User"
-import Librarian from "./routes/Librarian"
+import Home from './routes/Home';
+import About from './routes/About';
+import Contact from './routes/Contact';
+import Service from './routes/Service';
+import Admin from './routes/Admin';
+import User from "./routes/User";
+import Librarian from "./routes/Librarian";
+import AddBook from "./routes/AddBook";
+import UserList from './routes/UserList';
+import BookList from './routes/BookList';
 import Login from './routes/Login';
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
            <Route path='/admin' element={<Admin/>}/>
            <Route path='/user' element={<User/>}/>
            <Route path='/librarian' element={<Librarian/>}/>
+           <Route path='/addbook' element={<AddBook/>}/>
+           <Route path='/userlist' element={<UserList/>}/>
+           <Route path='/booklist' element={<BookList/>}/>
            <Route path='/login' element={<Login/>}/>
         </Routes>
       </Router>
