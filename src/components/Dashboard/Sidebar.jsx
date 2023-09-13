@@ -24,7 +24,7 @@ const Sidebar = (props) => {
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/user"},
       {icon:<AutoStoriesTwoToneIcon/>,text:"Borrowings",path:"/bookhistory"},
       {icon:<AccountCircleIcon/>,text:"profile",path:"/profile"},
-      {icon:<ForumTwoToneIcon/>,text:"Forum"},
+      {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
       {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/profile"},
       
     ]

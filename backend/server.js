@@ -9,7 +9,7 @@ app.use(cors())
 app.get("/user/genreRelatedBooks", db.genreRelatedBooks);
 app.get('/user/filterBooks', db.filterBooks);
 app.post("/login",db.createUser)  
-
+app.get('/user/book/:id',db.getBookById)
 // app.get("/user",db.getBooks)
 
 

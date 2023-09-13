@@ -6,7 +6,6 @@ import Nav from "../components/Dashboard/Nav";
 import Navbar from "../components/Home/Navbar";
 import Header from "../components/Header/Header";
 import BookCard from "../components/Header/BookCard";
-import { Books } from "./BookData";
 import { Link, Outlet, useParams } from "react-router-dom";
 import axios from "axios";
 

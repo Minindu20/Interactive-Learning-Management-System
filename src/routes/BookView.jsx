@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {useParams} from "react-router-dom";
 import Navbar from '../components/Home/Navbar';
 import './Css/BookView.css';
-import {Books} from './BookData'
+//import {Books} from './BookData'
 import Forum from "../components/Forum/Forum";
+import axios from "axios";
 const BookView = () => {
+  const[book,setBook]=useState(null);
   const{id:bookId}=useParams();
-  const book = Books.find((book)=>book.id.toString() === bookId);
-  const{title,author,image,comments,likes}=book;
+  //const book = Books.find((book)=>book.id.toString() === bookId);
+  //const{title,author,image,comments,likes}=book;
   const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(likes);
+  const [likesCount, setLikesCount] = useState(0);
   
+  useEffect(()=>{
+    const fetchBookData = async()=>{
+      try{
+        console.log(bookId);
+        const response = await axios.get(`http://localhost:4000/user/book/${bookId}`);
+
+        setBook(response.data[0]);
+        setLikesCount(response.data[0].likes)
+      }catch(error){
+        console.error('Error fetching book data:', error);
+      }
+    };
+    fetchBookData();
+  },[bookId]);
+  
+
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {
@@ -27,14 +45,14 @@ const BookView = () => {
     <>
     <Navbar />
     <div className="container">
-      <div className="column">
-        <div className="img"><img src={image} alt="image" /></div>
+      {book ?  (<div className="column">
+        <div className="img"><img src={book.image} alt="image" /></div>
         <div className="details">
-          <h1>{title}</h1>
-          <h2>Author - {author}</h2>
+          <h1>{book.title}</h1>
+          <h2>Author - {book.author}</h2>
           <div className="likes-count">
-          {isLiked ? <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>}
-            <small className="count" onClick={handleLikeClick}>{likesCount}</small>
+          {isLiked ? <i className="fas fa-heart" onClick={handleLikeClick}></i> : <i className="far fa-heart"onClick={handleLikeClick}></i>}
+            <small className="count" >{likesCount}</small>
           </div>
           <div className="about-section">
             <p className="about-label">About:</p>
@@ -65,12 +83,19 @@ const BookView = () => {
           <button type='submit' style={{ marginTop: '2rem' }} onClick={handleSubmit} className="btn">Reserve</button>
         </div>
       </div>
-      <div className="row">
-        <Forum 
-        comments={book.comments}
-        bookId={book.id}
-        />
-      </div>
+    ):(
+      <p>Loading...</p>
+      )
+
+      }
+        <div className="row">
+          {book && (
+            <Forum
+              comments={book.comments}
+              bookId={book.id}
+            />
+          )}
+        </div>
     </div>
   </>
   

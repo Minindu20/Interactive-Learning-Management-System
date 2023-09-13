@@ -26,7 +26,7 @@ const Profile = () => {
     
       <> <Navbar/>
       <div className="back">
-      <button classname='back-btn'><Link to='/user'>Go back</Link></button>
+      <button className='back-btn'><Link to='/user'>Go back</Link></button>
       </div>
      
       <div className="user-container">

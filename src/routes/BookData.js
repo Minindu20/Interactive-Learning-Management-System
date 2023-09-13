@@ -59,7 +59,51 @@ export const Books=[
         image:"https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2014/7/30/1406719784584/a3673b4b-74cd-4544-8eba-bd0b51fbee5f-1360x2040.jpeg?width=700&quality=85&auto=format&fit=max&s=f872e3d83c535f8659a964c8328fa977",
         likes:0,
         comments:[]
+    },
+    {   id:8,
+        title:"The World of Ice and Fire",
+        author:"George R.R Martin",
+        image:"https://m.media-amazon.com/images/I/71kGBsyCFHL._AC_UF894,1000_QL80_.jpg",
+        likes:0,
+        comments:[]
+    },
+    {   id:9,
+        title:"The Game Of Thrones",
+        author:"George R.R Martin",
+        image:"https://cdn.waterstones.com/bookjackets/large/9780/0075/9780007548231.jpg",
+        likes:0,
+        comments:[]
+    },
+    {   id:10,
+        title:"The Return Of The King",
+        author:"J.R.R Tolkin",
+        image:"https://bookazine.com.hk/cdn/shop/products/9d6ca0d3b8c041170ebc6cce15e315df_600x.jpg?v=1589050213",
+        likes:0,
+        comments:[]
+    },
+    {   id:11,
+        title:"The Two Towers",
+        author:"J.R.R Tolkin",
+        image:"https://dauntbooks.co.uk/wp-content/uploads/2021/02/9780007203550.jpg",
+        likes:0,
+        comments:[]
+    },{   id:12,
+        title:"Hobbit",
+        author:"J.R.R Tolkin",
+        image:"https://m.media-amazon.com/images/I/A1E+USP9f8L._AC_UF1000,1000_QL80_.jpg",
+        likes:0,
+        comments:[]
+    },{   id:13,
+        title:"The FellowShip Of the Ring",
+        author:"J.R.R Tolkin",
+        image:"https://i.harperapps.com/covers/9780008376123/y648.jpg",
+        likes:0,
+        comments:[]
     }
+
+
+
+
 ]
 export function updateBookComments(bookId, newComments) {
     const updatedBooks = Books.map((book) => {

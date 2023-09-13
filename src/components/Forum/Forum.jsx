@@ -23,7 +23,7 @@ const Forum = (props) => {
     e.preventDefault();
     if (userName && commentText !== '') {
       const newFeedback = {
-        id: Math.floor(Math.random() * 1000 + 1),
+       // id: Math.floor(Math.random() * 1000 + 1),
         userName: userName,
         userComment: commentText,
         typeOfFeedback: isLiked,

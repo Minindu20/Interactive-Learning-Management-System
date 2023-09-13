@@ -12,6 +12,7 @@ import BookView from './routes/BookView';
 import Forum from './components/Forum/Forum';
 import Profile from './routes/Profile';
 import BookHistory from './routes/BookHistory';
+import CommonForum from './routes/CommonForum';
 function App() {
   return (
     <>
@@ -28,6 +29,8 @@ function App() {
            <Route path='/Forum' element={<Forum/>}/>
            <Route path='/profile' element={<Profile/>}/>
            <Route path='/bookhistory' element={<BookHistory/>}/>
+           <Route path='/commonforum' element={<CommonForum/>}/>
+
         </Routes>
       </Router>
     </>

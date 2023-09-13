@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "./Css/Login.css";
 import Footer from "../components/Home/Footer";
 import Navbar from "../components/Home/Navbar";
-import heroImage7 from "../assests/hero7.jpg";
+import heroImage7 from "../assests/hero11.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate =useNavigate();
-  const [action, setAction] = useState("Sign Up");
+  const [action, setAction] = useState("Login");
   const [userNameExistMessage, setUserNameExistMessage] = useState("");
   const [emailExistMessage, setEmailExistMessage] = useState("");
   const [emailPasswordIncorrectMeasseage, setemailPasswordIncorrectMeasseage] = useState("");
@@ -72,10 +72,10 @@ const Login = () => {
     <>
       <Navbar />
       <form onSubmit={handleSubmit}>
-        <div className="login-container">
-          <div className="login-left">
+        <div className="container1">
+          <div className="left">
             <img
-              className="login-background-image"
+              className="background-image"
               src={heroImage7}
               alt="Background"
             />
@@ -143,9 +143,10 @@ const Login = () => {
               </div>
             </div>
           </div> 
+         
         </div>
       </form>
-      {/* <Footer /> */}
+    
     </>
   );
 };

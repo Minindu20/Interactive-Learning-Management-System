@@ -1,33 +1,46 @@
 * {
+
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Include padding and border in element size */
+    
   }
   
-  .login-container {
+  .container1 {
     display: flex;
-    margin: auto;
+    /* Full viewport height */
+    width: 95vw; /* Full viewport width */
+    flex-direction:row;
     background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin:3rem;
   }
-  
-  .login-left {
+  .left {
+
     flex: 1;
     display: flex;
+  
     justify-content: center;
     align-items: center;
-    /* padding: 20px; */
   }
   
   /* Style the image */
-  .login-left .login-background-image {
-    width: 100%;
-    height: 100%;
+  .background-image {
+    max-width: 100%; /* Adjust the image size as needed */
+    max-height: 100%; /* Adjust the image size as needed */
+    /* Add these properties to maintain the aspect ratio and prevent stretching */
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    margin-left:5rem;
   }
   
   .right {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    
     justify-content: center;
     align-items: center;
     padding: 20px;

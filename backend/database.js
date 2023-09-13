@@ -7,7 +7,17 @@ const pool = new Pool({
   port: 5432,
   database: "ilms",
 });
+const getBookById = (request,response)=>{
+  const {id} = request.params;
+  console.log(id);
+  const qry = `SELECT * FROM books where id = $1`;
+  pool.query(qry,[id],(error,results)=>{
+  if(error) return response.status(500).json({error:'Internal Server Eroor'})
+  const book=results.rows;
+  response.json(book);
+  }) 
 
+}
 const filterBooks = (request,response)=>{
    const { q } = request.query;
    console.log(q)
@@ -122,5 +132,6 @@ module.exports = {
   createUser,
   getBooks,
   filterBooks,
-  genreRelatedBooks
+  genreRelatedBooks,
+  getBookById
 };
