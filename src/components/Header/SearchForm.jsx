@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import {FaSearch} from "react-icons/fa";
 import "./SearchForm.css";
-const SearchForm = () => {
+const SearchForm = ({onSearch}) => {
+  const[query,setQuery] = useState("");
+  const handleSearch = (e) => {
+    // Call the provided onSearch function with the query
+    e.preventDefault();
+    onSearch(query);
+  };
+    
   return (
     <div className="search-form1">
-      <div className="container">
+      <div className="formContainer">
         <div className="search-form-content">
-          <form className="search-form">
+          <form className="search-form" onSubmit={handleSearch}>
             <div className="search-form-element">
-              <input type="text" className="form-control" placeholder="The Lost World..."/>
-              <button type="submit" className="btnClass">
+              <input type="text" className="form-control" placeholder="search" onChange={(e)=>setQuery(e.target.value)}/>
+              <button type="submit" className="btnClass" >
               <FaSearch className='text-purple' size = {32} />
               </button>
             </div>

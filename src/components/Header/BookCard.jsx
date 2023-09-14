@@ -1,7 +1,6 @@
 import React from "react";
 import "./BookCard.css";
 const BookCard = (props) => {
-  console.log(props.image);
   return (
     <div className="bookcard">
       <div className="t-card">

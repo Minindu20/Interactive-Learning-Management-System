@@ -5,16 +5,22 @@
     text-align: center;
     color: #fff;
     min-height:75vh;
-    background:linear-gradient(#a95bc34d,rgba(141,39,173,0.5)),url("../../assests/hero5.jpg") center/cover no-repeat ;
+    background:linear-gradient(#a95bc34d,rgba(141,39,173,0.5)),url("../../assests/cover.jpg") center/cover no-repeat ;
+  
     flex-direction:column;
+    
+}
+.cont{
+    background: rgba(0, 0, 0, 0.5); /* Add a background color to improve text readability */
 }
 .header-title{
-    font-size: 4.0rem;
+    font-size: 3.0rem;
     text-transform: capitalize;
+    color: rgb(255, 255, 255);
 }
 .header-text{
-    margin-top:1.8rem;
-    margin-bottom:2.8rem;
+    margin-top:0.5rem;
+    margin-bottom:1rem;
     padding-left: 50px;
     padding-right: 50px;
     opacity:0.8;

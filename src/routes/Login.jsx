@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "./Css/Login.css";
 import Footer from "../components/Home/Footer";
 import Navbar from "../components/Home/Navbar";
-import heroImage7 from "../assests/hero6.jpg";
+import heroImage7 from "../assests/hero11.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate =useNavigate();
-  const [action, setAction] = useState("Sign Up");
+  const [action, setAction] = useState("Login");
   const [userNameExistMessage, setUserNameExistMessage] = useState("");
   const [emailExistMessage, setEmailExistMessage] = useState("");
   const [emailPasswordIncorrectMeasseage, setemailPasswordIncorrectMeasseage] = useState("");
@@ -72,7 +72,7 @@ const Login = () => {
     <>
       <Navbar />
       <form onSubmit={handleSubmit}>
-        <div className="container">
+        <div className="container1">
           <div className="left">
             <img
               className="background-image"
@@ -80,7 +80,7 @@ const Login = () => {
               alt="Background"
             />
           </div>
-          <div className="right">
+           <div className="right">
             <div className="form-box">
               <div className="header">
                 <div className="text">{action}</div>
@@ -142,10 +142,11 @@ const Login = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> 
+         
         </div>
       </form>
-      <Footer />
+    
     </>
   );
 };

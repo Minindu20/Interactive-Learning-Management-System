@@ -10,7 +10,6 @@ import QueryStatsTwoToneIcon from '@mui/icons-material/QueryStatsTwoTone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PostAddTwoToneIcon from '@mui/icons-material/PostAddTwoTone';
 import { Link } from 'react-router-dom';
-
 const Sidebar = (props) => {
   const role=props.role;
   const sidebarItems={
@@ -23,10 +22,13 @@ const Sidebar = (props) => {
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ],
     user:[
-      {icon:<DashboardTwoToneIcon/>,text:"Dashboard"},
-      {icon:<AutoStoriesTwoToneIcon/>,text:"Books"},
-      {icon:<AccountCircleIcon/>,text:"profile"},
-      {icon:<ForumTwoToneIcon/>,text:"Notification"},
+
+      {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/user"},
+      {icon:<AutoStoriesTwoToneIcon/>,text:"Borrowings",path:"/bookhistory"},
+      {icon:<AccountCircleIcon/>,text:"profile",path:"/profile"},
+      {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
+      {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/profile"},
+      
     ],
     librarian:[
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard", path:"/librarian"},
@@ -37,7 +39,6 @@ const Sidebar = (props) => {
       {icon:<ForumTwoToneIcon/>,text:"Forum"},
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ]
-
   };
 
   const renderSideBarItems=()=>{
@@ -54,8 +55,7 @@ const Sidebar = (props) => {
   };
   return (
     <>
-       <div className="sidebar">
-        <div className='sidebar-wrapper'>
+       <div className="sidebar"> 
         <div className="logo">
                    <p>LibraLink</p>
             </div>
@@ -64,7 +64,7 @@ const Sidebar = (props) => {
                 {renderSideBarItems()}
               </ul>
           </div>
-        </div>
+     
           
        </div>
     </>

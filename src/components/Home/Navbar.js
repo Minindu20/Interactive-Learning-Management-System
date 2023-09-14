@@ -11,7 +11,7 @@ class Navbar extends Component{
   render(){
     return(
       <nav className="NavbarItems">
-        <h1 className="navbar-logo">BOOKMATE <i className="fas fa-book-open-reader"/></h1>
+        <h1 className="navbar-logo">LibraLink <i className="fas fa-book-open-reader"/></h1>
         <div className="close-icon" onClick={this.handleClick}>
           <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars" }></i>
         </div>

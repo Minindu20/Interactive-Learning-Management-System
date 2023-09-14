@@ -12,6 +12,11 @@ import AddBook from "./routes/AddBook";
 import UserList from './routes/UserList';
 import BookList from './routes/BookList';
 import Login from './routes/Login';
+import BookView from './routes/BookView';
+import Forum from './components/Forum/Forum';
+import Profile from './routes/Profile';
+import BookHistory from './routes/BookHistory';
+import CommonForum from './routes/CommonForum';
 import RequestList from './routes/RequestList';
 function App() {
   return (
@@ -24,12 +29,22 @@ function App() {
            <Route path='/contact' element={<Contact/>}/>
            <Route path='/admin' element={<Admin/>}/>
            <Route path='/user' element={<User/>}/>
+
+            <Route path="user/book/:id" element={<BookView/>}/>
+
+             
            <Route path='/librarian' element={<Librarian/>}/>
            <Route path='/librarian/addbook' element={<AddBook/>}/>
            <Route path='/librarian/userlist' element={<UserList/>}/>
            <Route path='/librarian/booklist' element={<BookList/>}/>
            <Route path='/librarian/requestlist' element={<RequestList/>}/>
+
            <Route path='/login' element={<Login/>}/>
+           <Route path='/Forum' element={<Forum/>}/>
+           <Route path='/profile' element={<Profile/>}/>
+           <Route path='/bookhistory' element={<BookHistory/>}/>
+           <Route path='/commonforum' element={<CommonForum/>}/>
+
         </Routes>
       </Router>
     </>

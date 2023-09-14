@@ -7,6 +7,62 @@ const pool = new Pool({
   port: 5432,
   database: "ilms",
 });
+const getBookById = (request,response)=>{
+  const {id} = request.params;
+  console.log(id);
+  const qry = `SELECT * FROM books where id = $1`;
+  pool.query(qry,[id],(error,results)=>{
+  if(error) return response.status(500).json({error:'Internal Server Eroor'})
+  const book=results.rows;
+  response.json(book);
+  }) 
+
+}
+const filterBooks = (request,response)=>{
+   const { q } = request.query;
+   console.log(q)
+  const qry=`SELECT * FROM books
+  WHERE title ILIKE '%' || $1 || '%' OR author ILIKE '%' || $1 || '%';`;
+   pool.query(qry,[q],(error,results)=>{
+    // console.log(qry);
+    console.log('filter books');
+    if(error) return response.status(500).json({error:'Internal server error'})
+    else if (results.rows.length === 0) {
+      return response.status(404).json({ error: 'No books found' });
+    }
+    const books = results.rows;
+    response.json(books);
+   })
+
+}
+const genreRelatedBooks=(request,response)=>{
+  const { g }=request.query;
+  console.log(g);
+  const qry = `SELECT * FROM books WHERE genre ILIKE $1;`;
+  pool.query(qry,[g],(error,results)=>{
+  if(error) return response.status(500).json({error:'Internal Server Eroor'})
+  else if(results.rows.length===0){
+    return response.status(404).json({ error: 'No books found in the databse' });
+   }
+   const books = results.rows;
+   response.json(books);
+  })
+}
+
+const getBooks = (request,response)=>{
+    const qry = `SELECT * FROM books`;
+    pool.query(qry,(error,results)=>{
+    if(error) return response.status(500).json({error:'Internal server error'})
+    else if (results.rows.length === 0) {
+      return response.status(404).json({ error: 'No bookos found' });
+    }
+    const books = results.rows;
+    response.json(books);
+    }
+  )
+};
+  
+
 const createUser = (request, response) => {
   const { name, role, email, password, mode } = request.body;
   if (mode === "Sign Up") {
@@ -74,4 +130,8 @@ const createUser = (request, response) => {
 
 module.exports = {
   createUser,
+  getBooks,
+  filterBooks,
+  genreRelatedBooks,
+  getBookById
 };
