@@ -20,6 +20,8 @@ import BookHistory from './routes/BookHistory';
 import CommonForum from './routes/CommonForum';
 import RequestList from './routes/RequestList';
 import LibrarianData from './routes/LibrarianData';
+import RemovePosts from './routes/RemovePosts';
+import Notification from './routes/Notification';
 function App() {
   return (
     <>
@@ -36,6 +38,7 @@ function App() {
            <Route path='/admin' element={<Admin/>}/>
            <Route path='/admin/users' element={<UsersList/>}/>
            <Route path='/admin/librarians' element={<LibrarianData/>}/>
+           <Route path='/admin/forum' element={<RemovePosts/>}/>
 
            <Route path='/librarian' element={<Librarian/>}/>
            <Route path='/librarian/addbook' element={<AddBook/>}/>
@@ -50,7 +53,7 @@ function App() {
            <Route path='/Forum' element={<Forum/>}/>
            <Route path='/profile' element={<Profile/>}/>
            <Route path='/bookhistory' element={<BookHistory/>}/>
-          
+           <Route path='/notification' element={<Notification/>}/>
 
         </Routes>
       </Router>

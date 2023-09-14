@@ -17,7 +17,7 @@ const Sidebar = (props) => {
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/admin"},
       {icon:<PeopleOutlineTwoToneIcon/>,text:"Users",path:"/admin/users"},
       {icon:<PersonTwoToneIcon/>,text:"Librarians",path:"/admin/librarians"},
-      {icon:<ForumTwoToneIcon/>,text:"Forum",path:'/commonforum'},
+      {icon:<ForumTwoToneIcon/>,text:"Forum",path:'/admin/forum'},
       {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ],
@@ -27,7 +27,7 @@ const Sidebar = (props) => {
       {icon:<AutoStoriesTwoToneIcon/>,text:"Borrowings",path:"/bookhistory"},
       {icon:<AccountCircleIcon/>,text:"profile",path:"/profile"},
       {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
-      {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/profile"},
+      {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/notification"},
       
     ],
     librarian:[

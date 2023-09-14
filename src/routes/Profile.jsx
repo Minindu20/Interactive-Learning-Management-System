@@ -25,9 +25,9 @@ const Profile = () => {
   return (
     
       <> <Navbar/>
-      <div className="back">
+      {/* <div className="back">
       <button className='back-btn'><Link to='/user'>Go back</Link></button>
-      </div>
+      </div> */}
      
       <div className="user-container">
         <div className="user-image">
