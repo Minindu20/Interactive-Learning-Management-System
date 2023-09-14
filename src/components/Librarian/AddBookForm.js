@@ -5,7 +5,7 @@ function AddBookForm() {
     return(
         <div className="form-container">
            <h1>Add New Book</h1>
-           <form>
+           <form className="form1">
                <input placeholder="Book ISBN Number"></input>
                <input placeholder="Book Name"></input>
                <input placeholder="Author"></input>

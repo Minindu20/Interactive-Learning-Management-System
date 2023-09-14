@@ -14,10 +14,10 @@ const Sidebar = (props) => {
   const role=props.role;
   const sidebarItems={
     admin:[
-      {icon:<DashboardTwoToneIcon/>,text:"Dashboard"},
-      {icon:<PeopleOutlineTwoToneIcon/>,text:"Users"},
-      {icon:<PersonTwoToneIcon/>,text:"Librarians"},
-      {icon:<ForumTwoToneIcon/>,text:"Forum"},
+      {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/admin"},
+      {icon:<PeopleOutlineTwoToneIcon/>,text:"Users",path:"/admin/users"},
+      {icon:<PersonTwoToneIcon/>,text:"Librarians",path:"/admin/librarians"},
+      {icon:<ForumTwoToneIcon/>,text:"Forum",path:'/commonforum'},
       {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ],
@@ -36,7 +36,7 @@ const Sidebar = (props) => {
       {icon:<PeopleOutlineTwoToneIcon/>,text:"Users", path:"/librarian/userlist"},
       {icon:<AutoStoriesTwoToneIcon/>,text:"Books", path:"/librarian/booklist"},
       {icon:<RequestPageTwoToneIcon/>,text:"Requests", path:"/librarian/requestlist"},
-      {icon:<ForumTwoToneIcon/>,text:"Forum"},
+      {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ]
   };

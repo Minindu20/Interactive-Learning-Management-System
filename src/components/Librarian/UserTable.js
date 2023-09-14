@@ -4,7 +4,7 @@ import './UserTable.css';
 class UserTable extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       data: [
         { id: 1, Name: 'Pamudu Silva', NIC: '200013458734', Contact: '0777456123', Status: 'Active'},
@@ -25,6 +25,15 @@ class UserTable extends React.Component {
       ],
     };
   }
+  handleButton1Click = (itemId) => {
+    // Handle button 1 click here
+    alert(`Status change for: ${itemId}`);
+  };
+
+  handleButton2Click = (itemId) => {
+    // Handle button 2 click here
+    alert(`Remove User: ${itemId}`);
+  };
 
   renderTableHeader() {
     return (
@@ -34,6 +43,7 @@ class UserTable extends React.Component {
         <th>NIC</th>
         <th>Contact</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     );
   }
@@ -48,6 +58,11 @@ class UserTable extends React.Component {
           <td>{NIC}</td>
           <td>{Contact}</td>
           <td>{Status}</td>
+         
+          <td>
+            <button onClick={() => this.handleButton1Click(id)}>Change Status</button>
+            <button onClick={() => this.handleButton2Click(id)}>Remove User</button>
+          </td>
         </tr>
       );
     });

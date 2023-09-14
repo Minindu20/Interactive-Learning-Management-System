@@ -98,7 +98,10 @@
   background-color: #020000; /* Change background color of the option on hover */
 }
 
-
-
-
-
+.custom-btn{
+  padding: 8px 20px;
+  border-radius:5px;
+  outline: none;
+  border:none;
+  cursor:pointer;
+}

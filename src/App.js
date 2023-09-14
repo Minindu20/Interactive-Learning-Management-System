@@ -10,6 +10,7 @@ import User from "./routes/User";
 import Librarian from "./routes/Librarian";
 import AddBook from "./routes/AddBook";
 import UserList from './routes/UserList';
+import UsersList from './routes/UsersList';
 import BookList from './routes/BookList';
 import Login from './routes/Login';
 import BookView from './routes/BookView';
@@ -18,6 +19,7 @@ import Profile from './routes/Profile';
 import BookHistory from './routes/BookHistory';
 import CommonForum from './routes/CommonForum';
 import RequestList from './routes/RequestList';
+import LibrarianData from './routes/LibrarianData';
 function App() {
   return (
     <>
@@ -27,23 +29,28 @@ function App() {
            <Route path='/about' element={<About/>}/>
            <Route path='/service' element={<Service/>}/>
            <Route path='/contact' element={<Contact/>}/>
+           
+          
+           <Route path='/login' element={<Login/>}/>
+
            <Route path='/admin' element={<Admin/>}/>
-           <Route path='/user' element={<User/>}/>
+           <Route path='/admin/users' element={<UsersList/>}/>
+           <Route path='/admin/librarians' element={<LibrarianData/>}/>
 
-            <Route path="user/book/:id" element={<BookView/>}/>
-
-             
            <Route path='/librarian' element={<Librarian/>}/>
            <Route path='/librarian/addbook' element={<AddBook/>}/>
            <Route path='/librarian/userlist' element={<UserList/>}/>
            <Route path='/librarian/booklist' element={<BookList/>}/>
            <Route path='/librarian/requestlist' element={<RequestList/>}/>
+           <Route path='/commonforum' element={<CommonForum/>}/>
 
-           <Route path='/login' element={<Login/>}/>
+           <Route path='/user' element={<User/>}/>
+           <Route path="user/book/:id" element={<BookView/>}/>
+           
            <Route path='/Forum' element={<Forum/>}/>
            <Route path='/profile' element={<Profile/>}/>
            <Route path='/bookhistory' element={<BookHistory/>}/>
-           <Route path='/commonforum' element={<CommonForum/>}/>
+          
 
         </Routes>
       </Router>

@@ -67,3 +67,10 @@
     padding-right:10px;
     margin-right: 10px;
 }
+.custom-btn{
+  padding: 8px 20px;
+  border-radius:5px;
+  outline: none;
+  border:none;
+  cursor:pointer;
+}

@@ -22,7 +22,7 @@ td {
 
 /* Style the buttons container in the "Actions" column */
 td button {
-  width: 100px;
+  width: auto;
   margin-right: 5px; /* Add some spacing between the buttons */
   background-color: #1eb04e;
   color: #fff;

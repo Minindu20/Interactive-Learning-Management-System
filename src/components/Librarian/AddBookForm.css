@@ -2,12 +2,14 @@
     margin: 2rem 6rem;
     color:#2a2a2a;
 }
-.form-container form{
+.form1{
     padding-top:1rem;
     display:flex;
     flex-direction:column;
     width:50%;
+    height:auto;
     margin:auto;
+    
 }
 .form-container h1{
     text-align:center;

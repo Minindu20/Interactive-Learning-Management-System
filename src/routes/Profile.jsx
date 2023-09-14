@@ -33,7 +33,7 @@ const Profile = () => {
         <div className="user-image">
             <img src={user} alt="User's Profile Image"/>
         </div>
-        <div class="user-details">
+        <div className="user-details">
           {isEditing ?(
             <>
             <p>
@@ -79,7 +79,7 @@ const Profile = () => {
             <p><strong>Email: </strong>{email}</p>
             <p><strong>Address: </strong>{address}</p>
             <p><strong>Password: </strong>{password}</p>
-            <button onClick={handleEditClick}>Edit</button>
+            <button className="custom-btn" onClick={handleEditClick}>Edit</button>
             </>
           ) 
         }
