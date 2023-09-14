@@ -28,6 +28,7 @@ const Sidebar = (props) => {
       {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/profile"},
       
     ]
+    
     //need to add the librarian items
   };
 
