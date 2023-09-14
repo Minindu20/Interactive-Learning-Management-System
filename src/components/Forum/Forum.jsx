@@ -73,6 +73,7 @@ const Forum = (props) => {
           <button type="submit" className="submit-btn">
             Submit
           </button>
+         
         </form>
 
         <div className="comments__container center__display">
@@ -85,8 +86,9 @@ const Forum = (props) => {
                 <div className="comment__bottom">
                   <div className="heart__icon--comment">
                     {item.typeOfFeedback ? <i className="fas fa-heart positive"></i> : <i className="far fa-heart"></i>}
+                    
                   </div>
-                 
+                  
                 </div>
               </div>
             </div>
