@@ -1,4 +1,4 @@
-import "./AddBookFormStyles.css";
+import "./AddBookForm.css";
 import React from "react";
 
 function AddBookForm() {
@@ -11,6 +11,12 @@ function AddBookForm() {
                <input placeholder="Author"></input>
                <input placeholder="Number of Copies"></input>
                <textarea placeholder="Book Description" rows="4"></textarea>
+               <label htmlFor="image">Add Cover Page:</label>
+               <input 
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"></input>
                <button>Add Book</button>
            </form>
 

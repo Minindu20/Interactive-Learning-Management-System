@@ -45,6 +45,15 @@
   
 }
 
+.items a,
+.items a:focus,
+.items a:hover,
+.items a:visited {
+  padding-left: 0px;
+  margin-left: 0px;
+  text-decoration: none;
+}
+
 .items li {
   border-radius: 10px;
   display: flex;

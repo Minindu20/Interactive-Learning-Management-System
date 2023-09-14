@@ -12,6 +12,7 @@ import AddBook from "./routes/AddBook";
 import UserList from './routes/UserList';
 import BookList from './routes/BookList';
 import Login from './routes/Login';
+import RequestList from './routes/RequestList';
 function App() {
   return (
     <>
@@ -24,9 +25,10 @@ function App() {
            <Route path='/admin' element={<Admin/>}/>
            <Route path='/user' element={<User/>}/>
            <Route path='/librarian' element={<Librarian/>}/>
-           <Route path='/addbook' element={<AddBook/>}/>
-           <Route path='/userlist' element={<UserList/>}/>
-           <Route path='/booklist' element={<BookList/>}/>
+           <Route path='/librarian/addbook' element={<AddBook/>}/>
+           <Route path='/librarian/userlist' element={<UserList/>}/>
+           <Route path='/librarian/booklist' element={<BookList/>}/>
+           <Route path='/librarian/requestlist' element={<RequestList/>}/>
            <Route path='/login' element={<Login/>}/>
         </Routes>
       </Router>

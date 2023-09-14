@@ -1,9 +1,9 @@
 .form-container{
-    margin: 4rem 6rem;
+    margin: 2rem 6rem;
     color:#2a2a2a;
 }
 .form-container form{
-    padding-top:3rem;
+    padding-top:1rem;
     display:flex;
     flex-direction:column;
     width:50%;
