@@ -29,7 +29,6 @@ const Sidebar = (props) => {
       
     ]
     
-    //need to add the librarian items
   };
 
   const renderSideBarItems=()=>{
