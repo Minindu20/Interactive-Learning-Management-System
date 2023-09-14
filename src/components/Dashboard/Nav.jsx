@@ -9,7 +9,7 @@ const Nav = (props) => {
         <div className="navbar">
              <div className="wrapper">
                 
-                  { role=='admin' &&(
+                  { (role === 'admin' || role === 'librarian') &&(
                      <div className='search'>
                       <input type="text" placeholder='search'/>
                          <SearchOutlinedIcon/>

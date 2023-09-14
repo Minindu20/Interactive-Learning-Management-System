@@ -8,6 +8,7 @@ import ForumTwoToneIcon from '@mui/icons-material/ForumTwoTone';
 import RequestPageTwoToneIcon from '@mui/icons-material/RequestPageTwoTone';
 import QueryStatsTwoToneIcon from '@mui/icons-material/QueryStatsTwoTone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PostAddTwoToneIcon from '@mui/icons-material/PostAddTwoTone';
 import { Link } from 'react-router-dom';
 const Sidebar = (props) => {
   const role=props.role;
@@ -21,14 +22,23 @@ const Sidebar = (props) => {
       {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ],
     user:[
+
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/user"},
       {icon:<AutoStoriesTwoToneIcon/>,text:"Borrowings",path:"/bookhistory"},
       {icon:<AccountCircleIcon/>,text:"profile",path:"/profile"},
       {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
       {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/profile"},
       
+    ],
+    librarian:[
+      {icon:<DashboardTwoToneIcon/>,text:"Dashboard", path:"/librarian"},
+      {icon:<PostAddTwoToneIcon/>,text:"Add Book", path:"/librarian/addbook"},
+      {icon:<PeopleOutlineTwoToneIcon/>,text:"Users", path:"/librarian/userlist"},
+      {icon:<AutoStoriesTwoToneIcon/>,text:"Books", path:"/librarian/booklist"},
+      {icon:<RequestPageTwoToneIcon/>,text:"Requests", path:"/librarian/requestlist"},
+      {icon:<ForumTwoToneIcon/>,text:"Forum"},
+      {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
     ]
-    
   };
 
   const renderSideBarItems=()=>{
