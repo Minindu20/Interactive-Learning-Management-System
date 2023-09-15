@@ -22,6 +22,10 @@ import RequestList from './routes/RequestList';
 import LibrarianData from './routes/LibrarianData';
 import RemovePosts from './routes/RemovePosts';
 import Notification from './routes/Notification';
+import Reports from './routes/Reports';
+import ReportMostReadBooks from './routes/ReportMostReadBooks';
+import ReportOverdueReturns from './routes/ReportOverdueReturns';
+import ReportUserFines from './routes/ReportUserFines';
 function App() {
   return (
     <>
@@ -46,6 +50,10 @@ function App() {
            <Route path='/librarian/booklist' element={<BookList/>}/>
            <Route path='/librarian/requestlist' element={<RequestList/>}/>
            <Route path='/commonforum' element={<CommonForum/>}/>
+           <Route path='/librarian/reports' element={<Reports/>}/>
+           <Route path='/librarian/reports/mostreadbooks' element={<ReportMostReadBooks/>}/>
+           <Route path='/librarian/reports/overduereturns' element={<ReportOverdueReturns/>}/>
+           <Route path='/librarian/reports/userfines' element={<ReportUserFines/>}/>
 
            <Route path='/user' element={<User/>}/>
            <Route path="user/book/:id" element={<BookView/>}/>

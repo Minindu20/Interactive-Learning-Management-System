@@ -37,7 +37,7 @@ const Sidebar = (props) => {
       {icon:<AutoStoriesTwoToneIcon/>,text:"Books", path:"/librarian/booklist"},
       {icon:<RequestPageTwoToneIcon/>,text:"Requests", path:"/librarian/requestlist"},
       {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
-      {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
+      {icon:<QueryStatsTwoToneIcon/>,text:"reports",path:"/librarian/reports"},
     ]
   };
 

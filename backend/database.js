@@ -24,7 +24,7 @@ const filterBooks = (request,response)=>{
   const qry=`SELECT * FROM books
   WHERE title ILIKE '%' || $1 || '%' OR author ILIKE '%' || $1 || '%';`;
    pool.query(qry,[q],(error,results)=>{
-    // console.log(qry);
+    //console.log(qry);
     console.log('filter books');
     if(error) return response.status(500).json({error:'Internal server error'})
     else if (results.rows.length === 0) {
