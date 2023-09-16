@@ -24,7 +24,11 @@ const Profile = () => {
 
   return (
     
-      <> <Navbar/>
+      <> 
+      <Sidebar role="user"/>
+      <div className="nav-wrap">
+      <Navbar />
+      </div>
       {/* <div className="back">
       <button className='back-btn'><Link to='/user'>Go back</Link></button>
       </div> */}
@@ -85,7 +89,10 @@ const Profile = () => {
         }
         </div>
     </div>
-    <Footer/>
+    <div className="nav-wrap">
+      <Footer />
+      </div>
+    {/* <Footer/> */}
     </>
      
   )

@@ -7,13 +7,13 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
 const Widget = ({type}) => {
     let data;
-    const amount=100;
+    const amount = 100;
     switch(type){
       case "user":
          data={
           title:"USERS",
           link:"See All Users",
-          icon:<PersonOutlineOutlinedIcon className='icon'/>
+          icon:<PersonOutlineOutlinedIcon className='icon'/>,
          };
          break;
         case "books":

@@ -79,7 +79,7 @@ const BookView = () => {
             </p>
           </div>
         </div>
-        <div className="button">
+        <div className="reserve-button">
           <button type='submit' style={{ marginTop: '2rem' }} onClick={handleSubmit} className="btn">Reserve</button>
         </div>
       </div>

@@ -2,23 +2,23 @@ import React from 'react';
 import './CreateReports.css';
 import { Link } from 'react-router-dom';
 
-function CreateReports() {
+function CreateReports({role}) {
   return (
     <>
-    <h1><center>Select Report Type</center></h1>
+    <h1><center>Generate Report</center></h1>
     <div className="button-container">
-      <Link to = "/librarian/reports/mostreadbooks">
-        <button className="button">Most Read Books</button>
+      <Link to = {`/${role}/reports/mostreadbooks`}>
+        <button className="report-button">Most Read Books</button>
       </Link>
     </div>
     <div className="button-container">
-      <Link to = "/librarian/reports/overduereturns">
-        <button className="button">Return Overdue Books</button>
+      <Link to = {`/${role}/reports/overduereturns`}>
+        <button className="report-button">Return Overdue Books</button>
       </Link>
     </div>
     <div className="button-container">
-      <Link to = "/librarian/reports/userfines">
-        <button className="button">Calculate Fines</button>
+      <Link to = {`/${role}/reports/userfines`}>
+        <button className="report-button">Calculate Fines</button>
       </Link>
     </div>
     </>

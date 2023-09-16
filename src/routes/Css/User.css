@@ -15,7 +15,7 @@
   padding: 0px; /* Add padding */
   margin-left:0px;
   margin-right: 0px;
-  margin-left: 250px; /* Same width as the sidebar */
+  margin-left: 200px; /* Same width as the sidebar */
   
   
 }
@@ -26,7 +26,7 @@
   justify-content: center;
   text-align: center;
   margin-left:10px;
-  padding-left:50px;
+  padding-left:1rem;
 }
 
 

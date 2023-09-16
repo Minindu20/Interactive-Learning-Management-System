@@ -2,13 +2,15 @@
     margin:2rem;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 2rem;
+    padding-left:3rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     min-height:100vh;
     overflow-y: auto;
+    margin-left:200px
 }
 .forum-headings{
     text-align: center;

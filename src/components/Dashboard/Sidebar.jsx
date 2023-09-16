@@ -18,14 +18,14 @@ const Sidebar = (props) => {
       {icon:<PeopleOutlineTwoToneIcon/>,text:"Users",path:"/admin/users"},
       {icon:<PersonTwoToneIcon/>,text:"Librarians",path:"/admin/librarians"},
       {icon:<ForumTwoToneIcon/>,text:"Forum",path:'/admin/forum'},
-      {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
-      {icon:<QueryStatsTwoToneIcon/>,text:"reports"},
+      // {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
+      {icon:<QueryStatsTwoToneIcon/>,text:"Reports",path:"/admin/reports"},
     ],
     user:[
 
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard",path:"/user"},
       {icon:<AutoStoriesTwoToneIcon/>,text:"Borrowings",path:"/bookhistory"},
-      {icon:<AccountCircleIcon/>,text:"profile",path:"/profile"},
+      {icon:<AccountCircleIcon/>,text:"profile",path:"/Profile"},
       {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
       {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/notification"},
       
@@ -36,8 +36,8 @@ const Sidebar = (props) => {
       {icon:<PeopleOutlineTwoToneIcon/>,text:"Users", path:"/librarian/userlist"},
       {icon:<AutoStoriesTwoToneIcon/>,text:"Books", path:"/librarian/booklist"},
       {icon:<RequestPageTwoToneIcon/>,text:"Requests", path:"/librarian/requestlist"},
-      {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
-      {icon:<QueryStatsTwoToneIcon/>,text:"reports",path:"/librarian/reports"},
+      // {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
+      {icon:<QueryStatsTwoToneIcon/>,text:"Reports",path:"/librarian/reports"},
     ]
   };
 

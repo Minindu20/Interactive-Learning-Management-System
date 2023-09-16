@@ -4,17 +4,17 @@ import Nav from '../components/Dashboard/Nav';
 import Sidebar from '../components/Dashboard/Sidebar';
 import MostReadBooksTable from '../components/Librarian/Reports/MostReadBooks';
 
-const ReportMostReadBooks = () => {
+const ReportMostReadBooks = ({role}) => {
   return (
     
     <div className="librarian">
-        <Sidebar
-        role="librarian"/>
+        <Sidebar role={role}
+       />
         <div className="homeContainer">
           <Nav
-          role="librarian"/>
+           role={role}/>
           <div>
-            <MostReadBooksTable/>
+            <MostReadBooksTable role={role}/>
         </div>          
         </div>
     </div>

@@ -3,10 +3,13 @@ import Forum from '../components/Forum/Forum'
 import './Css/CommonForum.css'
 import Navbar from '../components/Home/Navbar'
 import Footer from '../components/Home/Footer'
+import Sidebar from '../components/Dashboard/Sidebar'
 const CommonForum = () => {
   return (
-    <>
-    <Navbar/>
+    <><Sidebar role="user"/>
+    <div className="nav-wrap">
+    <Navbar />
+    </div>
     <div className='common-forum-container'>
       <div className="forum-headings">
       <h1>Forum</h1>
@@ -14,7 +17,12 @@ const CommonForum = () => {
     </div>
       <Forum 
     comments={[]}/></div>
-    <Footer/></>
+    
+      <div className="nav-wrap">
+      <Footer/>
+      </div></>
+      
+    
     
   )
 }

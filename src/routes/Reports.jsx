@@ -5,21 +5,35 @@ import Sidebar from '../components/Dashboard/Sidebar';
 import CreateReports from '../components/Librarian/CreateReports';
 
 
-const RequestList = () => {
-  return (
+// const Reports = () => {
+//   return (
     
+//     <div className="librarian">
+//         <Sidebar
+//         role="librarian"/>
+//         <div className="homeContainer">
+//           <Nav
+//           role="librarian"/>
+//           <div>
+//             <CreateReports/>
+//         </div>          
+//         </div>
+//     </div>
+//   )
+// }
+const Reports = ({ role }) => {
+  return (
     <div className="librarian">
-        <Sidebar
-        role="librarian"/>
-        <div className="homeContainer">
-          <Nav
-          role="librarian"/>
-          <div>
-            <CreateReports/>
-        </div>          
+      <Sidebar role={role} />
+      <div className="homeContainer">
+        <Nav role={role} />
+        <div>
+          <CreateReports role={role} />
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default RequestList;
+
+export default Reports;

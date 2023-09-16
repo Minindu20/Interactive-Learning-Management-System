@@ -55,7 +55,7 @@ class RequestTable extends React.Component {
     return (
       <div>
         <h2>Librarian Details</h2>
-        <div className='button'><button>Add New Librarian</button></div>
+        <div className='lib-details'><button>Add New Librarian</button></div>
         <table>
           <thead>{this.renderTableHeader()}</thead>
           <tbody>{this.renderTableData()}</tbody>

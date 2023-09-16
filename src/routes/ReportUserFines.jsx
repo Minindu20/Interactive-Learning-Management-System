@@ -4,17 +4,17 @@ import Nav from '../components/Dashboard/Nav';
 import Sidebar from '../components/Dashboard/Sidebar';
 import UserFines from '../components/Librarian/Reports/UserFines';
 
-const ReportUserFines = () => {
+const ReportUserFines = ({role}) => {
   return (
     
     <div className="librarian">
         <Sidebar
-        role="librarian"/>
+        role={role}/>
         <div className="homeContainer">
           <Nav
-          role="librarian"/>
+          role={role}/>
           <div>
-            <UserFines/>
+            <UserFines role={role}/>
         </div>          
         </div>
     </div>

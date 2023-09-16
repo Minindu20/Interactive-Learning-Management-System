@@ -43,6 +43,10 @@ function App() {
            <Route path='/admin/users' element={<UsersList/>}/>
            <Route path='/admin/librarians' element={<LibrarianData/>}/>
            <Route path='/admin/forum' element={<RemovePosts/>}/>
+           <Route path='/admin/reports' element={<Reports role="admin"/>}/>
+           <Route path='/admin/reports/mostreadbooks' element={<ReportMostReadBooks role="admin"/>}/>
+           <Route path='/admin/reports/overduereturns' element={<ReportOverdueReturns role="admin"/>}/>
+           <Route path='/admin/reports/userfines' element={<ReportUserFines role="admin"/>}/>
 
            <Route path='/librarian' element={<Librarian/>}/>
            <Route path='/librarian/addbook' element={<AddBook/>}/>
@@ -50,16 +54,16 @@ function App() {
            <Route path='/librarian/booklist' element={<BookList/>}/>
            <Route path='/librarian/requestlist' element={<RequestList/>}/>
            <Route path='/commonforum' element={<CommonForum/>}/>
-           <Route path='/librarian/reports' element={<Reports/>}/>
-           <Route path='/librarian/reports/mostreadbooks' element={<ReportMostReadBooks/>}/>
-           <Route path='/librarian/reports/overduereturns' element={<ReportOverdueReturns/>}/>
-           <Route path='/librarian/reports/userfines' element={<ReportUserFines/>}/>
+           <Route path='/librarian/reports' element={<Reports role="librarian"/>}/>
+           <Route path='/librarian/reports/mostreadbooks' element={<ReportMostReadBooks role="librarian"/>}/>
+           <Route path='/librarian/reports/overduereturns' element={<ReportOverdueReturns role="librarian"/>}/>
+           <Route path='/librarian/reports/userfines' element={<ReportUserFines role="librarian"/>}/>
 
            <Route path='/user' element={<User/>}/>
            <Route path="user/book/:id" element={<BookView/>}/>
            
            <Route path='/Forum' element={<Forum/>}/>
-           <Route path='/profile' element={<Profile/>}/>
+           <Route path='/Profile' element={<Profile/>}/>
            <Route path='/bookhistory' element={<BookHistory/>}/>
            <Route path='/notification' element={<Notification/>}/>
 

@@ -2,10 +2,17 @@ import React from "react";
 import Navbar from "../components/Home/Navbar";
 import "./Css/BookHistory.css";
 import Footer from "../components/Home/Footer";
+import Sidebar from "../components/Dashboard/Sidebar";
 const BookHistory = () => {
   return (
     <>
+    <div className="history-main">
+    
+      <Sidebar role="user" />
+      <div className="nav-wrap">
       <Navbar />
+      </div>
+     
       <div className="borrowingContainer">
       <div className="Reserve">
           <h1 className="borrowing-title">Reservings</h1>
@@ -140,7 +147,9 @@ const BookHistory = () => {
           </table>
         </div>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
+    </div>
+    
     </>
   );
 };
