@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
 const { response } = require("express");
+
 const pool = new Pool({
   user: "postgres",
   password: "12345",
@@ -95,24 +96,19 @@ const createUser = (request, response) => {
           });
          }})
     }
-  })
-  
-
-
-    
+  }) 
   } else if (mode === "Login") {
     console.log(request.body);
     const qry = `SELECT * FROM users WHERE username = $1 AND password = $2`;
     pool.query(qry, [name, password], (error, results) => {
-     // console.log(qry);
+    
       if (error) return response.json({ Message: "Error inside server" });
      // console.log(results.rows.length)
       if (results.rows.length > 0) {
+      request.session.username = results.rows[0].username;
+      console.log(request.session.username);
       let route='';
-      console.log(qry);
       const userRole = results.rows[0].role;
-      console.log(userRole);
-      console.log(userRole);
       if(userRole==='admin'){
         route = '/admin';
       }else if(userRole == 'librarian'){
