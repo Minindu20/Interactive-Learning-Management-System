@@ -24,12 +24,13 @@ const Login = () => {
       [event.target.name]: event.target.value,
     }));
   };
-
+  axios.defaults.withCredentials = true;
   const handleSubmit = async (event) => {
     setUserNameExistMessage("");
     setEmailExistMessage("");
     setemailPasswordIncorrectMeasseage("");
-        console.log("forum submitted");
+        //console.log("forum submitted");
+        
        if(action ==="Sign Up"){
         event.preventDefault();
         axios.post("http://localhost:4000/login",formData)

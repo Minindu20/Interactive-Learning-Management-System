@@ -6,10 +6,27 @@ import Nav from "../components/Dashboard/Nav";
 import Navbar from "../components/Home/Navbar";
 import Header from "../components/Header/Header";
 import BookCard from "../components/Header/BookCard";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link,useNavigate,useParams } from "react-router-dom";
 import axios from "axios";
-
+ 
 const User = () => {
+  // const[auth,setAuth]=useState(false);
+  // axios.defaults.withCredentials = true;
+  // const navigate=useNavigate();
+  // useEffect(() => {
+  //   axios.get("http://localhost:4000/auth-status").then((response) => {
+  //     console.log(response.data.auth)
+  //     if(response.data.auth){
+  //       setAuth(true);
+  //       console.log(response.data.id);
+  //      // console.log(auth);
+  //       navigate('/user')
+  //     }else{
+  //         navigate('/login')
+  //     }})
+
+  // },[])
+
   const [query, setQuery] = useState(false);
   const[keyword,setKeyword]=useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
