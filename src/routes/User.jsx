@@ -74,7 +74,7 @@ const User = () => {
       <Sidebar role="user" />
       <div className="userContainer">
         {/* <Nav role="user" /> */}
-        <Navbar />
+        <Nav role='user' />
         <Header handleSearch={handleSearch} />
         <div className="booklist">
         <div className="dropdown-container">

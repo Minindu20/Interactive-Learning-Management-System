@@ -55,7 +55,7 @@ const Sidebar = (props) => {
   };
   return (
     <>
-       <div className="sidebar"> 
+       <div className={`sidebar ${role ? 'thin' : ''}`}>
         <div className="logo">
                    <p>LibraLink</p>
             </div>

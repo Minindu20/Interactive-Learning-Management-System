@@ -147,6 +147,9 @@ const BookHistory = () => {
           </table>
         </div>
       </div>
+      <div className="nav-wrap">
+      <Footer />
+      </div>
       {/* <Footer/> */}
     </div>
     

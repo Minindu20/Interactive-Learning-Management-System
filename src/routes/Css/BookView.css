@@ -71,6 +71,16 @@
   font-size: 16px;
   line-height: 1.4;
 } 
+.availability{
+  margin-top:1rem;
+    color:green;
+    font-weight:bold;
+}
+.comment{
+  color:rgb(0, 0, 0);
+  font-weight:bold;
+  margin-top:1rem;
+}
 
 @media (max-width: 768px) {
     .container {

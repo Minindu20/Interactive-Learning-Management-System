@@ -40,6 +40,10 @@ app.get("/user/genreRelatedBooks", db.genreRelatedBooks);
 app.get("/user/filterBooks", db.filterBooks);
 app.post("/login", db.createUser);
 app.get("/user/book/:id", db.getBookById);
+app.get("/user/book/count/:id", db.getBookCount);
+app.get("/user/book/author/:name",db.getAuthorById);
+app.post("/user/book/reserve", db.reserveBook);
+app.post("/user/book/comment", db.addBookComment);
 // app.get("/user",db.getBooks)
 
 app.listen(4000, () => console.log(`Server on localhost:4000`));

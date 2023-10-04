@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 import './Forum.css';
-import { updateBookComments,Books } from '../../routes/BookData';
+//import { updateBookComments,Books } from '../../routes/BookData';
 const Forum = (props) => {
-  console.log(props.bookId);
+  //console.log(props.bookId);
   const [userName, setUserName] = useState('');
   const [commentText, setCommentText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [comments, setComments] = useState(props.comments);
-  const[books,setBooks]=useState(Books)
+  const[book,setBook]=useState(props.bookId)
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {
@@ -19,27 +19,38 @@ const Forum = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     if (userName && commentText !== '') {
       const newFeedback = {
-       // id: Math.floor(Math.random() * 1000 + 1),
+        id: comments.length+1,
         userName: userName,
         userComment: commentText,
         typeOfFeedback: isLiked,
       };
       const updatedComments = [...comments, newFeedback];
-      console.log(updatedComments);
+      const data = { id: book, comments: JSON.stringify(updatedComments) };
+
+      //console.log(updatedComments);
       
-      setComments(updatedComments);
+     // setComments(updatedComments);
       setUserName('');
       setCommentText('');
       setIsLiked(false);
-      const updatedBooks = updateBookComments(props.bookId, updatedComments);
-  
-      // Now you can set the updatedBooks back to your state or wherever you store your books data.
-      // For example, if you use state to manage books data:
-      setBooks(updatedBooks);
+
+      
+      try {
+        const response = await axios.post(`http://localhost:4000/user/book/comment`, data);
+        if (response.status === 201) {
+          //console.log('Comment added');
+          setComments(updatedComments);
+        } else {
+          console.error('Failed to add comment. Unexpected status code:', response.status);
+        }
+      } catch (error) {
+        console.error('Error while adding comment:', error);
+      }
+      
     }
   };
 

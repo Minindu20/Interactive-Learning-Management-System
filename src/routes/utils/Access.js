@@ -16,7 +16,7 @@ const Access ={
     ReportUserFines: ['librarian','admin'],
     LibrarianData:['admin'],
     RemovePosts:['admin'],
-    CommonForum:['admin'],
+    CommonForum:['admin','librarian','reader'],
     Admin:['admin']
 }
 export default Access;

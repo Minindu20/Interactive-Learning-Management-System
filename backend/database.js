@@ -11,7 +11,7 @@ const pool = new Pool({
 });
 const getBookById = (request,response)=>{
   const {id} = request.params;
-  console.log(id);
+  //console.log(id);
   const qry = `SELECT * FROM books where id = $1`;
   pool.query(qry,[id],(error,results)=>{
   if(error) return response.status(500).json({error:'Internal Server Eroor'})
@@ -20,6 +20,27 @@ const getBookById = (request,response)=>{
   }) 
 
 }
+const getBookCount = (request,response)=>{
+  const{id} =request.params;
+  console.log(id)
+  const qry = `SELECT COUNT(*) AS count FROM bookdata WHERE id=$1 and res_status = 'no';`
+  pool.query(qry,[id],(error,results)=>{
+    if(error) return response.status(500).json({error:'Internal Server Eroor'})
+    const count = results.rows
+  console.log(count)
+    response.json(count);
+  })}
+
+  const getAuthorById = (request,response)=>{
+    const{name}=request.params;
+    console.log(name);
+    const qry = `SELECT bio FROM author WHERE name LIKE $1;`;
+    pool.query(qry,[name],(error,results)=>{
+      if(error) return response.status(500).json({error:'Internal Server Eroor'})
+      const bio = results.rows;
+    console.log(bio)
+      response.json(bio);})}
+
 const filterBooks = (request,response)=>{
    const { q } = request.query;
    console.log(q)
@@ -64,6 +85,88 @@ const getBooks = (request,response)=>{
   )
 };
   
+const addBookComment = (request,response)=>{
+  const {id,comments}=request.body;
+  console.log(id,comments);
+  const qry = `Update books SET comments = $2 where id=$1;`
+  pool.query(qry,[id,comments],(error,results)=>{
+    if(error) return response.status(500).json({error:'Internal Server Eroor'})
+    else 
+      response.status(201).json({message:'comment added'});
+  })
+}
+const reserveBook = (request,response)=>{
+  const {bookId,userId}=request.body;
+  console.log(bookId,userId);
+  // const qry = `Update bookdata SET timestamp = CURRENT_TIMESTAMP, res_status = 'reserved'
+  // where isbn = (Select isbn from bookdata where id=$1 and res_status='no' order by isbn limit 1)`
+  // pool.query(qry,[bookId],(error,results)=>{
+  //   if(error) return response.status(500).json({error:'Internal Server Eroor'})
+  //   else (
+  //     response.json({message:'book reserved'}))});
+  pool.query('BEGIN', (beginError, beginResult) => {
+    if (beginError) {
+      return response.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    // Fetch ISBN
+    const fetchISBNQuery = `
+      SELECT isbn
+      FROM bookdata
+      WHERE id = $1 AND res_status = 'no'
+      ORDER BY isbn
+      LIMIT 1
+    `;
+     
+    pool.query(fetchISBNQuery, [bookId], (fetchError, fetchResult) => {
+      if (fetchError) {
+        // Rollback the transaction in case of an error
+        pool.query('ROLLBACK', () => {
+          return response.status(500).json({ error: 'Internal Server Error' });
+        });
+      } else {
+        const obtainedISBN = fetchResult.rows[0].isbn;
+        console.log(obtainedISBN)
+        // Make Reservation
+        const reserveQuery = `
+          UPDATE bookdata
+          SET timestamp = CURRENT_TIMESTAMP, res_status = 'reserved'
+          WHERE isbn = $1
+        `;
+
+        pool.query(reserveQuery, [obtainedISBN], (reserveError, reserveResult) => {
+          if (reserveError) {
+            // Rollback the transaction in case of an error
+            pool.query('ROLLBACK', () => {
+              return response.status(500).json({ error: 'Internal Server Error' });
+            });
+          } else {
+            // Add reservation record to reservations table
+            const addReservationQuery = `
+              INSERT INTO reservations ("userId", "bookId", isbn)
+              VALUES ($1, $2, $3)
+            `;
+
+            pool.query(addReservationQuery, [userId, bookId, obtainedISBN], (addResError, addResResult) => {
+              if (addResError) {
+                // Rollback the transaction in case of an error
+                pool.query('ROLLBACK', () => {
+                  return response.status(500).json({ error: 'Internal Server Error' });
+                });
+              } else {
+                // Commit the transaction
+                pool.query('COMMIT', () => {
+                  return response.json({ message: 'Book reserved' });
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  });
+    }
+
 
 
 const createUser = (request, response) => {
@@ -142,5 +245,7 @@ module.exports = {
   getBooks,
   filterBooks,
   genreRelatedBooks,
-  getBookById
+  getBookById,
+  getBookCount,
+  reserveBook,addBookComment,getAuthorById
 };

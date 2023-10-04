@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const PrivateRoute = (props) => {
   const [auth, setAuth] = useState(false);
   const [name, setname] = useState({});
@@ -11,7 +12,7 @@ const PrivateRoute = (props) => {
   axios.defaults.withCredentials = true;
   const { allowedRoles, children } = props;
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const getAuth = async () => {
       try {
@@ -37,9 +38,9 @@ const PrivateRoute = (props) => {
     getAuth();
   }, []); // Make sure to include an empty dependency array to run the effect only once
   // Return the JSX for rendering the component
-  console.log("auth:", auth);
-console.log("allowedRoles:", allowedRoles);
-console.log("role:", role);
+//   console.log("auth:", auth);
+// console.log("allowedRoles:", allowedRoles);
+// console.log("role:", role);
   return !loading ? (
     <div>
        

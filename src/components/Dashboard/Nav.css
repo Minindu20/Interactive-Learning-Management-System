@@ -6,7 +6,9 @@
   color: #555;
   background-color: #ffffff;;
 }
-
+.user-navbar {
+  background-color: #0d0926;
+}
 .wrapper {
   width:100%;
   padding:20px;
