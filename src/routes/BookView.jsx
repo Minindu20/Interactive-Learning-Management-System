@@ -152,11 +152,12 @@ const BookView = () => {
 
       }
         <div className="row">
-          {book && (
+          {book &&user && (
            
             <Forum
               comments={book.comments}
               bookId={book.id}
+              user = {user}
             />
           )}
         </div>

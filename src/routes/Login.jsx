@@ -11,12 +11,14 @@ const Login = () => {
   const [userNameExistMessage, setUserNameExistMessage] = useState("");
   const [emailExistMessage, setEmailExistMessage] = useState("");
   const [emailPasswordIncorrectMeasseage, setemailPasswordIncorrectMeasseage] = useState("");
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
   const [values, setValues] = useState({
     name: "",
     role:"reader",
     email: "",
     password: "",
   });
+  
   const formData ={...values,mode:action}
   const handleInput = (event) => {
     setValues((prev) => ({
@@ -25,12 +27,25 @@ const Login = () => {
     }));
   };
   axios.defaults.withCredentials = true;
+  
+    
+  const isAlphanumeric = (input) => /^[0-9]+$/.test(input) && input.length > 0;
   const handleSubmit = async (event) => {
+
+
+    event.preventDefault();
+
     setUserNameExistMessage("");
     setEmailExistMessage("");
     setemailPasswordIncorrectMeasseage("");
-        //console.log("forum submitted");
-        
+    setUsernameErrorMessage("");
+    console.log(values.name);
+    console.log(isAlphanumeric(values.name))
+    if (isAlphanumeric(values.name)) {
+      console.log('yo');
+      setUsernameErrorMessage("Username must be alphanumeric and contain only letters and numbers");
+      return;
+    }
        if(action ==="Sign Up"){
         event.preventDefault();
         axios.post("http://localhost:4000/login",formData)
@@ -122,6 +137,7 @@ const Login = () => {
               {userNameExistMessage && <div className="errorMsg">{userNameExistMessage}</div>}
               {emailExistMessage && <div className="errorMsg">{emailExistMessage}</div>}
               {emailPasswordIncorrectMeasseage && <div className="errorMsg">{emailPasswordIncorrectMeasseage}</div>}
+              {usernameErrorMessage && <div className="errorMsg">{usernameErrorMessage}</div>}
               <div className="submit-container">
                 <button
                   className={action === "Login" ? "submit gray" : "submit"}
