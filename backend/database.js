@@ -348,6 +348,7 @@ const createUser = (request, response) => {
 };
 
 module.exports = {
+  pool,
   createUser,
   getBooks,
   filterBooks,

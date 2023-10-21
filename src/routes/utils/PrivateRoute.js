@@ -17,7 +17,7 @@ const PrivateRoute = (props) => {
     const getAuth = async () => {
       try {
         const response = await axios.get("http://localhost:4000/auth-status");
-        console.log(response);
+        //console.log(response);
         if (response.data.auth) {
           setAuth(true);
           setname(response.data.userName);
