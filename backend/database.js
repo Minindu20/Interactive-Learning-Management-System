@@ -318,6 +318,18 @@ const deleteReservation = (request, response) => {
     });
   });
 };
+ const getReserveCount = (request,response)=>{
+    const userId=request.params.id;
+    console.log(userId);
+    const qry = `SELECT COUNT(*) AS reservecount FROM reservations_view WHERE "userId"=$1`;
+    pool.query(qry,[userId],(error,results)=>{
+      if(error) return response.status(500).json({error:'Internal Server Eroor'})
+      else{
+        const reservecount = results.rows
+        //console.log(count)
+        response.json(reservecount);
+      }})
+ };
 
 const getBorrowedBooks = (request,response)=>{
    const userId=request.params.id;
@@ -431,5 +443,6 @@ module.exports = {
   getReservedBooks,
   deleteReservation,
   getBorrowedBooks,
-  addExtension
+  addExtension,
+  getReserveCount
 };

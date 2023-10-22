@@ -8,6 +8,7 @@ import axios from "axios";
 import getUser from "./utils/getUser";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Dashboard/Sidebar";
+import Footer from "../components/Home/Footer";
 const BookView = () => {
   const[book,setBook]=useState(null);
   const{id:bookId}=useParams();
@@ -19,6 +20,8 @@ const BookView = () => {
   const [availability, setAvailability] = useState(0);
   const [user, setUser] = useState(null);
   const [author,setAuthor]=useState(null);
+  const [reserveCount,setReserveCount]=useState(0);
+  const [isReserved, setIsReserved] = useState(false);
   // useEffect(()=>{
   //   const fetchBookData = async()=>{
   //     const user = await getUser();
@@ -44,6 +47,23 @@ const BookView = () => {
   //     }};fetchBookCount();
   //   fetchBookData();
   // },[bookId]);
+
+  useEffect(() => {
+    fetchBookCount();
+    fetchBookData();
+    
+  }, [bookId]);
+  useEffect(() => { fetchAuthorDetails();
+  }, [book]);
+  useEffect(() => {
+    if(user){
+      getReserveCount();
+    }
+   
+  }, [user]); 
+
+
+
   const fetchBookData = async () => {
     const user = await getUser();
     setUser(user);
@@ -65,6 +85,18 @@ const BookView = () => {
     }
   };
 
+  const getReserveCount = async () => {
+    try{
+      console.log(user)
+      const response = await axios.get(`http://localhost:4000/user/book/reserveCount/${user.id}`);
+      console.log(response.data[0].reservecount)
+      setReserveCount(response.data[0].reservecount);
+     
+    }catch (error) {
+      console.error("Error fetching author details:", error);
+    }
+  }
+
   const fetchAuthorDetails = async () => {
     try{
       const response = await axios.get(`http://localhost:4000/user/book/author/${book.author}`);
@@ -74,14 +106,7 @@ const BookView = () => {
       //console.error("Error fetching author details:", error);
     }}
 
-  useEffect(() => {
-    fetchBookCount();
-    fetchBookData();
-    
-  }, [bookId]);
-  useEffect(() => { fetchAuthorDetails();
-  }, [book]);
-
+ 
 
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
@@ -136,6 +161,7 @@ const handleSubmit = async () => {
             text: "The book has been successfully reserved.",
           });
           fetchBookCount();
+          setIsReserved(true);
         } else {
           Swal.fire({
             icon: "error",
@@ -187,7 +213,7 @@ const handleSubmit = async () => {
         <div className="availability">
           <p>Available Books: {availability}</p>
         </div>{
-          availability>0&&( <div className="reserve-button">
+          availability>0&& !isReserved && reserveCount<2&&( <div className="reserve-button">
           <button type='submit' style={{ marginTop: '2rem' }} onClick={handleSubmit} className="btn">Reserve</button>
         </div>)
         }
@@ -208,7 +234,11 @@ const handleSubmit = async () => {
             />
           )}
         </div>
+       
     </div>
+    <div className="nav-wrap">
+        <Footer />
+      </div>
   </>
   
   )

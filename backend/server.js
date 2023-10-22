@@ -43,6 +43,12 @@ app.get('/auth-status',validateToken,(req,res)=>{
    return res.json({status:"success",auth:authenticated,id:id,username:userName,role:role});
 });
 
+app.post('/logout', (req, res) => {
+  //console.log('logout')
+  res.clearCookie('access-token');
+  res.json({ message: 'You are logged out' });
+});
+
 app.put("/profile-change", validateToken, async (req, res) => {
   const { id, name, currentPassword, password } = req.body;
   console.log(req.body);
@@ -126,6 +132,7 @@ app.get("/reservations/:id", db.getReservedBooks);
 app.get("/borrowings/:id",db.getBorrowedBooks);
 app.post("/removeReservation", db.deleteReservation);
 app.put("/addExtension/:id", db.addExtension);
+app.get("/user/book/reserveCount/:id",db.getReserveCount);
 // app.get("/user",db.getBooks)
 
 app.listen(4000, () => console.log(`Server on localhost:4000`));

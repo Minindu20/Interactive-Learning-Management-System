@@ -146,10 +146,15 @@ const BookHistory = () => {
     const formattedDate = date.toLocaleDateString(); // Change the format here as needed
     return formattedDate;
   };
-  const formatDaysRemaining = (daysRemaining) => {
-    console.log(daysRemaining);
-    const { days, hours, minutes, seconds } = daysRemaining;
-    return `${days} days ${hours} hours ${minutes} minutes `;
+
+    const formatDaysRemaining = (daysRemaining) => {
+      const { days, hours, minutes, seconds } = daysRemaining;
+      const formattedDays = days !== undefined ? `${days} days` : '0 days';
+      const formattedHours = hours !== undefined ? `${hours} hours` : '0 hours';
+      const formattedMinutes = minutes !== undefined ? `${minutes} minutes` : '0 minutes';
+      return `${formattedDays} ${formattedHours} ${formattedMinutes} `;
+ 
+    
   };
 
   return (
@@ -243,7 +248,7 @@ const BookHistory = () => {
             </table>
           </div>
           <div className="fast">
-            <h1 className="borrowing-title">Fast Borrowings</h1>
+            <h1 className="borrowing-title">Past Borrowings</h1>
             <table className="borrowing-table">
               <thead>
                 <tr>

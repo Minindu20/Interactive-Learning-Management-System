@@ -4,6 +4,7 @@ import "./Css/User.css";
 import Sidebar from "../components/Dashboard/Sidebar";
 import Nav from "../components/Dashboard/Nav";
 import Navbar from "../components/Home/Navbar";
+import Footer from "../components/Home/Footer";
 import Header from "../components/Header/Header";
 import BookCard from "../components/Header/BookCard";
 import { Link,useNavigate,useParams } from "react-router-dom";
@@ -87,7 +88,7 @@ const User = () => {
               <option value="Science-Fiction" className="genre-option">Science Fiction</option>
               <option value="Biography" className="genre-option">Biography</option>
             </select>
-            <p>Selected Option: {selectedOption}</p>
+            {/* <p>Selected Option: {selectedOption}</p> */}
       </div>
             <div className="content-title">
               {query ? (
@@ -122,7 +123,9 @@ const User = () => {
             </div>
 
       </div>
+     
     </div>
+    
     </div>
   );
 };
