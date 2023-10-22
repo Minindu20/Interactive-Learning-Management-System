@@ -9,8 +9,10 @@ import RequestPageTwoToneIcon from '@mui/icons-material/RequestPageTwoTone';
 import QueryStatsTwoToneIcon from '@mui/icons-material/QueryStatsTwoTone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PostAddTwoToneIcon from '@mui/icons-material/PostAddTwoTone';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'; 
 import { Link } from 'react-router-dom';
 const Sidebar = (props) => {
+  const handleLogout = () => {}
   const role=props.role;
   const sidebarItems={
     admin:[
@@ -20,6 +22,7 @@ const Sidebar = (props) => {
       {icon:<ForumTwoToneIcon/>,text:"Forum",path:'/admin/forum'},
       // {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
       {icon:<QueryStatsTwoToneIcon/>,text:"Reports",path:"/admin/reports"},
+    
     ],
     user:[
 
@@ -28,7 +31,7 @@ const Sidebar = (props) => {
       {icon:<AccountCircleIcon/>,text:"profile",path:"/Profile"},
       {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
       {icon:<ForumTwoToneIcon/>,text:"Notification",path:"/notification"},
-      
+     
     ],
     librarian:[
       {icon:<DashboardTwoToneIcon/>,text:"Dashboard", path:"/librarian"},
@@ -38,6 +41,7 @@ const Sidebar = (props) => {
       {icon:<RequestPageTwoToneIcon/>,text:"Requests", path:"/librarian/requestlist"},
       // {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
       {icon:<QueryStatsTwoToneIcon/>,text:"Reports",path:"/librarian/reports"},
+     
     ]
   };
 
@@ -64,6 +68,12 @@ const Sidebar = (props) => {
                 {renderSideBarItems()}
               </ul>
           </div>
+          
+          {/* <button className="logout-button" onClick={handleLogout}>
+          <ExitToAppIcon />
+          <span className="text-with-icon">Logout</span>
+        </button> */}
+          
      
           
        </div>

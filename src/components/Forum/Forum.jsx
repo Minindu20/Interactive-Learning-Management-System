@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Forum.css";
 import Edit from "../../assests/edit/edit.png";
 import Delete from "../../assests/edit/delete.png";
+import Swal from "sweetalert2";
 //import { updateBookComments,Books } from '../../routes/BookData';
 const Forum = (props) => {
   //console.log(props.bookId);
@@ -30,92 +31,139 @@ const Forum = (props) => {
     setCommentText(comment.userComment);
   };
 
-  const handleDeleteClick = async (commentId) => {
-    // Implement delete functionality here
-    // Send a request to your server to delete the comment
-    try {
-      const response = await axios.delete(
-        `http://localhost:4000/user/book/comment/${book}/${commentId}`
-      );
-      if (response.status === 200) {
-        const updatedComments = comments.filter(
-          (comment) => comment.id !== commentId
+
+
+const handleDeleteClick = async (commentId) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to delete this comment?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it",
+    cancelButtonText: "No, cancel",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.delete(
+          `http://localhost:4000/user/book/comment/${book}/${commentId}`
         );
-        setComments(updatedComments);
-      } else {
-        console.error(
-          "Failed to delete comment. Unexpected status code:",
-          response.status
-        );
+        if (response.status === 200) {
+          const updatedComments = comments.filter(
+            (comment) => comment.id !== commentId
+          );
+          setComments(updatedComments);
+          Swal.fire({
+            icon: "success",
+            title: "Comment Deleted",
+            text: "The comment has been deleted successfully.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to delete comment. Unexpected status code: " + response.status,
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error while deleting comment: " + error.message,
+        });
       }
-    } catch (error) {
-      console.error("Error while deleting comment:", error);
     }
-  };
+  });
+};
+
   // console.log(user);
   // console.log(user.username);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (commentText !== "") {
-      if (editingComment !== null) {
-        // If editing an existing comment
-        const updatedComments = comments.map((comment) =>
-          comment.id === editingComment.id
-            ? { ...comment, userComment: commentText }
-            : comment
-        );
-        setComments(updatedComments);
-        console.log(updatedComments);
-        setEditingComment(null);
-        try {
-          // Make a PUT request to update the comment on the server
-          const response = await axios.put(
-            `http://localhost:4000/user/book/comment/${book}/${editingComment.id}`,
-            { userComment: commentText }
-          );
-  
-          if (response.status !== 200) {
-            console.error(
-              "Failed to update comment. Unexpected status code:",
-              response.status
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to submit this comment?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, submit it",
+        cancelButtonText: "No, cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          if (editingComment !== null) {
+            const updatedComments = comments.map((comment) =>
+              comment.id === editingComment.id
+                ? { ...comment, userComment: commentText }
+                : comment
             );
-          }
-        } catch (error) {
-          console.error("Error while updating comment:", error);
-        }
-        
-      } else {
-        // If submitting a new comment
-        const newFeedback = {
-          id: comments.length + 1,
-          userName: user.username,
-          uId: user.id,
-          userComment: commentText,
-          typeOfFeedback: isLiked,
-        };
-        const updatedComments = [...comments, newFeedback];
-        const data = { id: book, comments: JSON.stringify(updatedComments) };
-
-        try {
-          const response = await axios.post(
-            `http://localhost:4000/user/book/comment`,
-            data
-          );
-          if (response.status === 201) {
             setComments(updatedComments);
+            setEditingComment(null);
+            try {
+              const response = await axios.put(
+                `http://localhost:4000/user/book/comment/${book}/${editingComment.id}`,
+                { userComment: commentText }
+              );
+              if (response.status === 200) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Comment Updated",
+                  text: "Your comment has been updated successfully.",
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: "Failed to update comment. Unexpected status code: " + response.status,
+                });
+              }
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error while updating comment: " + error.message,
+              });
+            }
           } else {
-            console.error(
-              "Failed to add comment. Unexpected status code:",
-              response.status
-            );
+            const newFeedback = {
+              id: comments.length + 1,
+              userName: user.username,
+              uId: user.id,
+              userComment: commentText,
+              typeOfFeedback: isLiked,
+            };
+            const updatedComments = [...comments, newFeedback];
+            const data = { id: book, comments: JSON.stringify(updatedComments )};
+            try {
+              const response = await axios.post(
+                "http://localhost:4000/user/book/comment",
+                data
+              );
+              if (response.status === 201) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Comment Added",
+                  text: "Your comment has been added successfully.",
+                });
+                setComments(updatedComments);
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: "Failed to add comment. Unexpected status code: " + response.status,
+                });
+              }
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error while adding comment: " + error.message,
+              });
+            }
           }
-        } catch (error) {
-          console.error("Error while adding comment:", error);
+  
+          setCommentText("");
+          setIsLiked(false);
         }
-      }
-
-      setCommentText("");
-      setIsLiked(false);
+      });
     }
   };
 

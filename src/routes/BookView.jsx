@@ -6,9 +6,12 @@ import './Css/BookView.css';
 import Forum from "../components/Forum/Forum";
 import axios from "axios";
 import getUser from "./utils/getUser";
+import Swal from "sweetalert2";
+import Sidebar from "../components/Dashboard/Sidebar";
 const BookView = () => {
   const[book,setBook]=useState(null);
   const{id:bookId}=useParams();
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   //const book = Books.find((book)=>book.id.toString() === bookId);
   //const{title,author,image,comments,likes}=book;
   const [isLiked, setIsLiked] = useState(false);
@@ -46,8 +49,8 @@ const BookView = () => {
     setUser(user);
     try {
       const response = await axios.get(`http://localhost:4000/user/book/${bookId}`);
+     // console.log(response.data[0])
       setBook(response.data[0]);
-      setLikesCount(response.data[0].likes);
     } catch (error) {
       console.error("Error fetching book data:", error);
     }
@@ -88,46 +91,90 @@ const BookView = () => {
       setLikesCount(likesCount - 1);
     }}
 
+    const openImagePreview = (imageUrl) => {
+      setImagePreviewUrl(imageUrl);
+      Swal.fire({
+        title: "Book Preview",
+        imageUrl: imageUrl,
+        imageWidth: 400,
+        imageHeight: 400,
+        showCloseButton: true,
+      });
+    };
+
   //console.log(book);
-  const handleSubmit=async ()=>{
-    try{
-      const userId = user.id;
-      const userName = user.username;
-     // console.log(userId,userName);
-      const data={
-        bookId:bookId,
-        userId:userId,
+  
+const handleSubmit = async () => {
+  // Show a confirmation SweetAlert
+  Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to reserve this book?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Yes, reserve it",
+    cancelButtonText: "No, cancel",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const userId = user.id;
+        const userName = user.username;
+        const data = {
+          bookId: bookId,
+          userId: userId,
+        };
+
+        const response = await axios.post(
+          "http://localhost:4000/user/book/reserve",
+          data
+        );
+
+        // Check the response status and display a success or error SweetAlert accordingly
+        if (response.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Book Reserved",
+            text: "The book has been successfully reserved.",
+          });
+          fetchBookCount();
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Reservation Failed",
+            text: "An error occurred while reserving the book. Please try again later.",
+          });
+        }
+      } catch (error) {
+        console.error("Error submitting data:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An error occurred while reserving the book. Please try again later.",
+        });
       }
-      console.log(data);
-      const response = await axios.post(`http://localhost:4000/user/book/reserve`,data);
-      console.log('Data submitted successfully',response.data)
-      fetchBookCount();
-    }catch(error){
-      console.error('Error submitting data:', error);
     }
-  }
+  });
+};
   return (
     <>
-    <Navbar />
-    <div className="container">
+     <Sidebar role="user" />
+      <div className="nav-wrap">
+        <Navbar />
+      </div>
+    <div className="bookView-container">
       {book ?  (<div className="column">
         <div className="img"><img src={book.image} alt="image" /></div>
         <div className="details">
           <h1>{book.title}</h1>
           <h2>Author - {book.author}</h2>
-          <div className="likes-count">
+          <button onClick={() => openImagePreview('https://i.pinimg.com/originals/1a/54/21/1a54211611432b641662c75cdb00e6a4.jpg')}>Preview</button>
+          {/* <div className="likes-count">
           {isLiked ? <i className="fas fa-heart" onClick={handleLikeClick}></i> : <i className="far fa-heart"onClick={handleLikeClick}></i>}
             <small className="count" >{likesCount}</small>
-          </div>
+          </div> */}
           <div className="about-section">
             <p className="about-label">About:</p>
             <p className="about-text">
-              Step into J.K. Rowling's Harry Potter series and discover a mesmerizing
-              realm where young wizards unravel mysteries at Hogwarts School. With
-              loyal friends by his side, Harry Potter faces his destiny while battling
-              the dark forces of Lord Voldemort. Through Rowling's artful prose, this
-              series conjures themes of courage, friendship, and the enduring power of
-              light.
+              {book.about}
             </p>
           </div>
           <div className="about-author-section">

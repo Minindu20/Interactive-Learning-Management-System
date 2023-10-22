@@ -67,7 +67,7 @@ app.put("/profile-change", validateToken, async (req, res) => {
       const isPasswordValid = await bcrypt.compare(currentPassword, storedPassword);
       console.log(isPasswordValid)
       if (!isPasswordValid) {
-        return res.status(400).json({ error: 'Current password is incorrect' });
+        return res.status(400).json({ msg: 'Current password is incorrect' });
       }
 
       // Hash the new password using bcrypt
@@ -122,6 +122,10 @@ app.post("/user/book/reserve", db.reserveBook);
 app.post("/user/book/comment", db.addBookComment);
 app.put("/user/book/comment/:bookId/:commentId", db.updateBookComment);
 app.delete("/user/book/comment/:bookId/:commentId", db.deleteBookComment);
+app.get("/reservations/:id", db.getReservedBooks);
+app.get("/borrowings/:id",db.getBorrowedBooks);
+app.post("/removeReservation", db.deleteReservation);
+app.put("/addExtension/:id", db.addExtension);
 // app.get("/user",db.getBooks)
 
 app.listen(4000, () => console.log(`Server on localhost:4000`));

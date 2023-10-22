@@ -3,7 +3,7 @@ import axios from "axios";
 import Edit from "../../assests/edit/edit.png";
 import Delete from "../../assests/edit/delete.png";
 import getUser from "../../routes/utils/getUser";
-
+import Swal from "sweetalert2";
 const PublicForum = (props) => {
   const [commentText, setCommentText] = useState("");
   const [isLiked, setIsLiked] = useState(false);
@@ -58,106 +58,259 @@ const PublicForum = (props) => {
     setEditingComment(item);
     setCommentText(item.comments.userComment);
   };
-  const handleDeleteClick = async (commentId) => {
-    console.log(commentId);
-    const updatedComments = comments.filter(
-      (comment) => comment.id !== commentId
-    );
-    try {
-      const response = await axios.delete(
-        `http://localhost:4000/commonforum/comment/${commentId}`
+  // const handleDeleteClick = async (commentId) => {
+  //   console.log(commentId);
+  //   const updatedComments = comments.filter(
+  //     (comment) => comment.id !== commentId
+  //   );
+  //   try {
+  //     const response = await axios.delete(
+  //       `http://localhost:4000/commonforum/comment/${commentId}`
+  //     );
+  //     if (response.status === 200) {
+  //       setComments(updatedComments);
+  //     } else {
+  //       console.error(
+  //         "Failed to delete comment. Unexpected status code:",
+  //         response.status
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while deleting comment:", error);
+  //   }
+  // }
+  
+const handleDeleteClick = async (commentId) => {
+  Swal.fire({
+    title: "Confirm Delete",
+    text: "Are you sure you want to delete this comment?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it",
+    cancelButtonText: "No, cancel",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const updatedComments = comments.filter(
+        (comment) => comment.id !== commentId
       );
-      if (response.status === 200) {
-        setComments(updatedComments);
-      } else {
-        console.error(
-          "Failed to delete comment. Unexpected status code:",
-          response.status
-        );
-      }
-    } catch (error) {
-      console.error("Error while deleting comment:", error);
-    }
-  }
 
-  const handleSubmit = async (e) => {
-    if(editingComment){
-      console.log('im in')
-        if(commentText !== ""){
-          e.preventDefault();
-          console.log(editingComment)
-          const updatedComments = comments.map((comment) =>
-        comment.id === editingComment.id
-          ? { ...comment, comments: { ...comment.comments, userComment: commentText } }
-          : comment
-      );
-      const editingCommentIndex = updatedComments.findIndex(comment => comment.id === editingComment.id);
-           
-          setComments(updatedComments);
-          console.log(updatedComments);
-          console.log(editingComment.id)
-          console.log(commentText);
-          console.log(updatedComments[editingCommentIndex])
-          setEditingComment(null);
-         // const data = { comments: JSON.stringify(updatedComments[editingCommentIndex].comments) };
-          try {
-            const response = await axios.put(
-              `http://localhost:4000/commonforum/comment/${editingComment.id}`,{updated:updatedComments[editingCommentIndex].comments }
-              
-            );
-            if (response.status === 200) {
-              setComments(updatedComments);
-              console.log(updatedComments)
-            } else {
-              console.error(
-                "Failed to add comment. Unexpected status code:",
-                response.status
-              );
-            }
-          } catch (error) {
-            console.error("Error while adding comment:", error);
-          }
-          setCommentText("");
-        }
-    }else{
-      e.preventDefault();
-      // If submitting a new comment
-      console.log('i submit')
-      const newFeedback = {
-        id: comments.length + 1,
-        created_at: new Date().toISOString(),
-        comments: {
-          uId: user.id,
-          userName: user.username,
-          userComment: commentText,
-          typeOfFeedback: isLiked,
-        },
-      };
-      const updatedComments = [...comments, newFeedback];
-      const data = { comments: JSON.stringify(newFeedback.comments) };
-      console.log(newFeedback.comments)
       try {
-        const response = await axios.post(
-          `http://localhost:4000/commonforum/comment`,
-          data
+        const response = await axios.delete(
+          `http://localhost:4000/commonforum/comment/${commentId}`
         );
         if (response.status === 200) {
           setComments(updatedComments);
-          console.log(updatedComments)
+          Swal.fire({
+            icon: "success",
+            title: "Comment Deleted",
+            text: "The comment has been deleted successfully.",
+          });
         } else {
-          console.error(
-            "Failed to add comment. Unexpected status code:",
-            response.status
-          );
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to delete comment. Unexpected status code: " + response.status,
+          });
         }
       } catch (error) {
-        console.error("Error while adding comment:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error while deleting comment: " + error.message,
+        });
       }
-      setCommentText("");
     }
-    }
+  });
+};
+  // const handleSubmit = async (e) => {
+  //   if(editingComment){
+  //     console.log('im in')
+  //       if(commentText !== ""){
+  //         e.preventDefault();
+  //         console.log(editingComment)
+  //         const updatedComments = comments.map((comment) =>
+  //       comment.id === editingComment.id
+  //         ? { ...comment, comments: { ...comment.comments, userComment: commentText } }
+  //         : comment
+  //     );
+  //     const editingCommentIndex = updatedComments.findIndex(comment => comment.id === editingComment.id);
+           
+  //         setComments(updatedComments);
+  //         console.log(updatedComments);
+  //         console.log(editingComment.id)
+  //         console.log(commentText);
+  //         console.log(updatedComments[editingCommentIndex])
+  //         setEditingComment(null);
+  //        // const data = { comments: JSON.stringify(updatedComments[editingCommentIndex].comments) };
+  //         try {
+  //           const response = await axios.put(
+  //             `http://localhost:4000/commonforum/comment/${editingComment.id}`,{updated:updatedComments[editingCommentIndex].comments }
+              
+  //           );
+  //           if (response.status === 200) {
+  //             setComments(updatedComments);
+  //             console.log(updatedComments)
+  //           } else {
+  //             console.error(
+  //               "Failed to add comment. Unexpected status code:",
+  //               response.status
+  //             );
+  //           }
+  //         } catch (error) {
+  //           console.error("Error while adding comment:", error);
+  //         }
+  //         setCommentText("");
+  //       }
+  //   }else{
+  //     e.preventDefault();
+  //     // If submitting a new comment
+  //     console.log('i submit')
+  //     const newFeedback = {
+  //       id: comments.length + 1,
+  //       created_at: new Date().toISOString(),
+  //       comments: {
+  //         uId: user.id,
+  //         userName: user.username,
+  //         userComment: commentText,
+  //         typeOfFeedback: isLiked,
+  //       },
+  //     };
+  //     const updatedComments = [...comments, newFeedback];
+  //     const data = { comments: JSON.stringify(newFeedback.comments) };
+  //     console.log(newFeedback.comments)
+  //     try {
+  //       const response = await axios.post(
+  //         `http://localhost:4000/commonforum/comment`,
+  //         data
+  //       );
+  //       if (response.status === 200) {
+  //         setComments(updatedComments);
+  //         console.log(updatedComments)
+  //       } else {
+  //         console.error(
+  //           "Failed to add comment. Unexpected status code:",
+  //           response.status
+  //         );
+  //       }
+  //     } catch (error) {
+  //       console.error("Error while adding comment:", error);
+  //     }
+  //     setCommentText("");
+  //   }
+  //   }
    
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (editingComment) {
+      if (commentText !== "") {
+        Swal.fire({
+          title: "Confirm Edit",
+          text: "Are you sure you want to edit this comment?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, edit it",
+          cancelButtonText: "No, cancel",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const updatedComments = comments.map((comment) =>
+              comment.id === editingComment.id
+                ? { ...comment, comments: { ...comment.comments, userComment: commentText } }
+                : comment
+            );
+            const editingCommentIndex = updatedComments.findIndex((comment) => comment.id === editingComment.id);
+            setComments(updatedComments);
+  
+            try {
+              const response = await axios.put(
+                `http://localhost:4000/commonforum/comment/${editingComment.id}`,
+                { updated: updatedComments[editingCommentIndex].comments }
+              );
+              if (response.status === 200) {
+                setComments(updatedComments);
+                Swal.fire({
+                  icon: "success",
+                  title: "Comment Edited",
+                  text: "The comment has been edited successfully.",
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: "Failed to edit comment. Unexpected status code: " + response.status,
+                });
+              }
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error while editing comment: " + error.message,
+              });
+            }
+            setCommentText("");
+            setEditingComment(null);
+          }
+        });
+      }
+    } else {
+      if (commentText !== "") {
+        Swal.fire({
+          title: "Confirm Submission",
+          text: "Are you sure you want to submit this comment?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Yes, submit it",
+          cancelButtonText: "No, cancel",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const newFeedback = {
+              id: comments.length + 1,
+              created_at: new Date().toISOString(),
+              comments: {
+                uId: user.id,
+                userName: user.username,
+                userComment: commentText,
+                typeOfFeedback: isLiked,
+              },
+            };
+            const updatedComments = [...comments, newFeedback];
+  
+            const data = { comments: JSON.stringify(newFeedback.comments) };
+  
+            try {
+              const response = await axios.post(
+                `http://localhost:4000/commonforum/comment`,
+                data
+              );
+              if (response.status === 200) {
+                setComments(updatedComments);
+                Swal.fire({
+                  icon: "success",
+                  title: "Comment Submitted",
+                  text: "The comment has been submitted successfully.",
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: "Failed to submit comment. Unexpected status code: " + response.status,
+                });
+              }
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error while submitting comment: " + error.message,
+              });
+            }
+            setCommentText("");
+          }
+        });
+      }
+    }
+  };
+  
   
   
   return (

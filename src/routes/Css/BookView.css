@@ -1,8 +1,9 @@
-.container {
+.bookView-container {
     margin:2rem;
     display: flex;
     flex-direction: column;
-    
+    margin-left:200px;
+    margin-right:15px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;

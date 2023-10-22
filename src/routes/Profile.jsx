@@ -51,7 +51,7 @@ const Profile = () => {
       }
     });
   };
-  const saveProfile = async () => { 
+  const saveProfile = async () => {
     try {
       // Make an API request to update the user's profile
       const response = await axios.put("http://localhost:4000/profile-change", {
@@ -60,22 +60,29 @@ const Profile = () => {
         currentPassword,
         password,
       });
-
+  
       if (response.status === 200) {
         // Profile updated successfully
         console.log("profile updated successfully");
         setCurrentPassword("");
         setPassword("");
         setEditing(false);
-
+  
         // Show SweetAlert success popup
         Swal.fire({
           icon: "success",
           title: "Profile Updated",
           text: "Your profile has been updated successfully!",
         });
+      } else if (response.status === 400) {
+        // Password doesn't match, display an error message using SweetAlert
+        Swal.fire({
+          icon: "error",
+          title: "Password Mismatch",
+          text: "The provided current password is incorrect. Please try again.",
+        });
       } else {
-        // Handle error - show an error message using SweetAlert
+        // Handle other errors - show an error message using SweetAlert
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -91,6 +98,7 @@ const Profile = () => {
       });
     }
   };
+  
   const handleCancelClick = () => {
     setName(user.username);
     setEditing(false);

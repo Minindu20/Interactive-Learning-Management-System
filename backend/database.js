@@ -271,8 +271,74 @@ const reserveBook = (request,response)=>{
   });
     }
 
+const getReservedBooks = (request,response)=>{
+  const userId=request.params.id;
+  console.log(userId);
+  const qry = `SELECT * FROM reservations_view WHERE "userId"=$1`;
+  pool.query(qry,[userId],(error,results)=>{
+    if(error) return response.status(500).json({error:'Internal Server Eroor'})
+    else 
+      response.json(results.rows);
+  })
+};
 
+const deleteReservation = (request, response) => {
+  const { reservationId, isbn } = request.body;
+  console.log(reservationId, isbn)
+  pool.query('BEGIN', (beginError, beginResult) => {
+    if (beginError) {
+      return response.status(500).json({ error: 'Internal Server Error' });
+    }
 
+    const qry = `DELETE FROM reservations WHERE "res_Id"=$1`;
+    pool.query(qry, [reservationId], (error, results) => {
+      if (error) {
+        pool.query('ROLLBACK', () => {
+          console.log('i m here')
+          return response.status(500).json({ error: 'Internal Server Error' });
+        });
+      } else {
+        const qry2 = `UPDATE bookdata SET res_status = 'no', timestamp = NULL WHERE isbn=$1`;
+       
+        pool.query(qry2, [isbn], (error2, results2) => {
+          if (error2) {
+            pool.query('ROLLBACK', () => {
+              return response.status(500).json({ error: 'Internal Server Error' });
+            });
+          } else {
+            pool.query('COMMIT', (commitError) => {
+              if (commitError) {
+                return response.status(500).json({ error: 'Internal Server Error' });
+              }
+              return response.json({ message: 'Reservation deleted' });
+            });
+          }
+        });
+      }
+    });
+  });
+};
+
+const getBorrowedBooks = (request,response)=>{
+   const userId=request.params.id;
+    console.log(userId);
+    const qry = `SELECT * FROM borrowings WHERE userid=$1`;
+    pool.query(qry,[userId],(error,results)=>{
+      if(error) return response.status(500).json({error:'Internal Server Eroor'})
+      else 
+        response.json(results.rows);
+    })
+}
+const addExtension = (request,response)=>{
+  const borrowingId=request.params.id
+  console.log(borrowingId);
+  const qry = `UPDATE borrowings SET extension_notes = 'yes' WHERE id=$1 `;
+  pool.query(qry,[borrowingId],(error,results)=>{
+    if(error) return response.status(500).json({error:'Internal Server Eroor'})
+    else 
+      response.status(200).json({message:'extension added'});
+  })
+}
 const createUser = (request, response) => {
   const { name, role, email, password, mode } = request.body;
   if (mode === "Sign Up") {
@@ -361,5 +427,9 @@ module.exports = {
   getForumComments,
   addForumComment,
   updateForumComment,
-  deleteForumComment
+  deleteForumComment,
+  getReservedBooks,
+  deleteReservation,
+  getBorrowedBooks,
+  addExtension
 };
