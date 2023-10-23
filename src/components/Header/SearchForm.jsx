@@ -15,7 +15,7 @@ const SearchForm = ({onSearch}) => {
         <div className="search-form-content">
           <form className="search-form" onSubmit={handleSearch}>
             <div className="search-form-element">
-              <input type="text" className="form-control" placeholder="search" onChange={(e)=>setQuery(e.target.value)}/>
+              <input type="text" className="form-control" placeholder="Find books and authors that you'll love." onChange={(e)=>setQuery(e.target.value)}/>
               <button type="submit" className="btnClass" >
               <FaSearch className='text-purple' size = {32} />
               </button>

@@ -6,7 +6,7 @@ const Nav = (props) => {
   const role=props.role; 
   return (
     <>
-        <div className="navbar">
+          <div className={`navbar ${role === 'user' ? 'user-navbar' : ''}`}>
              <div className="wrapper">
                 
                   { (role === 'admin' || role === 'librarian') &&(
