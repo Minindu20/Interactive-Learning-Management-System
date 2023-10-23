@@ -17,10 +17,24 @@ app.use(
     cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
   })
 );
+
+
 app.get("/user/genreRelatedBooks", db.genreRelatedBooks);
 app.get("/user/filterBooks", db.filterBooks);
 app.post("/login", db.createUser);
 app.get("/user/book/:id", db.getBookById);
-// app.get("/user",db.getBooks)
+app.post("/getLibrarianData", db.getLibData);
+app.post("/addLibrarianData", db.addLibData);
+app.post("/removeLibrarianData", db.removeLibData);
+app.post("/UserData", db.getUserData);
+app.post("/changeUserStatus", db.changeUserStatus);
+app.post("/addBookToDatabase", db.addBook);
+app.post("/getBooksDataFomDatabase", db.getBooksData);
+app.post("/getUserRequestBooks", db.userRequestBooks);
+app.post("/CountDataFromDatabase", db.countData);
+
+
 
 app.listen(4000, () => console.log(`Server on localhost:4000`));
+
+

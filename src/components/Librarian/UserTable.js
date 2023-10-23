@@ -1,86 +1,111 @@
-import React from 'react';
-import './UserTable.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-class UserTable extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      data: [
-        { id: 1, Name: 'Pamudu Silva', NIC: '200013458734', Contact: '0777456123', Status: 'Active'},
-        { id: 2, Name: 'Lakshitha Arachchi', NIC: '992340984V', Contact: '071963158', Status: 'Banned'},
-        { id: 3, Name: 'Amaya Sampath', NIC: '200087602846', Contact: '0773456789', Status: 'Active'},
-        { id: 4, Name: 'Lasindu Withanage', NIC: '96530984V', Contact: '0713423158', Status: 'Banned'},
-        { id: 5, Name: 'Nuwan Gamage', NIC: '200110328724', Contact: '0718932151', Status: 'Active'},
-        { id: 6, Name: 'Pamudu Silva', NIC: '200013458734', Contact: '0777456123', Status: 'Active'},
-        { id: 7, Name: 'Lakshitha Arachchi', NIC: '992340984V', Contact: '071963158', Status: 'Banned'},
-        { id: 8, Name: 'Amaya Sampath', NIC: '200087602846', Contact: '0773456789', Status: 'Active'},
-        { id: 9, Name: 'Lasindu Withanage', NIC: '96530984V', Contact: '0713423158', Status: 'Banned'},
-        { id: 10, Name: 'Nuwan Gamage', NIC: '200110328724', Contact: '0718932151', Status: 'Active'},
-        { id: 11, Name: 'Pamudu Silva', NIC: '200013458734', Contact: '0777456123', Status: 'Active'},
-        { id: 12, Name: 'Lakshitha Arachchi', NIC: '992340984V', Contact: '071963158', Status: 'Banned'},
-        { id: 13, Name: 'Amaya Sampath', NIC: '200087602846', Contact: '0773456789', Status: 'Active'},
-        { id: 14, Name: 'Lasindu Withanage', NIC: '96530984V', Contact: '0713423158', Status: 'Banned'},
-        { id: 15, Name: 'Nuwan Gamage', NIC: '200110328724', Contact: '0718932151', Status: 'Active'},
-      ],
+function UserTable() {
+  const [userData, setUserData] = useState([]);
+  const [status,changeStatus] = useState('Active')
+  const[UsernameT , setUsernameT] = useState('');
+  const[NicT , setNicT] = useState('');
+  const[contactT , setContactNicT] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("http://localhost:4000/UserData", {
+          email: ""
+        });
+
+        setUserData(response.data.userData);
+      } catch (error) {
+        console.error("Error Occurred:", error);
+      }
     };
-  }
-  handleButton1Click = (itemId) => {
-    // Handle button 1 click here
-    alert(`Status change for: ${itemId}`);
-  };
 
-  handleButton2Click = (itemId) => {
-    // Handle button 2 click here
-    alert(`Remove User: ${itemId}`);
-  };
+    fetchData();
+  }, []);
 
-  renderTableHeader() {
-    return (
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>NIC</th>
-        <th>Contact</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    );
-  }
+ 
+  
 
-  renderTableData() {
-    return this.state.data.map((rowData) => {
-      const { id, Name, NIC, Contact, Status } = rowData;
-      return (
-        <tr key={id}>
-          <td>{id}</td>
-          <td>{Name}</td>
-          <td>{NIC}</td>
-          <td>{Contact}</td>
-          <td>{Status}</td>
-         
-          <td>
-            <button onClick={() => this.handleButton1Click(id)}>Change Status</button>
-            <button onClick={() => this.handleButton2Click(id)}>Remove User</button>
-          </td>
-        </tr>
-      );
+
+  const changeUserStatus = (index)=>
+  {
+    
+    if(status === 'Active')
+    {
+      changeStatus('Banned')
+    }
+    else{
+
+      changeStatus('Active')
+    }
+
+    const data = {
+      Status : status,
+      UsernameT : index
+    }
+
+    
+
+    axios
+    .post("http://localhost:4000/changeUserStatus", data)
+    .then((response) => {
+      
+      setUserData(response.data.userData);
+      
+      
+    })
+    .catch((error) => {
+      console.error("Error Occured:", error);
     });
+
+    
+
   }
 
-  render() {
-    return (
-      <div className="table-container"> {/* Add a container */}
-        <h2>User Data</h2>
-        <div className="table-scroll"> {/* Add a scrollable container */}
-          <table className="data-table">
-            <thead>{this.renderTableHeader()}</thead>
-            <tbody>{this.renderTableData()}</tbody>
-          </table>
-        </div>
-      </div>
-    );
-  }
+
+  return (
+    <div>
+      {userData.length > 0 ? (
+        <table className="user-data-table" style={{ marginLeft: '0px' }}>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Contact</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <br />
+          <tbody>
+            {userData.map((row) => (
+              <tr key={row.id}>
+                <td>{row.id}</td>
+                <td>{row.username}</td>
+                <td>{row.contact}</td>
+                <td>{row.status}</td>
+                <td><button className="custom-button-class" id={row.User_ID} onClick={()=> changeUserStatus(row.username)}>change status</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No user data.</p>
+      )}
+
+   
+
+
+      
+    
+    </div>
+
+
+
+
+    
+  );
 }
 
 export default UserTable;
