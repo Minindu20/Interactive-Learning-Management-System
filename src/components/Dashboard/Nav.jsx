@@ -9,13 +9,7 @@ const Nav = (props) => {
           <div className={`navbar ${role === 'user' ? 'user-navbar' : ''}`}>
              <div className="wrapper">
                 
-                  { (role === 'admin' || role === 'librarian') &&(
-                     <div className='search'>
-                      <input type="text" placeholder='search'/>
-                         <SearchOutlinedIcon/>
-                     </div>
-                  )
-                  }    
+                    
                 <div className='nav-items'>
                     <div className='nav-item'>
                          <AccountCircleIcon/>

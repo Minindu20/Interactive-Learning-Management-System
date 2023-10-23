@@ -16,6 +16,17 @@ app.use(cors({
 }  
 ));
 app.use(cookieParser());
+
+// Check these
+app.use(
+  session({
+    secret: "secret",
+    saveUninitialized: false,
+    resave: false,
+    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
+  })
+);
+
 app.use(express.json());
 
 const validateToken = (req,res,next)=>{
@@ -118,10 +129,23 @@ app.get("/commonforum", db.getForumComments);
 app.post("/commonforum/comment", db.addForumComment);
 app.put("/commonforum/comment/:commentId", db.updateForumComment);
 app.delete("/commonforum/comment/:commentId", db.deleteForumComment);
+
 app.get("/user/genreRelatedBooks", db.genreRelatedBooks);
 app.get("/user/filterBooks", db.filterBooks);
 app.post("/login", db.createUser);
 app.get("/user/book/:id", db.getBookById);
+
+// Check these
+app.post("/getLibrarianData", db.getLibData);
+app.post("/addLibrarianData", db.addLibData);
+app.post("/removeLibrarianData", db.removeLibData);
+app.post("/UserData", db.getUserData);
+app.post("/changeUserStatus", db.changeUserStatus);
+app.post("/addBookToDatabase", db.addBook);
+app.post("/getBooksDataFomDatabase", db.getBooksData);
+app.post("/getUserRequestBooks", db.userRequestBooks);
+app.post("/CountDataFromDatabase", db.countData);
+
 app.get("/user/book/count/:id", db.getBookCount);
 app.get("/user/book/author/:name",db.getAuthorById);
 app.post("/user/book/reserve", db.reserveBook);
@@ -135,4 +159,7 @@ app.put("/addExtension/:id", db.addExtension);
 app.get("/user/book/reserveCount/:id",db.getReserveCount);
 // app.get("/user",db.getBooks)
 
+
 app.listen(4000, () => console.log(`Server on localhost:4000`));
+
+

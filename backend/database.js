@@ -1,10 +1,12 @@
 const { Pool } = require("pg");
+const { response, request } = require("express");
+const bcrypt = require('bcrypt');
 const { response } = require("express");
 const {createToken} = require("./JWT");
-const bcrypt = require('bcrypt');
+
 const pool = new Pool({
   user: "postgres",
-  password: "12345",
+  password: "Pizzahut1234",
   host: "localhost",
   port: 5432,
   database: "ilms",
@@ -72,6 +74,8 @@ const genreRelatedBooks=(request,response)=>{
   })
 }
 
+
+
 const getBooks = (request,response)=>{
     const qry = `SELECT * FROM books`;
     pool.query(qry,(error,results)=>{
@@ -102,6 +106,245 @@ const getBooks = (request,response)=>{
   });
 };
 
+const getLibData = async (req, response) => {
+  try {
+    const role = req.body.role
+
+    if (!role) {
+      return response.status(200).json({ error: "No Role" });
+    }
+
+    const queryResult = await pool.query('SELECT * FROM users WHERE role = $1', [role]);
+    
+    response.status(200).json({ userData2: queryResult.rows });
+  } catch (error) {
+    console.error("Error Occurred:", error);
+    response.status(500).json({ error: "An error occurred" });
+  }
+};
+  
+const addLibData = async (req, response) => {
+  try {
+    const UsernameT = req.body.UsernameT;
+    const EmailT = req.body.EmailT;
+    const TextPass = req.body.PassT;
+    const contactT = req.body.contactT;
+
+    const checkUsername = await pool.query('select * from users where username = $1',[UsernameT])
+    const checkEmail = await pool.query('select * from users where email = $1',[EmailT])
+
+    
+    if(checkEmail.rows.length > 0 )
+    {
+      response.status(200).json({message : 'Email Already Exists'})
+    }
+
+    else if(checkUsername.rows.length > 0 )
+    {
+      response.status(200).json({message : 'Username Already Exists'})
+    }
+
+   else{
+
+    const saltRounds = 10; 
+    const hashedPassword = await bcrypt.hash(TextPass, saltRounds);
+    
+
+    const queryResult3 = await pool.query('insert into users(username,role,email,password,contact) values($1,$2,$3,$4,$5)',[UsernameT ,'librarian',EmailT,hashedPassword,contactT]);
+      res.status(200).json({message:'Success'})
+   }
+    
+  } catch (error) {
+    console.error("Error Occurred:", error);
+    response.status(500).json({ error: "An error occurred" });
+  }
+};
+  
+const removeLibData = async (req, response) => {
+  try {
+  
+    const index = req.body.Username;
+    const queryText = 'DELETE FROM users WHERE username = $1'; 
+    const queryResult4 = await pool.query(queryText, [index]);
+    
+  } catch (error) {
+    console.error("Error Occurred:", error);
+    response.status(500).json({ error: "An error occurred" });
+  }
+};
+
+const getUserData = async(req, response) =>
+{ 
+  try {
+    
+   
+    const queryResult = await pool.query('SELECT * FROM users WHERE role = $1', ['user']);
+    
+    response.status(200).json({ userData: queryResult.rows });
+  } catch (error) {
+    console.error("Error Occurred:", error);
+    response.status(500).json({ error: "An error occurred" });
+  }
+
+}
+
+const changeUserStatus = async (req, response) => {
+  try {
+   
+    await pool.query('BEGIN');
+    
+    const index = req.body.Status;
+    const user = req.body.UsernameT;
+    
+    const queryText2 = await pool.query('UPDATE users SET status = NULL WHERE username = $1',[user]); 
+    const queryText3 = await pool.query('UPDATE users SET status = $1 WHERE username = $2 returning status',[index , user]); 
+    const queryText4 = await pool.query('SELECT * FROM users WHERE role = $1 order by id', ['user']);;
+    response.status(200).json({userData : queryText4.rows});
+    
+    
+    
+   
+    await pool.query('COMMIT');
+  } catch (error) {
+    console.error("Error Occurred:", error);
+    response.status(500).json({ error: "An error occurred" });
+  }
+};
+
+// librarian....//
+const addBook = async(request , response)=>{
+
+  try {
+    // Start the transaction
+    await pool.query('BEGIN');
+    
+    const ISBN = request.body.isbn;
+    const name = request.body.name;
+    const date = request.body.date;
+    const author = request.body.author;
+    const des = request.body.des;
+    const image = request.body.image;
+    
+    
+
+    const insertQuery = await pool.query('INSERT INTO books(title,author,image) values($1 , $2 , $3) returning id' , [name ,author ,image ]);
+    const id = insertQuery.rows[0].id;
+    const insertQuery2 = await pool.query('INSERT INTO bookdata(isbn,id,res_status) values($1 , $2 , $3 )' , ["ISBN-"+ISBN,id , "No" ]);
+    //const insertResult = await pool.query(insertQuery, [ISBN]);
+    //console.log(insertQuery.rows[0])
+  
+    // Select the ID from the 'booksdata' table
+    //const selectQuery = 'SELECT id FROM booksdata WHERE isbn = $1';
+    //const selectResult = await pool.query(selectQuery, [ISBN]);
+  
+    // Commit the transaction
+    await pool.query('COMMIT');
+  
+    // Log the ID
+    
+  } catch (error) {
+    // If there is an error, roll back the transaction
+    pool.query('ROLLBACK');
+    console.error("Transaction failed:", error);
+  } 
+
+
+};
+
+
+const getBooksData = async(req,response) =>
+{
+  try {
+    // Start the transaction
+    await pool.query('BEGIN');
+    
+    
+    
+    
+    
+
+    const query1 = await pool.query('select bookdata.id,bookdata.isbn,books.title,books.author from bookdata inner join books on books.id=bookdata.id')
+    
+    
+    response.status(200).json({ userData3: query1.rows });
+    
+  
+    // Commit the transaction
+    await pool.query('COMMIT');
+  
+    // Log the ID
+    
+  } catch (error) {
+    // If there is an error, roll back the transaction
+    pool.query('ROLLBACK');
+    console.error("Transaction failed:", error);
+  } 
+
+
+
+}
+
+
+const userRequestBooks = async(req,response)=>
+{
+  try {
+    // Start the transaction
+    await pool.query('BEGIN');
+    
+    
+    
+    
+    
+
+    const query1 = await pool.query('select reservations."res_Id",reservations."userId",reservations."bookId",books.title,reservations.res_time from reservations join books on reservations."bookId" = books.id')
+    
+    console.log(query1)
+    response.status(200).json({ userData3: query1.rows });
+    
+  
+    // Commit the transaction
+    await pool.query('COMMIT');
+  
+    // Log the ID
+    
+  } catch (error) {
+    // If there is an error, roll back the transaction
+    pool.query('ROLLBACK');
+    console.error("Transaction failed:", error);
+  } 
+
+}
+
+const countData = async(req,response)=>
+{
+  try {
+    // Start the transaction
+    await pool.query('BEGIN');
+    
+    
+    const query1 = await pool.query('select * from books');
+    const query2 = await pool.query('select reservations."res_Id",reservations."userId",reservations."bookId",books.title,reservations.res_time from reservations join books on reservations."bookId" = books.id');
+    const query3 = await pool.query('select * from users');
+    const bookCount = query1.rows.length;
+    const requestCount = query2.rows.length;
+    const userCount = query3.rows.length;
+    
+    response.status(200).json({bookCount:bookCount , userCount:userCount , requestCount:requestCount});
+    
+  
+    // Commit the transaction
+    await pool.query('COMMIT');
+  
+    // Log the ID
+    
+  } catch (error) {
+    // If there is an error, roll back the transaction
+    pool.query('ROLLBACK');
+    console.error("Transaction failed:", error);
+  } 
+
+}
+
 const updateBookComment = (request, response) => {
   const bookId = parseInt(request.params.bookId);
   const commentId = parseInt(request.params.commentId);
@@ -125,7 +368,6 @@ const updateBookComment = (request, response) => {
     }
   });
 };
-
 
 const addBookComment = (request,response)=>{
   const {id,comments}=request.body;
@@ -425,6 +667,12 @@ const createUser = (request, response) => {
   }
 };
 
+
+
+
+
+
+
 module.exports = {
   pool,
   createUser,
@@ -432,6 +680,16 @@ module.exports = {
   filterBooks,
   genreRelatedBooks,
   getBookById,
+
+  getLibData,
+  addLibData,
+  removeLibData,
+  getUserData,
+  changeUserStatus,
+  addBook,
+  getBooksData,
+  userRequestBooks,
+  countData
   getBookCount,
   reserveBook,addBookComment,getAuthorById,
   updateBookComment,
