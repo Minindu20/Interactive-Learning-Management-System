@@ -15,9 +15,7 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    margin-left: 200px;
-    /* Set a fixed height for the container */
-    height: calc(100vh - 100px); /* Adjust the height as needed */
+    margin-left: 250px;
     /* Enable vertical scrolling for overflowing content */
     overflow-y: auto;
 }

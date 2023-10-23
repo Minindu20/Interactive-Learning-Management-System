@@ -43,9 +43,9 @@ body{
     object-fit: fill;
 }
 
-form{
+.forum_form{
     display: grid;
-    width: 100%;
+    width: 800px;
     height: 80px;
     grid-template-columns: 5% 80% 15%;
 }
@@ -113,10 +113,13 @@ form{
 
 .comment__info .nickname{
     color: #aaa;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 .comment__info .comment{
-    margin: 5px 0;
+    /* margin: 5px 0; */
+    margin-top:0px;
 }
 
 .comment__info .comment__bottom{
@@ -141,3 +144,41 @@ form{
     text-transform: uppercase;
     cursor: pointer;
 }
+/* .commentIcons {
+    display: flex;
+    gap: 5px;
+    margin-left:5px;
+    
+  }
+  
+  .commentIcons .img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+.commentHeader{
+    display: flex;
+    
+} */
+.commentHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+  }
+  
+  .names {
+    display: flex;
+    align-items: center;
+  }
+  .commentIcons {
+    display: flex;
+    gap: 5px; /* Increase the gap for a little more separation */
+    margin-left:5px;
+  }
+  
+  .commentIcons .img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
