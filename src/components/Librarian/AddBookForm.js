@@ -3,52 +3,48 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function AddBookForm() {
-    const [ISBN, setISBN] = useState("");
-    const [name, setName] = useState("");
-    const [author, setAuthor] = useState("");
-    const [des, setDes] = useState("");
-    const [date, setDate] = useState("");
-    const [image, setImage] = useState("");
+    const [formData, setFormData] = useState({
+        isbn:"",
+        name:"",
+        author:"",
+        //genre:"",
+        des:"",
+        image:""
+    });
 
-    const addBookDataToDatabase = (ISBN , name ,date ,  author , des , image ) => {
-        const data = {
-            isbn: ISBN ,
-            name : name ,
-            date : date ,
-            author : author , 
-            des : des ,
-            image : image
+    const updateFormData = (e) => {
+        setFormData((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    }; 
 
-        };
-       
-
-        axios.post("http://localhost:4000/addBookToDatabase", data)
-            .then((response) => {
-                // Handle the response from the backend
-            })
+    const addBookDataToDatabase = (event) => {
+        event.preventDefault();
+        axios.post("http://localhost:4000/addBookToDatabase", formData)
             .catch((error) => {
                 console.error("Error Occurred:", error);
-            });
-    }
+            }
+        );
+    };
 
     return (
         <div className="form-container">
             <h1>Add New Book</h1>
-            <form className="form1">
-                <input placeholder="Book ISBN Number" onChange={(event) => setISBN(event.target.value)}></input>
-                <input placeholder="Book Name" onChange={(event) => setName(event.target.value)}></input>
-                <input placeholder="Author" onChange={(event) => setAuthor(event.target.value)}></input>
-               
-                
-                <textarea placeholder="Book Description" rows="4" onChange={(event) => setDate(event.target.value)}></textarea>
-                <label htmlFor="image">Add Cover Page:</label>
+            <form className="form1" onSubmit={(e) => addBookDataToDatabase(e)}>
+                <input name="isbn" placeholder="Book ISBN Number" onChange={(event) => updateFormData(event)}/>
+                <input name="name" placeholder="Book Name" onChange={(event) => updateFormData(event)}/>
+                <input name="author" placeholder="Author" onChange={(event) => updateFormData(event)}/> 
+                {/* <input name="genre" placeholder="Genre" onChange={(event) => updateFormData(event)}/>  */}
+                <textarea name="des" placeholder="Book Description" rows="4" onChange={(event) => updateFormData(event)}></textarea>
                 <input
-                    type="file"
+                    type="text"
                     id="image"
                     name="image"
-                    accept="image/*"
-                    onChange={(event)=>setImage(event.target.value)}></input>
-                <button onClick={() => addBookDataToDatabase(ISBN , name , date , author , des , image)}>Add Book</button>
+                    placeholder="Cover page image URL"
+                    onChange={(event) => updateFormData(event)}
+                />
+                <button type="submit" >Add Book</button>
             </form>
         </div>
     )

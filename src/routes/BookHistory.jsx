@@ -228,7 +228,7 @@ const BookHistory = () => {
                     return (
                       <tr key={borrowing.id}>
                         <td>{borrowing.title}</td>
-                        <td>{borrowing.bookid}</td>
+                        <td>{borrowing.id}</td>
                         <td>{formatIsoDate(borrowing.borrowdate)}</td>
                         <td>{formatIsoDate(borrowing.returndate)}</td>
                         <td>
@@ -264,7 +264,7 @@ const BookHistory = () => {
                   .map((borrowing) => (
                     <tr key={borrowing.id}>
                       <td>{borrowing.title}</td>
-                      <td>{borrowing.bookid}</td>
+                      <td>{borrowing.id}</td>
                       <td>{formatIsoDate(borrowing.borrowdate)}</td>
                       <td>{formatIsoDate(borrowing.returndate)}</td>
                     </tr>

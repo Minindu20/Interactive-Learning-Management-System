@@ -155,6 +155,9 @@ app.delete("/user/book/comment/:bookId/:commentId", db.deleteBookComment);
 app.get("/reservations/:id", db.getReservedBooks);
 app.get("/borrowings/:id",db.getBorrowedBooks);
 app.post("/removeReservation", db.deleteReservation);
+app.post("/acceptReservation", db.acceptReservation);
+app.get("/getAllBorrowings", db.getAllBorrowings);
+app.post("/markBookAsReturned", db.markBookAsReturned)
 app.put("/addExtension/:id", db.addExtension);
 app.get("/user/book/reserveCount/:id",db.getReserveCount);
 // app.get("/user",db.getBooks)

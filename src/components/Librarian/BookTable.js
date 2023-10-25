@@ -25,12 +25,6 @@ function BookTable() {
   }, []);
 
  
-  
-
-
-
-
-
   return (
     <div>
       
@@ -57,19 +51,7 @@ function BookTable() {
             ))}
           </tbody>
         </table>
-      
-
-   
-
-
-      
-    
-    </div>
-
-
-
-
-    
+    </div> 
   );
 }
 

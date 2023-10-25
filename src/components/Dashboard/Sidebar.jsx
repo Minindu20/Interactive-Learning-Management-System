@@ -98,6 +98,11 @@ const Sidebar = (props) => {
       },
       // {icon:<ForumTwoToneIcon/>,text:"Forum",path:"/commonforum"},
       {
+        icon: <AutoStoriesTwoToneIcon />,
+        text: "Book Returns",
+        path: "/librarian/returns",
+      },
+      {
         icon: <QueryStatsTwoToneIcon />,
         text: "Reports",
         path: "/librarian/reports",

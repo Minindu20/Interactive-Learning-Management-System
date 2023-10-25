@@ -83,8 +83,8 @@ function UserTable() {
               <tr key={row.id}>
                 <td>{row.id}</td>
                 <td>{row.username}</td>
-                <td>{row.contact}</td>
-                <td>{row.status}</td>
+                <td>{row.email}</td>
+                <td>{row.role}</td>
                 <td><button className="custom-button-class" id={row.User_ID} onClick={()=> changeUserStatus(row.username)}>change status</button></td>
               </tr>
             ))}

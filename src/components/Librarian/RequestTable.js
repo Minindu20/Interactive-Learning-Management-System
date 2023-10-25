@@ -5,30 +5,37 @@ import axios from "axios";
 
 function RequestTable() {
   const [userData3, setUserData] = useState([]);
-  
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/getUserRequestBooks", {});
+      setUserData(response.data.userData3);
+    } catch (error) {
+      console.error("Error Occurred:", error);
+    }
+  };
+
+  const acceptRequest = async (res_id) => {
+    try {
+      await axios.post("http://localhost:4000/acceptReservation", { res_Id: res_id });
+      fetchData(); // Update the table after accepting
+    } catch (error) {
+      console.error("Error Occurred:", error);
+    }
+  };
+
+  const rejectRequest = async (res_id) => {
+    try {
+      await axios.post("http://localhost:4000/removeReservation", { res_Id: res_id });
+      fetchData(); // Update the table after rejecting
+    } catch (error) {
+      console.error("Error Occurred:", error);
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post("http://localhost:4000/getUserRequestBooks", {
-         
-        });
-
-        setUserData(response.data.userData3);
-      } catch (error) {
-        console.error("Error Occurred:", error);
-      }
-    };
-
-    fetchData();
+    fetchData(); // Fetch data when the component mounts
   }, []);
-
- 
-  
-
-
-
-
 
   return (
     <div>
@@ -56,26 +63,14 @@ function RequestTable() {
                 <td>{row.res_time}</td>
 
                 <td>
-                  <button>Accept</button>
-                  <button>Reject</button>    
+                  <button onClick={() => acceptRequest(row.res_Id)}>Accept</button>
+                  <button onClick={() => rejectRequest(row.res_Id)}>Reject</button>    
                 </td>               
               </tr>
             ))}
           </tbody>
         </table>
-      
-
-   
-
-
-      
-    
     </div>
-
-
-
-
-    
   );
 }
 

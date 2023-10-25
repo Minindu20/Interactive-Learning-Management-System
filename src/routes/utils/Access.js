@@ -7,6 +7,7 @@ const Access ={
     Notification:['reader'],
     Librarian: ['librarian'],
     AddBook: ['librarian'],
+    BookReturns: ['librarian'],
     UserList: ['librarian','admin'],
     BookList: ['librarian'],
     RequestList: ['librarian'],

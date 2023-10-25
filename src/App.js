@@ -28,6 +28,7 @@ import ReportOverdueReturns from './routes/ReportOverdueReturns';
 import ReportUserFines from './routes/ReportUserFines';
 import PrivateRoute from './routes/utils/PrivateRoute';
 import Access from './routes/utils/Access';
+import BookReturns from './components/Librarian/BookReturns';
 function App() {
   
   return (
@@ -41,7 +42,7 @@ function App() {
            <Route path='/contact' element={<Contact/>}/>
            
           
-           <Route path='/login' element={<Librarian/>}/>
+           <Route path='/login' element={<Login/>}/>
 
            {/* <Route path='/admin' element={<Admin/>}/>
            <Route path='/admin/users' element={<UsersList/>}/>
@@ -73,6 +74,7 @@ function App() {
            <Route path='/librarian/reports/userfines' element={<ReportUserFines role="librarian"/>}/> */}
             <Route path='/librarian' element={<PrivateRoute allowedRoles={Access.Librarian}><Librarian/></PrivateRoute>} />
             <Route path='/librarian/addbook' element={<PrivateRoute allowedRoles={Access.AddBook}><AddBook/></PrivateRoute>} />
+            <Route path='/librarian/returns' element={<PrivateRoute allowedRoles={Access.BookReturns}><BookReturns/></PrivateRoute>} />
             <Route path='/librarian/userlist' element={<PrivateRoute allowedRoles={Access.UserList}><UserList/></PrivateRoute>} />
             <Route path='/librarian/booklist' element={<PrivateRoute allowedRoles={Access.BookList}><BookList/></PrivateRoute>} />
             <Route path='/librarian/requestlist' element={<PrivateRoute allowedRoles={Access.RequestList}><RequestList/></PrivateRoute>} />
