@@ -7,7 +7,7 @@ function AddBookForm() {
         isbn:"",
         name:"",
         author:"",
-        //genre:"",
+        genre:"",
         des:"",
         image:""
     });
@@ -26,28 +26,37 @@ function AddBookForm() {
                 console.error("Error Occurred:", error);
             }
         );
-    };
+        setFormData({
+            isbn:"",
+            name:"",
+            author:"",
+            genre:"",
+            des:"",
+            image:""
+        });
+    }; // Add this closing curly brace
 
     return (
         <div className="form-container">
             <h1>Add New Book</h1>
             <form className="form1" onSubmit={(e) => addBookDataToDatabase(e)}>
-                <input name="isbn" placeholder="Book ISBN Number" onChange={(event) => updateFormData(event)}/>
-                <input name="name" placeholder="Book Name" onChange={(event) => updateFormData(event)}/>
-                <input name="author" placeholder="Author" onChange={(event) => updateFormData(event)}/> 
-                {/* <input name="genre" placeholder="Genre" onChange={(event) => updateFormData(event)}/>  */}
-                <textarea name="des" placeholder="Book Description" rows="4" onChange={(event) => updateFormData(event)}></textarea>
+                <input name="isbn" placeholder="Book ISBN Number" value={formData.isbn} onChange={(event) => updateFormData(event)}/>
+                <input name="name" placeholder="Book Name" value={formData.name} onChange={(event) => updateFormData(event)}/>
+                <input name="author" placeholder="Author" value={formData.author} onChange={(event) => updateFormData(event)}/> 
+                <input name="genre" placeholder="Genre" value={formData.genre} onChange={(event) => updateFormData(event)}/> 
+                <textarea name="des" placeholder="Book Description" value={formData.des} rows="4" onChange={(event) => updateFormData(event)}></textarea>
                 <input
                     type="text"
                     id="image"
                     name="image"
                     placeholder="Cover page image URL"
+                    value={formData.image}
                     onChange={(event) => updateFormData(event)}
                 />
                 <button type="submit" >Add Book</button>
             </form>
         </div>
-    )
+    );
 }
 
 export default AddBookForm;

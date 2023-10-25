@@ -268,24 +268,24 @@ const addBook = async(request)=>{
   */
 
   
-  // const client = await pool.connect()
-  // try {
-  //   await client.query('BEGIN')
-  //   const queryText = 'INSERT INTO books(title,author,image,about,genre) values($1 , $2 , $3 ,$4, $5) returning id'
-  //   const res = await client.query(queryText, [name ,author ,image,des,genre])
+  const client = await pool.connect()
+  try {
+    await client.query('BEGIN')
+    const queryText = 'INSERT INTO books(title,author,image,about,genre) values($1 , $2 , $3 ,$4, $5) returning id'
+    const res = await client.query(queryText, [name ,author ,image,des,genre])
   
-  //   const queryText2 = 'INSERT INTO bookdata(isbn,id,res_status) values($1 , $2 , $3 )'
-  //   const id = res.rows[0].id
-  //   await client.query(queryText2, ["ISBN-"+ISBN, id, "no"])
-  //   await client.query('COMMIT')
+    const queryText2 = 'INSERT INTO bookdata(isbn,id,res_status) values($1 , $2 , $3 )'
+    const id = res.rows[0].id
+    await client.query(queryText2, ["ISBN-"+ISBN, id, "no"])
+    await client.query('COMMIT')
 
-  // } catch (e) {
-  //   await client.query('ROLLBACK')
-  //   throw e
+  } catch (e) {
+    await client.query('ROLLBACK')
+    throw e
 
-  // } finally {
-  //   client.release()
-  // }
+  } finally {
+    client.release()
+  }
 };
 
 
