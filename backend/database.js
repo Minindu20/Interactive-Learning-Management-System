@@ -3,21 +3,20 @@ const { response, request } = require("express");
 const bcrypt = require('bcrypt');
 const {createToken} = require("./JWT");
 
-const pool = new Pool({
-  user: "postgres",
-  password: "12345",
-  host: "localhost",
-  port: 5432,
-  database: "ilms",
-});
-
-
 // const pool = new Pool({
-//   connectionString:process.env.DATABASE_URL,
-//   ssl:{
-//     rejectUnauthorized:false
-//   }
-// })
+//   user: "postgres",
+//   password: "12345",
+//   host: "localhost",
+//   port: 5432,
+//   database: "ilms",
+// });
+
+const pool = new Pool({
+  connectionString:process.env.DATABASE_URL,
+  ssl:{
+    rejectUnauthorized:false
+  }
+})
 
 const getBookById = (request,response)=>{
   const {id} = request.params;
