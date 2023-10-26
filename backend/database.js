@@ -18,65 +18,17 @@ const pool = new Pool({
   }
 })
 
- pool.query(`
- CREATE TABLE public.bookdata (
-     isbn character varying(25) NOT NULL,
-     id integer,
-     "timestamp" timestamp without time zone,
-     res_status character varying DEFAULT 'NO'::character varying
- );
- CREATE TABLE public.books (
-     id integer NOT NULL,
-     title character varying(255),
-     author character varying(255),
-     image text,
-     about text,
-     comments jsonb DEFAULT '[]'::jsonb,
-     genre character varying(20)
- );
- CREATE TABLE public.borrowings (
-     id integer NOT NULL,
-     userid integer,
-     bookid integer,
-     borrowdate date DEFAULT now(),
-     returndate date DEFAULT (now() + '14 days'::interval),
-     isbn character varying(13),
-     extension_notes character varying(10) DEFAULT 'no'::character varying,
-     return_status character varying(3) DEFAULT 'no'::character varying
- );
- CREATE TABLE public.forum (
-     id bigint NOT NULL,
-     created_at timestamp with time zone DEFAULT now(),
-     comments jsonb
- );
- CREATE TABLE public.users (
-     username character varying(50) NOT NULL,
-     role character varying(10),
-     email character varying(30),
-     password text,
-     id integer NOT NULL
- );
- `)
-// pool.query(`INSERT INTO public.author (author_id, name, bio)
-// VALUES (4, 'J.K Rowling', 'J.K. Rowling is a celebrated British author known for her iconic Harry Potter series. Her writing is characterized by imaginative storytelling, intricate world-building, and richly developed characters. Through her work, she explores themes of friendship, courage, and the timeless battle between good and evil. Rowling''s captivating narratives have garnered a global fan base, and her books continue to enchant readers of all ages. Her literary contributions have solidified her as a beloved and influential figure in modern literature.'),
-// (5, 'George R.R Martin', 'George R.R. Martin, born in 1948, is an American author and television producer best known for his epic fantasy series, "A Song of Ice and Fire." The series gained immense popularity through its adaptation into the television phenomenon "Game of Thrones." Martin is celebrated for his complex characters, intricate political plots, and a willingness to defy traditional fantasy tropes, making him a prominent figure in modern speculative fiction.'),
-// (6, 'J.R.R Tolkin', 'J.R.R. Tolkien (1892-1973) was an English writer, poet, and philologist best known for his high fantasy works. Renowned as the author of "The Hobbit" and "The Lord of the Rings" trilogy, Tolkien created intricate and immersive fictional worlds inhabited by diverse races, languages, and cultures. His novels revolutionized the fantasy genre, introducing readers to iconic characters like Frodo Baggins and Gandalf the Grey. Beyond his literary contributions, Tolkiens deep passion for mythology and linguistics significantly influenced his storytelling, leaving an enduring legacy in the realms of literature and popular culture.');`)
-
-pool.query(`SELECT * FROM "author"`).then(data => {
-  console.log(data.rows)
-})
-
 const getBookById = (request,response)=>{
   const {id} = request.params;
   //console.log(id);
   const qry = `SELECT * FROM books where id = $1`;
-  pool.query(qry,[id],(error,results)=> {
+  pool.query(qry,[id],(error,results)=>{
   if(error) return response.status(500).json({error:'Internal Server Eroor'})
   const book=results.rows;
   response.json(book);
   }) 
-}
 
+}
 const getBookCount = (request,response)=>{
   const{id} =request.params;
   console.log(id)
