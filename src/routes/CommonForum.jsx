@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PublicForum from '../components/Forum/PublicForum'
 import './Css/CommonForum.css'
 import Navbar from '../components/Home/Navbar'
 import Footer from '../components/Home/Footer'
 import Sidebar from '../components/Dashboard/Sidebar'
+import getUser from './utils/getUser'
 const CommonForum = () => {
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedUser = await getUser();
+      setUser(fetchedUser);
+      console.log(fetchedUser)
+    };
+    fetchData();
+  }, []);
+
   return (
-    <><Sidebar role="user"/>
+    <>{user&&<Sidebar role={user.role}/>}
     <div className="nav-wrap">
     <Navbar />
     </div>

@@ -38,6 +38,7 @@ const Sidebar = (props) => {
     });
   };
   const role = props.role;
+  console.log(role)
   const sidebarItems = {
     admin: [
       { icon: <DashboardTwoToneIcon />, text: "Dashboard", path: "/admin" },
@@ -51,7 +52,7 @@ const Sidebar = (props) => {
         text: "Librarians",
         path: "/admin/librarians",
       },
-      { icon: <ForumTwoToneIcon />, text: "Forum", path: "/admin/forum" },
+      { icon: <ForumTwoToneIcon />, text: "Forum", path: "/commonforum" },
       // {icon:<RequestPageTwoToneIcon/>,text:"Requests"},
       {
         icon: <QueryStatsTwoToneIcon />,
@@ -60,6 +61,21 @@ const Sidebar = (props) => {
       },
     ],
     user: [
+      { icon: <DashboardTwoToneIcon />, text: "Dashboard", path: "/user" },
+      {
+        icon: <AutoStoriesTwoToneIcon />,
+        text: "Borrowings",
+        path: "/bookhistory",
+      },
+      { icon: <AccountCircleIcon />, text: "profile", path: "/Profile" },
+      { icon: <ForumTwoToneIcon />, text: "Forum", path: "/commonforum" },
+      {
+        icon: <ForumTwoToneIcon />,
+        text: "Notification",
+        path: "/notification",
+      },
+    ],
+    reader: [
       { icon: <DashboardTwoToneIcon />, text: "Dashboard", path: "/user" },
       {
         icon: <AutoStoriesTwoToneIcon />,
