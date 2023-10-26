@@ -10,15 +10,6 @@ const pool = new Pool({
   port: 5432,
   database: "ilms",
 });
-
-
-// const pool = new Pool({
-//   connectionString:process.env.DATABASE_URL,
-//   ssl:{
-//     rejectUnauthorized:false
-//   }
-// })
-
 const getBookById = (request,response)=>{
   const {id} = request.params;
   //console.log(id);

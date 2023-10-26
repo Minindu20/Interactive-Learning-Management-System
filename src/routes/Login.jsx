@@ -4,7 +4,7 @@ import Navbar from "../components/Home/Navbar";
 import heroImage7 from "../assests/hero11.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import dbUrl from "./configuration.js";
+
 const Login = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState("Login");
@@ -47,7 +47,7 @@ const Login = () => {
     }
     if (action === "Sign Up") {
       event.preventDefault();
-      axios.post(`${dbUrl}/login`, formData)
+      axios.post("http://localhost:4000/login", formData)
         .then(response => {
           // if(response.data.nameExist){
           //   alert("UserName exist")
@@ -67,7 +67,7 @@ const Login = () => {
     }
     else {
       event.preventDefault();
-      axios.post("https://server-w9pr.onrender.com/login", formData)
+      axios.post("http://localhost:4000/login", formData)
         .then(response => {
 
           if (response.data.Login) {

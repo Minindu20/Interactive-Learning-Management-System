@@ -6,7 +6,6 @@ const {pool} = require("./database.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const {createToken} = require("./JWT");
-const config = require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 
@@ -168,6 +167,6 @@ app.get("/user/book/reserveCount/:id",db.getReserveCount);
 // app.get("/user",db.getBooks)
 
 
-app.listen(process.env.PORT || 2000, () => console.log(`Server on localhost:4000`));
+app.listen(4000, () => console.log(`Server on localhost:4000`));
 
 
