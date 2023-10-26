@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
@@ -7,6 +6,7 @@ const {pool} = require("./database.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const {createToken} = require("./JWT");
+const config = require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 
@@ -167,7 +167,7 @@ app.put("/addExtension/:id", db.addExtension);
 app.get("/user/book/reserveCount/:id",db.getReserveCount);
 // app.get("/user",db.getBooks)
 
-const PORT = process.env.PORT || 2000;
-app.listen(PORT, () => console.log(`Server on localhost:${PORT}`));
+
+app.listen(process.env.PORT || 2000, () => console.log(`Server on localhost:4000`));
 
 
