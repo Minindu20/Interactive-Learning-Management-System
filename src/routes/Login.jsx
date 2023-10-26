@@ -47,7 +47,7 @@ const Login = () => {
     }
     if (action === "Sign Up") {
       event.preventDefault();
-      axios.post(`${dbUrl}/login`, formData)
+      axios.post(`https://server-w9pr.onrender.com/login`, formData)
         .then(response => {
           // if(response.data.nameExist){
           //   alert("UserName exist")
@@ -67,7 +67,7 @@ const Login = () => {
     }
     else {
       event.preventDefault();
-      axios.post("http://localhost:4000/login", formData)
+      axios.post("https://server-w9pr.onrender.com/login", formData)
         .then(response => {
 
           if (response.data.Login) {
