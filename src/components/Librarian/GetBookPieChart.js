@@ -7,9 +7,9 @@ import {
 
 function GetBookPieChart() {
   const data = [
-    { name: "Books in Library", users: 1000, fill: '#e6bd32' },
-    { name: "Borrowed Books", users: 600, fill: '#ca9d32' },
-    { name: "Overdue Books", users: 50, fill: '#ad761c' },
+    { name: "Books in Library", users: 13, fill: '#e6bd32' },
+    { name: "Borrowed Books", users: 1, fill: '#ca9d32' },
+    { name: "Overdue Books", users: 1, fill: '#ad761c' },
   ];
 
   return (

@@ -1,67 +1,70 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 function UserTable() {
   const [userData, setUserData] = useState([]);
-  const [status,changeStatus] = useState('Active')
-  const[UsernameT , setUsernameT] = useState('');
-  const[NicT , setNicT] = useState('');
-  const[contactT , setContactNicT] = useState('');
+  const [status1, changeStatus] = useState('');
+  const [UsernameT, setUsernameT] = useState('');
+  const [NicT, setNicT] = useState('');
+  const [contactT, setContactNicT] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post("http://localhost:4000/UserData", {
-          email: ""
-        });
-
-        setUserData(response.data.userData);
-      } catch (error) {
-        console.error("Error Occurred:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
- 
+  const fetchData = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/UserData", {
+        email: ""
+      });
+
+      setUserData(response.data.userData);
+    } catch (error) {
+      console.error("Error Occurred:", error);
+    }
+  };
+  const changeUserStatus = (index, status) => {
+    let data;
+    if (status === 'active') {
+      data = {
+        Status: 'banned',
+        id: index
+      }
+    } else {
+      data = {
+        Status: 'active',
+        id: index
+      }
+    }
+  
+    // Show a confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you want to change the status to ${status === 'Active' ? 'Banned' : 'Active'}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed, change the status
+        (async () => {
+          try {
+            await axios.post("http://localhost:4000/changeUserStatus", data);
+            changeStatus('');
+            fetchData(); // Refresh the data after the status change
+          } catch (error) {
+            console.error("Error Occurred:", error);
+          }
+        })();
+      }
+    });
+  };
   
 
-
-  const changeUserStatus = (index)=>
-  {
-    
-    if(status === 'Active')
-    {
-      changeStatus('Banned')
-    }
-    else{
-
-      changeStatus('Active')
-    }
-
-    const data = {
-      Status : status,
-      UsernameT : index
-    }
-
     
 
-    axios
-    .post("http://localhost:4000/changeUserStatus", data)
-    .then((response) => {
-      
-      setUserData(response.data.userData);
-      
-      
-    })
-    .catch((error) => {
-      console.error("Error Occured:", error);
-    });
-
-    
-
-  }
+  
 
 
   return (
@@ -84,8 +87,8 @@ function UserTable() {
                 <td>{row.id}</td>
                 <td>{row.username}</td>
                 <td>{row.email}</td>
-                <td>{row.role}</td>
-                <td><button className="custom-button-class" id={row.User_ID} onClick={()=> changeUserStatus(row.username)}>change status</button></td>
+                <td>{row.status}</td>
+                <td><button className="custom-button-class" id={row.User_ID} onClick={()=> changeUserStatus(row.id,row.status)}>change status</button></td>
               </tr>
             ))}
           </tbody>

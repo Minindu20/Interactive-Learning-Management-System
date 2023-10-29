@@ -182,29 +182,32 @@ const getUserData = async(req, response) =>
         response.status(500).json({ error: "An error occurred" });
     }
 }
-
 const changeUserStatus = async (req, response) => {
+  const { Status, id } = req.body;
+  console.log(req.body)
+  const qry = 'UPDATE users SET status = $1 WHERE id = $2';
+  
   try {
-   
-    await pool.query('BEGIN');
-    
-    const index = req.body.Status;
-    const user = req.body.UsernameT;
-    
-    const queryText2 = await pool.query('UPDATE users SET status = NULL WHERE username = $1',[user]); 
-    const queryText3 = await pool.query('UPDATE users SET status = $1 WHERE username = $2 returning status',[index , user]); 
-    const queryText4 = await pool.query('SELECT * FROM users WHERE role = $1 order by id', ['user']);;
-    response.status(200).json({userData : queryText4.rows});
-    
-    
-    
-   
-    await pool.query('COMMIT');
+    // Execute the SQL query to update the user's status
+    pool.query(qry, [Status, id], (error, results) => {
+      if (error) {
+        console.error("Error Occurred:", error);
+        response.status(500).json({ error: "An error occurred" });
+      } else {
+        // Check if any rows were affected by the update
+        if (results.rowCount > 0) {
+          response.status(200).json({ message: "User status updated successfully" });
+        } else {
+          response.status(404).json({ error: "User not found" });
+        }
+      }
+    });
   } catch (error) {
     console.error("Error Occurred:", error);
     response.status(500).json({ error: "An error occurred" });
   }
 };
+
 
 // librarian....//
 const addBook = async(request)=>{

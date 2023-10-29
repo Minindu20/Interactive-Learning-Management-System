@@ -12,13 +12,8 @@ class OverdueReturns extends React.Component {
         { id: 3, UserID: '4', BookID: '25', ReturnDue: '2023-09-09', OverdueDays: '6'}, 
         { id: 4, UserID: '9', BookID: '12', ReturnDue: '2023-09-10', OverdueDays: '5'}, 
         { id: 5, UserID: '11', BookID: '6', ReturnDue: '2023-09-10', OverdueDays: '5'}, 
-        { id: 6, UserID: '2', BookID: '16', ReturnDue: '2023-09-10', OverdueDays: '5'}, 
-        { id: 7, UserID: '15', BookID: '30', ReturnDue: '2023-09-11', OverdueDays: '4'}, 
-        { id: 8, UserID: '7', BookID: '1', ReturnDue: '2023-09-11', OverdueDays: '4'}, 
-        { id: 9, UserID: '3', BookID: '24', ReturnDue: '2023-09-12', OverdueDays: '3'}, 
-        { id: 10, UserID: '1', BookID: '17', ReturnDue: '2023-09-12', OverdueDays: '3'}, 
-        { id: 11, UserID: '10', BookID: '15', ReturnDue: '2023-09-13', OverdueDays: '2'}, 
-        { id: 12, UserID: '12', BookID: '5', ReturnDue: '2023-09-14', OverdueDays: '1'},    
+        { id: 6, UserID: '2', BookID: '16', ReturnDue: '2023-09-10', OverdueDays: '5'}
+        
       ],
     };
   }

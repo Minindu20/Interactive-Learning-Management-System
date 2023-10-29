@@ -167,7 +167,7 @@ function RequestTable() {
         </div>
       </div>
       {showDescription && (
-        <div className="descriptive-box" style={{ marginLeft: '-2000px' }}>
+        <div className="descriptive-box" style={{ marginLeft: '200px' }}>
           <br />
 
           <div className="row">

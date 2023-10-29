@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2'; // Import SweetAlert
 import Sidebar from '../Dashboard/Sidebar';
-import Nav from '../../components/Dashboard/Nav'
-const BookReturns = () => {
+import Nav from '../../components/Dashboard/Nav';
 
+const BookReturns = () => {
     const [BookReturnData, setBookReturnData] = useState([]);
     const [error, setError] = useState(null);
 
@@ -22,7 +23,23 @@ const BookReturns = () => {
         }
     };
 
-    const returnBook = async (id) => {
+    const returnBook = (id) => {
+        Swal.fire({
+            title: 'Confirm Return',
+            text: 'Are you sure you want to mark this book as returned?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Return',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User confirmed, proceed with returning the book
+                confirmReturnBook(id);
+            }
+        });
+    };
+
+    const confirmReturnBook = async (id) => {
         try {
             await axios.post("http://localhost:4000/markBookAsReturned", { borrowing_Id: id });
             setError(null); // Clear any previous errors
@@ -31,20 +48,16 @@ const BookReturns = () => {
             console.error("Error Occurred:", error);
             setError("Error returning the book. Please try again.");
         }
-    }
-
+    };
 
     return (
         <>
             <div className="librarian">
-                <Sidebar
-                    role="librarian" />
+                <Sidebar role="librarian" />
                 <div className="homeContainer">
-                    <Nav
-                        role="librarian" />
+                    <Nav role="librarian" />
                     <div>
                         <h1>Book Returns</h1>
-
                         <div>
                             {BookReturnData.length > 0 ? (
                                 <table className="user-data-table" style={{ marginLeft: '0px' }}>
@@ -65,10 +78,13 @@ const BookReturns = () => {
                                                 <td>{row.isbn}</td>
                                                 <td>{row.userid}</td>
                                                 <td>{row.returndate}</td>
-                                                <td><button className="custom-button-class" id={row.User_ID} onClick={() => {
-                                                    returnBook(row.id
-                                                    )
-                                                }}>Return Book</button></td>
+                                                <td>
+                                                    <button className="custom-button-class" id={row.User_ID} onClick={() => {
+                                                        returnBook(row.id);
+                                                    }}>
+                                                        Return Book
+                                                    </button>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -80,12 +96,8 @@ const BookReturns = () => {
                     </div>
                 </div>
             </div>
-
-
-
         </>
+    );
+};
 
-    )
-}
-
-export default BookReturns
+export default BookReturns;

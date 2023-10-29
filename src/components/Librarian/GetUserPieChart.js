@@ -7,9 +7,9 @@ import {
 
 function GetUserPieChart() {
   const data = [
-    { name: "Active Users", users: 100, fill: '#0000b6' },
-    { name: "Suspended User", users: 10, fill: '#000040' },
-    { name: "Banned Users", users: 5, fill: '#490052' }, 
+    { name: "Active Users", users: 6, fill: '#0000b6' },
+    { name: "Suspended User", users: 1, fill: '#000040' },
+    { name: "Banned Users", users: 0, fill: '#490052' }, 
   ];
 
   return (
