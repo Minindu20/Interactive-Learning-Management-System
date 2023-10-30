@@ -11,7 +11,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PostAddTwoToneIcon from "@mui/icons-material/PostAddTwoTone";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 const Sidebar = (props) => {

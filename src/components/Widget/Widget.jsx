@@ -11,7 +11,6 @@ import axios from 'axios';
 
 const Widget = ({ type }) => {
   let data;
-  const amount = 100;
   const [booksCount, setBooksCount] = useState(0);
   const [usercount, setUserCount] = useState(0);
   const[reqCount , setReqCount] = useState(0);

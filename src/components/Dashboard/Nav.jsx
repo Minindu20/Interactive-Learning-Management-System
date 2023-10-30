@@ -1,6 +1,5 @@
 import React from 'react'
 import'./Nav.css'
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const Nav = (props) => {
   const role=props.role; 

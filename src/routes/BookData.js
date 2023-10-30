@@ -1,8 +1,3 @@
-import book1 from '../assests/books/bk1.jpg'
-import book2 from '../assests/books/bk2.jpg'
-import book3 from '../assests/books/bk3.jpg'
-import book4 from '../assests/books/bk4.jpg'
-import book5 from '../assests/books/bk5.jpg'
 
 export const Books=[
     {   id:1,

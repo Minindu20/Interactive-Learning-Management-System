@@ -3,11 +3,9 @@ import { useEffect } from "react";
 import "./Css/User.css";
 import Sidebar from "../components/Dashboard/Sidebar";
 import Nav from "../components/Dashboard/Nav";
-import Navbar from "../components/Home/Navbar";
-import Footer from "../components/Home/Footer";
 import Header from "../components/Header/Header";
 import BookCard from "../components/Header/BookCard";
-import { Link,useNavigate,useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
  
 const User = () => {
@@ -30,8 +28,6 @@ const User = () => {
 
   const [query, setQuery] = useState(false);
   const[keyword,setKeyword]=useState("");
-  const [filteredBooks, setFilteredBooks] = useState([]);
-  const [books, setBookData] = useState([]);
   const [book, setData] = useState([]);
   const[selectedOption,setSelectedOption]=useState("popular")
 

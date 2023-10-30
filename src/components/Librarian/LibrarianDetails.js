@@ -3,16 +3,13 @@ import axios from "axios";
 
 
 function RequestTable() {
-  const [data, setData] = useState([]); 
   const [userData2, setUserData] = useState([]);
   const [showDescription, setShowDescription] = useState(false);
   const[UsernameT , setUsernameT] = useState('');
-  const[NicT , setNicT] = useState('');
   const[contactT , setContactNicT] = useState('');
   const[EmailT , setEmailT] = useState('');
   const[PassT , setPass] = useState('');
   const[RePassT , setRePass] = useState('');
-  const[proceed,setproceed] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +59,7 @@ function RequestTable() {
               alert("Re-type password please")
           }
 
-       else if (PassT != RePassT)
+       else if (PassT !== RePassT)
           {
               alert("password do not match")
           }
@@ -73,12 +70,12 @@ function RequestTable() {
             .post("https://server-w9pr.onrender.com/addLibrarianData", data)
             .then((response) => {
               
-              if(response.data.message == "Username Already Exists")
+              if(response.data.message === "Username Already Exists")
               {   
                   alert("Sorry Username Taken")
       
               }
-              else if(response.data.message == "Email Already Exists")
+              else if(response.data.message === "Email Already Exists")
               {   
                   alert("Sorry This Email Was Already Registered")
       
@@ -108,7 +105,7 @@ function RequestTable() {
 
     axios
     .post("https://server-w9pr.onrender.com/RemoveLibrarianData", data)
-    .then((response) => {
+    .then(() => {
       
       
       

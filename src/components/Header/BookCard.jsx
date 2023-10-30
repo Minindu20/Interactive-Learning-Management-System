@@ -5,7 +5,7 @@ const BookCard = (props) => {
     <div className="bookcard">
       <div className="t-card">
         <div className="t-image">
-          <img src={props.image} alt="image" />
+          <img src={props.image} alt="bookcard"/>
         </div>
         <h4>{props.heading}</h4>
         <h4>{props.author}</h4>

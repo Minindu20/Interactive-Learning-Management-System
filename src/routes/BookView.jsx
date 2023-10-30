@@ -12,11 +12,9 @@ import Footer from "../components/Home/Footer";
 const BookView = () => {
   const[book,setBook]=useState(null);
   const{id:bookId}=useParams();
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [, setImagePreviewUrl] = useState(null);
   //const book = Books.find((book)=>book.id.toString() === bookId);
   //const{title,author,image,comments,likes}=book;
-  const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(0);
   const [availability, setAvailability] = useState(0);
   const [user, setUser] = useState(null);
   const [author,setAuthor]=useState(null);
@@ -108,13 +106,6 @@ const BookView = () => {
 
  
 
-  const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-    if (!isLiked) {
-      setLikesCount(likesCount + 1);
-    } else {
-      setLikesCount(likesCount - 1);
-    }}
 
     const openImagePreview = (imageUrl) => {
       setImagePreviewUrl(imageUrl);
@@ -142,7 +133,6 @@ const handleSubmit = async () => {
     if (result.isConfirmed) {
       try {
         const userId = user.id;
-        const userName = user.username;
         const data = {
           bookId: bookId,
           userId: userId,
@@ -188,7 +178,7 @@ const handleSubmit = async () => {
       </div>
     <div className="bookView-container">
       {book ?  (<div className="column">
-        <div className="img"><img src={book.image} alt="image" /></div>
+        <div className="img"><img src={book.image} alt="column" /></div>
         <div className="details">
           <h1>{book.title}</h1>
           <h2>Author - {book.author}</h2>

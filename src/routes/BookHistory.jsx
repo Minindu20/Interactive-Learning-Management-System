@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 const BookHistory = () => {
   const [reservations, setReservations] = useState([]);
   const [borrowings, setBorrowings] = useState([]);
-  const [user, setUser] = useState("");
+  const [, setUser] = useState("");
   useEffect(() => {
     // Create a function to fetch reservations data
     const fetchReservations = (userId) => {
@@ -51,17 +51,6 @@ const BookHistory = () => {
     setReservations(updatedReservations);
   };
 
-  const updateExtensionNotesToYes = (borrowingId) => {
- 
-    const updatedBorrowings = borrowings.map((borrowing) => {
-      if (borrowing.id === borrowingId) {
-        return { ...borrowing, extension_notes: 'yes' };
-      }
-      return borrowing;
-    });
-  
-    setBorrowings(updatedBorrowings);
-  };
   
   const handleRemoveReservation = (reservationId, isbn) => {
     Swal.fire({
@@ -148,7 +137,7 @@ const BookHistory = () => {
   };
 
     const formatDaysRemaining = (daysRemaining) => {
-      const { days, hours, minutes, seconds } = daysRemaining;
+      const { days, hours, minutes } = daysRemaining;
       const formattedDays = days !== undefined ? `${days} days` : '0 days';
       const formattedHours = hours !== undefined ? `${hours} hours` : '0 hours';
       const formattedMinutes = minutes !== undefined ? `${minutes} minutes` : '0 minutes';
@@ -232,7 +221,7 @@ const BookHistory = () => {
                         <td>{formatIsoDate(borrowing.borrowdate)}</td>
                         <td>{formatIsoDate(borrowing.returndate)}</td>
                         <td>
-                          {daysDifference <= 0 && daysDifference >= -7 && borrowing.extension_notes=='no'  && (
+                          {daysDifference <= 0 && daysDifference >= -7 && borrowing.extension_notes==='no'  && (
                             <button
                               className="extension-button"
                               onClick={() => handleExtension(borrowing.id)}

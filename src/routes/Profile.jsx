@@ -116,7 +116,7 @@ const Profile = () => {
       {user && (
         <div className="user-container">
           <div className="user-image">
-            <img src={userImg} alt="User's Profile Image" />
+            <img src={userImg} alt="User's Profile" />
           </div>
           <div className="user-details">
             {isEditing ? (

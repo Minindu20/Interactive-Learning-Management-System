@@ -1,6 +1,5 @@
-import React, {useState,useEffect, Component} from 'react';  //use hook to take the current informations
+import React, {Component} from 'react';  //use hook to take the current informations
 import { Link } from 'react-router-dom';
-import { Button } from './Button';
 import { MenuItems } from './Menuitems';
 import './Navbar.css';
 class Navbar extends Component{

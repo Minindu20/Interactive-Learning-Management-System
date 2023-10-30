@@ -3,10 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 function UserTable() {
   const [userData, setUserData] = useState([]);
-  const [status1, changeStatus] = useState('');
-  const [UsernameT, setUsernameT] = useState('');
-  const [NicT, setNicT] = useState('');
-  const [contactT, setContactNicT] = useState('');
+  const [, changeStatus] = useState('');
 
   useEffect(() => {
     fetchData();

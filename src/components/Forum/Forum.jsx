@@ -12,9 +12,8 @@ const Forum = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [comments, setComments] = useState(props.comments);
-  const [book, setBook] = useState(props.bookId);
-  const [user, setUser] = useState(props.user);
-  const [edit, setEdit] = useState(false);
+  const [book] = useState(props.bookId);
+  const [user] = useState(props.user);
   const [editingComment, setEditingComment] = useState(null);
 
   const handleLikeClick = () => {

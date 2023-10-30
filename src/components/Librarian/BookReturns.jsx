@@ -6,7 +6,7 @@ import Nav from '../../components/Dashboard/Nav';
 
 const BookReturns = () => {
     const [BookReturnData, setBookReturnData] = useState([]);
-    const [error, setError] = useState(null);
+    const [, setError] = useState(null);
 
     useEffect(() => {
         fetchData();

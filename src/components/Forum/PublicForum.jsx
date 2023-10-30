@@ -20,7 +20,7 @@ const PublicForum = (props) => {
     };
     fetchData();
     fetchComments();
-  }, []);
+  });
 
   const fetchComments = async () => {
     try {
@@ -365,7 +365,7 @@ const handleDeleteClick = async (commentId) => {
                     <div className="commentIcons">
                    
                   </div>
-                    {user && item && (item.comments.uId === user.id || user.role=="admin") && (
+                    {user && item && (item.comments.uId === user.id || user.role==="admin") && (
                       <div className="commentIcons">
                         <div className="commentIcons">
                     <img src={Edit} alt="Edit" className="img" onClick={() => handleEditClick(item)}/>
