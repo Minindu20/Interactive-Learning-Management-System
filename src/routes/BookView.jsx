@@ -50,15 +50,15 @@ const BookView = () => {
     fetchBookCount();
     fetchBookData();
     
-  }, [bookId]);
+  });
   useEffect(() => { fetchAuthorDetails();
-  }, [book]);
+  });
   useEffect(() => {
     if(user){
       getReserveCount();
     }
    
-  }, [user]); 
+  }); 
 
 
 
