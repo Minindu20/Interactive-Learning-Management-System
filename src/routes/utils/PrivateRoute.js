@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const PrivateRoute = (props) => {
   const [auth, setAuth] = useState(false);
-  const [name, setname] = useState({});
+  const [, setname] = useState({});
   const [role, setrole] = useState({});
-  const [id, setid] = useState({});
+  const [, setid] = useState({});
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   const { allowedRoles, children } = props;
@@ -36,7 +36,7 @@ const PrivateRoute = (props) => {
       }
     };
     getAuth();
-  }, []); // Make sure to include an empty dependency array to run the effect only once
+  }); // Make sure to include an empty dependency array to run the effect only once
   // Return the JSX for rendering the component
 //   console.log("auth:", auth);
 // console.log("allowedRoles:", allowedRoles);
