@@ -9,7 +9,7 @@ function RequestTable() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/getUserRequestBooks",
+        "https://server-w9pr.onrender.com/getUserRequestBooks",
         {}
       );
       setUserData(response.data.userData3);
@@ -20,7 +20,7 @@ function RequestTable() {
 
   // const acceptRequest = async (res_id) => {
   //   try {
-  //     await axios.post("http://localhost:4000/acceptReservation", { res_Id: res_id });
+  //     await axios.post("https://server-w9pr.onrender.com/acceptReservation", { res_Id: res_id });
   //     fetchData(); // Update the table after accepting
   //   } catch (error) {
   //     console.error("Error Occurred:", error);
@@ -29,7 +29,7 @@ function RequestTable() {
 
   // const rejectRequest = async (res_id) => {
   //   try {
-  //     await axios.post("http://localhost:4000/removeReservation", { res_Id: res_id });
+  //     await axios.post("https://server-w9pr.onrender.com/removeReservation", { res_Id: res_id });
   //     fetchData(); // Update the table after rejecting
   //   } catch (error) {
   //     console.error("Error Occurred:", error);
@@ -67,7 +67,7 @@ function RequestTable() {
 
   const acceptRequest = async (res_id) => {
     try {
-      await axios.post("http://localhost:4000/acceptReservation", {
+      await axios.post("https://server-w9pr.onrender.com/acceptReservation", {
         res_Id: res_id,
       });
       fetchData(); // Update the table after accepting
@@ -88,7 +88,7 @@ function RequestTable() {
 
   const rejectRequest = async (res_id) => {
     try {
-      await axios.post("http://localhost:4000/removeReservation", {
+      await axios.post("https://server-w9pr.onrender.com/removeReservation", {
         res_Id: res_id,
       });
       fetchData(); // Update the table after rejecting

@@ -14,7 +14,7 @@ const BookReturns = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get("http://localhost:4000/getAllBorrowings");
+            const response = await axios.get("https://server-w9pr.onrender.com/getAllBorrowings");
             setBookReturnData(response.data.allBorrowings);
             setError(null); // Clear any previous errors
         } catch (error) {
@@ -41,7 +41,7 @@ const BookReturns = () => {
 
     const confirmReturnBook = async (id) => {
         try {
-            await axios.post("http://localhost:4000/markBookAsReturned", { borrowing_Id: id });
+            await axios.post("https://server-w9pr.onrender.com/markBookAsReturned", { borrowing_Id: id });
             setError(null); // Clear any previous errors
             fetchData(); // Update the data after returning
         } catch (error) {

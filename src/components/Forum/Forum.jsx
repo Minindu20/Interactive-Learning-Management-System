@@ -45,7 +45,7 @@ const handleDeleteClick = async (commentId) => {
     if (result.isConfirmed) {
       try {
         const response = await axios.delete(
-          `http://localhost:4000/user/book/comment/${book}/${commentId}`
+          `https://server-w9pr.onrender.com/user/book/comment/${book}/${commentId}`
         );
         if (response.status === 200) {
           const updatedComments = comments.filter(
@@ -99,7 +99,7 @@ const handleDeleteClick = async (commentId) => {
             setEditingComment(null);
             try {
               const response = await axios.put(
-                `http://localhost:4000/user/book/comment/${book}/${editingComment.id}`,
+                `https://server-w9pr.onrender.com/user/book/comment/${book}/${editingComment.id}`,
                 { userComment: commentText }
               );
               if (response.status === 200) {
@@ -134,7 +134,7 @@ const handleDeleteClick = async (commentId) => {
             const data = { id: book, comments: JSON.stringify(updatedComments )};
             try {
               const response = await axios.post(
-                "http://localhost:4000/user/book/comment",
+                "https://server-w9pr.onrender.com/user/book/comment",
                 data
               );
               if (response.status === 201) {

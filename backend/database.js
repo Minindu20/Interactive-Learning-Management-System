@@ -734,6 +734,7 @@ const addExtension = (request,response)=>{
   })
 }
 const createUser = (request, response) => {
+  console.log(JSON.stringify(request.body));
   const { name, role, email, password, mode } = request.body;
   if (mode === "Sign Up") {
     // console.log("Received request with username:", name);

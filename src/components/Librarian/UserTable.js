@@ -14,7 +14,7 @@ function UserTable() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/UserData", {
+      const response = await axios.post("https://server-w9pr.onrender.com/UserData", {
         email: ""
       });
 
@@ -50,7 +50,7 @@ function UserTable() {
         // User confirmed, change the status
         (async () => {
           try {
-            await axios.post("http://localhost:4000/changeUserStatus", data);
+            await axios.post("https://server-w9pr.onrender.com/changeUserStatus", data);
             changeStatus('');
             fetchData(); // Refresh the data after the status change
           } catch (error) {

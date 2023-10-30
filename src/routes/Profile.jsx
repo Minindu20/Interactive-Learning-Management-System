@@ -54,7 +54,7 @@ const Profile = () => {
   const saveProfile = async () => {
     try {
       // Make an API request to update the user's profile
-      const response = await axios.put("http://localhost:4000/profile-change", {
+      const response = await axios.put("https://server-w9pr.onrender.com/profile-change", {
         id: user.id,
         name,
         currentPassword,

@@ -20,7 +20,7 @@ function RequestTable() {
         const data = {
           role: 'librarian' 
         };
-        const response = await axios.post("http://localhost:4000/getLibrarianData", data)
+        const response = await axios.post("https://server-w9pr.onrender.com/getLibrarianData", data)
        
         if (response.data && response.data.userData2) {
           setUserData(response.data.userData2);
@@ -70,7 +70,7 @@ function RequestTable() {
        else
           {
             axios
-            .post("http://localhost:4000/addLibrarianData", data)
+            .post("https://server-w9pr.onrender.com/addLibrarianData", data)
             .then((response) => {
               
               if(response.data.message == "Username Already Exists")
@@ -107,7 +107,7 @@ function RequestTable() {
     }
 
     axios
-    .post("http://localhost:4000/RemoveLibrarianData", data)
+    .post("https://server-w9pr.onrender.com/RemoveLibrarianData", data)
     .then((response) => {
       
       

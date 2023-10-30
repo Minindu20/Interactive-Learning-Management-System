@@ -13,12 +13,12 @@ const BookHistory = () => {
   useEffect(() => {
     // Create a function to fetch reservations data
     const fetchReservations = (userId) => {
-      return axios.get(`http://localhost:4000/reservations/${userId}`);
+      return axios.get(`https://server-w9pr.onrender.com/reservations/${userId}`);
     };
 
     // Create a function to fetch borrowings data
     const fetchBorrowings = (userId) => {
-      return axios.get(`http://localhost:4000/borrowings/${userId}`);
+      return axios.get(`https://server-w9pr.onrender.com/borrowings/${userId}`);
     };
 
     // Fetch user data first
@@ -76,7 +76,7 @@ const BookHistory = () => {
         try {
           console.log(reservationId, isbn);
           const response = await axios.post(
-            "http://localhost:4000/removeReservation",
+            "https://server-w9pr.onrender.com/removeReservation",
             {
               reservationId,
               isbn,
@@ -116,7 +116,7 @@ const BookHistory = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.put(
-            `http://localhost:4000/addExtension/${borrowingId}`,
+            `https://server-w9pr.onrender.com/addExtension/${borrowingId}`,
             
           );
           if (response.status === 200) {

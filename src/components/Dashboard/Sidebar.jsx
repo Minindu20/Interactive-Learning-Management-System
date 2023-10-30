@@ -28,7 +28,7 @@ const Sidebar = (props) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.post('http://localhost:4000/logout');
+          await axios.post('https://server-w9pr.onrender.com/logout');
           // If the user confirms, navigate to the login page
           navigate('/login');
         } catch (error) {

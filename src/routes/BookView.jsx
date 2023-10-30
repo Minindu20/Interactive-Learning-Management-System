@@ -28,7 +28,7 @@ const BookView = () => {
   //     setUser(user);
   //     try{
   //       //console.log(bookId);
-  //       const response = await axios.get(`http://localhost:4000/user/book/${bookId}`);
+  //       const response = await axios.get(`https://server-w9pr.onrender.com/user/book/${bookId}`);
 
   //       setBook(response.data[0]);
   //       setLikesCount(response.data[0].likes)
@@ -38,7 +38,7 @@ const BookView = () => {
   //   };
   //   const fetchBookCount = async()=>{
   //     try{
-  //       const response = await axios.get(`http://localhost:4000/user/book/count/${bookId}`);
+  //       const response = await axios.get(`https://server-w9pr.onrender.com/user/book/count/${bookId}`);
   //      let response1 = response.data[0].count;
   //       //console.log(response1)
   //       setAvailability(response.data[0].count);
@@ -68,7 +68,7 @@ const BookView = () => {
     const user = await getUser();
     setUser(user);
     try {
-      const response = await axios.get(`http://localhost:4000/user/book/${bookId}`);
+      const response = await axios.get(`https://server-w9pr.onrender.com/user/book/${bookId}`);
      // console.log(response.data[0])
       setBook(response.data[0]);
     } catch (error) {
@@ -78,7 +78,7 @@ const BookView = () => {
 
   const fetchBookCount = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/user/book/count/${bookId}`);
+      const response = await axios.get(`https://server-w9pr.onrender.com/user/book/count/${bookId}`);
       setAvailability(response.data[0].count);
     } catch (error) {
       console.error("Error fetching book data:", error);
@@ -88,7 +88,7 @@ const BookView = () => {
   const getReserveCount = async () => {
     try{
       console.log(user)
-      const response = await axios.get(`http://localhost:4000/user/book/reserveCount/${user.id}`);
+      const response = await axios.get(`https://server-w9pr.onrender.com/user/book/reserveCount/${user.id}`);
       console.log(response.data[0].reservecount)
       setReserveCount(response.data[0].reservecount);
      
@@ -99,7 +99,7 @@ const BookView = () => {
 
   const fetchAuthorDetails = async () => {
     try{
-      const response = await axios.get(`http://localhost:4000/user/book/author/${book.author}`);
+      const response = await axios.get(`https://server-w9pr.onrender.com/user/book/author/${book.author}`);
       console.log(response.data[0])
       setAuthor(response.data[0].bio);
     }catch (error) {
@@ -149,7 +149,7 @@ const handleSubmit = async () => {
         };
 
         const response = await axios.post(
-          "http://localhost:4000/user/book/reserve",
+          "https://server-w9pr.onrender.com/user/book/reserve",
           data
         );
 

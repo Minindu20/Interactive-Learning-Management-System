@@ -15,7 +15,7 @@ const User = () => {
   // axios.defaults.withCredentials = true;
   // const navigate=useNavigate();
   // useEffect(() => {
-  //   axios.get("http://localhost:4000/auth-status").then((response) => {
+  //   axios.get("https://server-w9pr.onrender.com/auth-status").then((response) => {
   //     console.log(response.data.auth)
   //     if(response.data.auth){
   //       setAuth(true);
@@ -44,7 +44,7 @@ const User = () => {
     async function fetchData(){
       try{
         console.log(`Fetching data for genre: ${selectedOption}`);
-        const response =await axios.get(`http://localhost:4000/user/genreRelatedBooks?g=${selectedOption}`)
+        const response =await axios.get(`https://server-w9pr.onrender.com/user/genreRelatedBooks?g=${selectedOption}`)
         console.log(response)
         setData(response.data)
       }
@@ -61,7 +61,7 @@ const User = () => {
     console.log(query);
 
     try {
-      const response2 = await axios.get(`http://localhost:4000/user/filterBooks?q=${query}`);
+      const response2 = await axios.get(`https://server-w9pr.onrender.com/user/filterBooks?q=${query}`);
       setData(response2.data);
       console.log(response2);
     } catch (error) {

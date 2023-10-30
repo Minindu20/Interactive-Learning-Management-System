@@ -2,7 +2,7 @@ import axios from "axios";
 const getUser = async () => {
     let id, role, username;
     try {
-      const response = await axios.get("http://localhost:4000/auth-status");
+      const response = await axios.get("https://server-w9pr.onrender.com/auth-status");
       if (response.data.auth) {
         username = response.data.username;
         id = response.data.id;

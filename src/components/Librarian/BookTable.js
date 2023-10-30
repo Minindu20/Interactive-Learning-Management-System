@@ -11,7 +11,7 @@ function BookTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post("http://localhost:4000/getBooksDataFomDatabase", {
+        const response = await axios.post("https://server-w9pr.onrender.com/getBooksDataFomDatabase", {
          
         });
 

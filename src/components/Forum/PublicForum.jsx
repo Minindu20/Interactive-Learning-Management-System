@@ -25,7 +25,7 @@ const PublicForum = (props) => {
   const fetchComments = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/commonforum`
+        `https://server-w9pr.onrender.com/commonforum`
       );
 
       if (response.status === 200) {
@@ -65,7 +65,7 @@ const PublicForum = (props) => {
   //   );
   //   try {
   //     const response = await axios.delete(
-  //       `http://localhost:4000/commonforum/comment/${commentId}`
+  //       `https://server-w9pr.onrender.com/commonforum/comment/${commentId}`
   //     );
   //     if (response.status === 200) {
   //       setComments(updatedComments);
@@ -96,7 +96,7 @@ const handleDeleteClick = async (commentId) => {
 
       try {
         const response = await axios.delete(
-          `http://localhost:4000/commonforum/comment/${commentId}`
+          `https://server-w9pr.onrender.com/commonforum/comment/${commentId}`
         );
         if (response.status === 200) {
           setComments(updatedComments);
@@ -144,7 +144,7 @@ const handleDeleteClick = async (commentId) => {
   //        // const data = { comments: JSON.stringify(updatedComments[editingCommentIndex].comments) };
   //         try {
   //           const response = await axios.put(
-  //             `http://localhost:4000/commonforum/comment/${editingComment.id}`,{updated:updatedComments[editingCommentIndex].comments }
+  //             `https://server-w9pr.onrender.com/commonforum/comment/${editingComment.id}`,{updated:updatedComments[editingCommentIndex].comments }
               
   //           );
   //           if (response.status === 200) {
@@ -180,7 +180,7 @@ const handleDeleteClick = async (commentId) => {
   //     console.log(newFeedback.comments)
   //     try {
   //       const response = await axios.post(
-  //         `http://localhost:4000/commonforum/comment`,
+  //         `https://server-w9pr.onrender.com/commonforum/comment`,
   //         data
   //       );
   //       if (response.status === 200) {
@@ -224,7 +224,7 @@ const handleDeleteClick = async (commentId) => {
   
             try {
               const response = await axios.put(
-                `http://localhost:4000/commonforum/comment/${editingComment.id}`,
+                `https://server-w9pr.onrender.com/commonforum/comment/${editingComment.id}`,
                 { updated: updatedComments[editingCommentIndex].comments }
               );
               if (response.status === 200) {
@@ -280,7 +280,7 @@ const handleDeleteClick = async (commentId) => {
   
             try {
               const response = await axios.post(
-                `http://localhost:4000/commonforum/comment`,
+                `https://server-w9pr.onrender.com/commonforum/comment`,
                 data
               );
               if (response.status === 200) {

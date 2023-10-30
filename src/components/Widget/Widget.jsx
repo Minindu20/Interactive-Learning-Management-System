@@ -19,7 +19,7 @@ const Widget = ({ type }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:4000/CountDataFromDatabase', {});
+        const response = await axios.post('https://server-w9pr.onrender.com/CountDataFromDatabase', {});
         setBooksCount(response.data.bookCount);
         setUserCount(response.data.userCount);
         setReqCount(response.data.requestCount);
