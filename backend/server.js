@@ -14,7 +14,7 @@ const app = express();
 
 
 app.use(cors({
-    origin:["http://localhost:3000"],
+    origin:["https://main--gleeful-trifle-cf4acd.netlify.app"],
     methods:["GET","POST","PUT","DELETE"],
     credentials:true
 }  
