@@ -47,7 +47,7 @@ const Login = () => {
     }
     if (action === "Sign Up") {
       event.preventDefault();
-      axios.post("http://localhost:4000/login", formData)
+      await axios.post("http://localhost:4000/login", formData)
         .then(response => {
           // if(response.data.nameExist){
           //   alert("UserName exist")

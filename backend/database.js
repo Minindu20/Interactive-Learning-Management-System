@@ -2,30 +2,46 @@ const { Pool } = require("pg");
 const { response, request } = require("express");
 const bcrypt = require('bcrypt');
 const {createToken} = require("./JWT");
+var pg = require('pg');
+
+
+var conString = "postgres://uethhgrm:euDBTuAPU-B_OLcbGi29pMl7EWLLv0Br@rosie.db.elephantsql.com/uethhgrm";
+var client = new pg.Client(conString);
+client.connect(function(err) {
+  if(err) {
+    return console.error('could not connect to postgres', err);
+  }
+  client.query('SELECT * FROM users', function(err, result) {
+    if(err) {
+      return console.error('error running query', err);
+    }
+    // console.log(result.rows[0]);
+    // client.end();
+  });
+});
 
 const pool = new Pool({
-  user: "postgres",
-  password: "12345",
-  host: "localhost",
+  user: "uethhgrm",
+  password: "euDBTuAPU-B_OLcbGi29pMl7EWLLv0Br",
+  host: "postgres://uethhgrm:euDBTuAPU-B_OLcbGi29pMl7EWLLv0Br@rosie.db.elephantsql.com/uethhgrm",
   port: 5432,
-  database: "ilms",
+  database: "uethhgrm",
 });
 const getBookById = (request,response)=>{
   const {id} = request.params;
   //console.log(id);
   const qry = `SELECT * FROM books where id = $1`;
-  pool.query(qry,[id],(error,results)=>{
+  client.query(qry,[id],(error,results)=>{
   if(error) return response.status(500).json({error:'Internal Server Eroor'})
   const book=results.rows;
   response.json(book);
   }) 
-
 }
 const getBookCount = (request,response)=>{
   const{id} =request.params;
   console.log(id)
   const qry = `SELECT COUNT(*) AS count FROM bookdata WHERE id=$1 and res_status = 'no';`
-  pool.query(qry,[id],(error,results)=>{
+  client.query(qry,[id],(error,results)=>{
     if(error) return response.status(500).json({error:'Internal Server Eroor'})
     const count = results.rows
   console.log(count)
@@ -36,7 +52,7 @@ const getBookCount = (request,response)=>{
     const{name}=request.params;
     console.log(name);
     const qry = `SELECT bio FROM author WHERE name LIKE $1;`;
-    pool.query(qry,[name],(error,results)=>{
+    client.query(qry,[name],(error,results)=>{
       if(error) return response.status(500).json({error:'Internal Server Eroor'})
       const bio = results.rows;
     console.log(bio)
@@ -47,7 +63,7 @@ const filterBooks = (request,response)=>{
    console.log(q)
   const qry=`SELECT * FROM books
   WHERE title ILIKE '%' || $1 || '%' OR author ILIKE '%' || $1 || '%';`;
-   pool.query(qry,[q],(error,results)=>{
+   client.query(qry,[q],(error,results)=>{
     //console.log(qry);
     console.log('filter books');
     if(error) return response.status(500).json({error:'Internal server error'})
@@ -63,7 +79,7 @@ const genreRelatedBooks=(request,response)=>{
   const { g }=request.query;
   console.log(g);
   const qry = `SELECT * FROM books WHERE genre ILIKE $1;`;
-  pool.query(qry,[g],(error,results)=>{
+  client.query(qry,[g],(error,results)=>{
   if(error) return response.status(500).json({error:'Internal Server Eroor'})
   else if(results.rows.length===0){
     return response.status(404).json({ error: 'No books found in the databse' });
@@ -77,7 +93,7 @@ const genreRelatedBooks=(request,response)=>{
 
 const getBooks = (request,response)=>{
     const qry = `SELECT * FROM books`;
-    pool.query(qry,(error,results)=>{
+    client.query(qry,(error,results)=>{
     if(error) return response.status(500).json({error:'Internal server error'})
     else if (results.rows.length === 0) {
       return response.status(404).json({ error: 'No bookos found' });
@@ -96,7 +112,7 @@ const getBooks = (request,response)=>{
     WHERE id = $1;
   `;
 
-  pool.query(qry, [bookId], (error, results) => {
+  client.query(qry, [bookId], (error, results) => {
     if (error) {
       return response.status(500).json({ error: 'Internal Server Error' });
     } else {
@@ -113,7 +129,7 @@ const getLibData = async (req, response) => {
       return response.status(200).json({ error: "No Role" });
     }
 
-    const queryResult = await pool.query('SELECT * FROM users WHERE role = $1', [role]);
+    const queryResult = await client.query('SELECT * FROM users WHERE role = $1', [role]);
     
     response.status(200).json({ userData2: queryResult.rows });
   } catch (error) {
@@ -129,8 +145,8 @@ const addLibData = async (req, response) => {
     const TextPass = req.body.PassT;
     const contactT = req.body.contactT;
 
-    const checkUsername = await pool.query('select * from users where username = $1',[UsernameT])
-    const checkEmail = await pool.query('select * from users where email = $1',[EmailT])
+    const checkUsername = await client.query('select * from users where username = $1',[UsernameT])
+    const checkEmail = await client.query('select * from users where email = $1',[EmailT])
 
     
     if(checkEmail.rows.length > 0 )
@@ -149,7 +165,7 @@ const addLibData = async (req, response) => {
     const hashedPassword = await bcrypt.hash(TextPass, saltRounds);
     
 
-    const queryResult3 = await pool.query('insert into users(username,role,email,password,contact) values($1,$2,$3,$4,$5)',[UsernameT ,'librarian',EmailT,hashedPassword,contactT]);
+    const queryResult3 = await client.query('insert into users(username,role,email,password,contact) values($1,$2,$3,$4,$5)',[UsernameT ,'librarian',EmailT,hashedPassword,contactT]);
       res.status(200).json({message:'Success'})
    }
     
@@ -164,7 +180,7 @@ const removeLibData = async (req, response) => {
   
     const index = req.body.Username;
     const queryText = 'DELETE FROM users WHERE username = $1'; 
-    const queryResult4 = await pool.query(queryText, [index]);
+    const queryResult4 = await client.query(queryText, [index]);
     
   } catch (error) {
     console.error("Error Occurred:", error);
@@ -175,7 +191,7 @@ const removeLibData = async (req, response) => {
 const getUserData = async(req, response) =>
 { 
     try {
-        const queryResult = await pool.query('SELECT * FROM users WHERE role = $1', ['reader']);
+        const queryResult = await client.query('SELECT * FROM users WHERE role = $1', ['reader']);
         response.status(200).json({ userData: queryResult.rows });
     } catch (error) {
         console.error("Error Occurred:", error);
@@ -189,7 +205,7 @@ const changeUserStatus = async (req, response) => {
   
   try {
     // Execute the SQL query to update the user's status
-    pool.query(qry, [Status, id], (error, results) => {
+    client.query(qry, [Status, id], (error, results) => {
       if (error) {
         console.error("Error Occurred:", error);
         response.status(500).json({ error: "An error occurred" });
@@ -224,44 +240,44 @@ const addBook = async(request)=>{
     
     
     /*
-    const insertQuery = await pool.query('INSERT INTO books(title,author,image) values($1 , $2 , $3) returning id' , [name ,author ,image ]);
+    const insertQuery = await client.query('INSERT INTO books(title,author,image) values($1 , $2 , $3) returning id' , [name ,author ,image ]);
     const id = insertQuery.rows[0].id;
-    const insertQuery2 = await pool.query('INSERT INTO bookdata(isbn,id,res_status) values($1 , $2 , $3 )' , ["ISBN-"+ISBN,id , "No" ]);
-    //const insertResult = await pool.query(insertQuery, [ISBN]);
+    const insertQuery2 = await client.query('INSERT INTO bookdata(isbn,id,res_status) values($1 , $2 , $3 )' , ["ISBN-"+ISBN,id , "No" ]);
+    //const insertResult = await client.query(insertQuery, [ISBN]);
     //console.log(insertQuery.rows[0])
 
     // Select the ID from the 'booksdata' table
     //const selectQuery = 'SELECT id FROM booksdata WHERE isbn = $1';
-    //const selectResult = await pool.query(selectQuery, [ISBN]);
+    //const selectResult = await client.query(selectQuery, [ISBN]);
 
     // Commit the transaction
-    await pool.query('COMMIT');
+    await client.query('COMMIT');
 
     // Log the ID
     */
     
   
     /*
-  pool.query('INSERT INTO books(title,author,image) values($1 , $2 , $3) returning id', [name ,author ,image], (fetchError, fetchResult) => {
+  client.query('INSERT INTO books(title,author,image) values($1 , $2 , $3) returning id', [name ,author ,image], (fetchError, fetchResult) => {
     if (fetchError) {
       // Rollback the transaction in case of an error
       console.log(fetchError);
-      pool.query('ROLLBACK', () => {
+      client.query('ROLLBACK', () => {
         return response.status(500).json({ error: 'Internal Server Error' });
       });
     } else {
       const id = fetchResult.rows[0].id;
       
-      pool.query('INSERT INTO bookdata(isbn,id,res_status) values($1 , $2 , $3 )', ["ISBN-"+ISBN, id, "No"], (reserveError, reserveResult) => {
+      client.query('INSERT INTO bookdata(isbn,id,res_status) values($1 , $2 , $3 )', ["ISBN-"+ISBN, id, "No"], (reserveError, reserveResult) => {
         if (reserveError) {
           // Rollback the transaction in case of an error
           console.log(reserveError);
-          pool.query('ROLLBACK', () => {
+          client.query('ROLLBACK', () => {
             return response.status(500).json({ error: 'Internal Server Error' });
           });
         } else {
           // Commit the transaction
-          pool.query('COMMIT', () => {
+          client.query('COMMIT', () => {
             return response.json({ message: 'Book registered' });
           });
         }
@@ -296,21 +312,21 @@ const getBooksData = async(req,response) =>
 {
   try {
     // Start the transaction
-    await pool.query('BEGIN');
+    await client.query('BEGIN');
     
-    const query1 = await pool.query('select bookdata.id,bookdata.isbn,books.title,books.author from bookdata inner join books on books.id=bookdata.id')
+    const query1 = await client.query('select bookdata.id,bookdata.isbn,books.title,books.author from bookdata inner join books on books.id=bookdata.id')
     
     response.status(200).json({ userData3: query1.rows });
     
   
     // Commit the transaction
-    await pool.query('COMMIT');
+    await client.query('COMMIT');
   
     // Log the ID
     
   } catch (error) {
     // If there is an error, roll back the transaction
-    pool.query('ROLLBACK');
+    client.query('ROLLBACK');
     console.error("Transaction failed:", error);
   } 
 }
@@ -320,18 +336,18 @@ const userRequestBooks = async(req,response)=>
 {
   try {
     // Start the transaction
-    await pool.query('BEGIN');
-    const query1 = await pool.query('select reservations."res_Id",reservations."userId",reservations."bookId",books.title,reservations.res_time from reservations join books on reservations."bookId" = books.id')
+    await client.query('BEGIN');
+    const query1 = await client.query('select reservations."res_Id",reservations."userId",reservations."bookId",books.title,reservations.res_time from reservations join books on reservations."bookId" = books.id')
     response.status(200).json({ userData3: query1.rows });
     
     // Commit the transaction
-    await pool.query('COMMIT');
+    await client.query('COMMIT');
   
     // Log the ID
     
   } catch (error) {
     // If there is an error, roll back the transaction
-    pool.query('ROLLBACK');
+    client.query('ROLLBACK');
     console.error("Transaction failed:", error);
   } 
 
@@ -341,12 +357,12 @@ const countData = async(req,response)=>
 {
   try {
     // Start the transaction
-    await pool.query('BEGIN');
+    await client.query('BEGIN');
     
     
-    const query1 = await pool.query('select * from books');
-    const query2 = await pool.query('select reservations."res_Id",reservations."userId",reservations."bookId",books.title,reservations.res_time from reservations join books on reservations."bookId" = books.id');
-    const query3 = await pool.query('select * from users');
+    const query1 = await client.query('select * from books');
+    const query2 = await client.query('select reservations."res_Id",reservations."userId",reservations."bookId",books.title,reservations.res_time from reservations join books on reservations."bookId" = books.id');
+    const query3 = await client.query('select * from users');
     const bookCount = query1.rows.length;
     const requestCount = query2.rows.length;
     const userCount = query3.rows.length;
@@ -355,13 +371,13 @@ const countData = async(req,response)=>
     
   
     // Commit the transaction
-    await pool.query('COMMIT');
+    await client.query('COMMIT');
   
     // Log the ID
     
   } catch (error) {
     // If there is an error, roll back the transaction
-    pool.query('ROLLBACK');
+    client.query('ROLLBACK');
     console.error("Transaction failed:", error);
   } 
 
@@ -382,7 +398,7 @@ const updateBookComment = (request, response) => {
     WHERE id = $1;
   `;
   
-  pool.query(qry, [bookId], (error, results) => {
+  client.query(qry, [bookId], (error, results) => {
     if (error) {
       return response.status(500).json({ error: 'Internal Server Error' });
     } else {
@@ -395,7 +411,7 @@ const addBookComment = (request,response)=>{
   const {id,comments}=request.body;
   console.log(id,comments);
   const qry = `Update books SET comments = $2 where id=$1;`
-  pool.query(qry,[id,comments],(error,results)=>{
+  client.query(qry,[id,comments],(error,results)=>{
     if(error) return response.status(500).json({error:'Internal Server Eroor'})
     else 
       response.status(201).json({message:'comment added'});
@@ -406,7 +422,7 @@ const getForumComments = (request,response)=>{
 
   const qry = `SELECT * FROM forum`;
   
-  pool.query(qry,(error,results)=>{
+  client.query(qry,(error,results)=>{
     if(error) return response.status(500).json({error:'Internal Server Eroor'})
     else if (results.rows.length === 0) {
       return response.status(404).json({ error: 'No comments found' });
@@ -421,7 +437,7 @@ const addForumComment = (request,response)=>{
   const {comments}=request.body;
   console.log(comments);
   const qry = `INSERT INTO forum (comments) VALUES ($1);`
-  pool.query(qry,[comments],(error,results)=>{
+  client.query(qry,[comments],(error,results)=>{
     if(error) return response.status(500).json({error:'Internal Server Eroor'})
     else 
       response.status(200).json({message:'comment added'});
@@ -438,7 +454,7 @@ const updateForumComment = (request, response) => {
   WHERE id = $1;  
   `;
   
-  pool.query(qry, [commentId, updatedCommentText], (error, results) => {
+  client.query(qry, [commentId, updatedCommentText], (error, results) => {
     if (error) {
       return response.status(500).json({ error: 'Internal Server Error' });
     } else {
@@ -454,7 +470,7 @@ const deleteForumComment = (request, response) => {
     WHERE id = $1;
   `;
 
-  pool.query(qry, [commentId], (error, results) => {
+  client.query(qry, [commentId], (error, results) => {
     if (error) {
       return response.status(500).json({ error: 'Internal Server Error' });
     } else {
@@ -468,11 +484,11 @@ const reserveBook = (request,response)=>{
   console.log(bookId,userId);
   // const qry = `Update bookdata SET timestamp = CURRENT_TIMESTAMP, res_status = 'reserved'
   // where isbn = (Select isbn from bookdata where id=$1 and res_status='no' order by isbn limit 1)`
-  // pool.query(qry,[bookId],(error,results)=>{
+  // client.query(qry,[bookId],(error,results)=>{
   //   if(error) return response.status(500).json({error:'Internal Server Eroor'})
   //   else (
   //     response.json({message:'book reserved'}))});
-  pool.query('BEGIN', (beginError, beginResult) => {
+  client.query('BEGIN', (beginError, beginResult) => {
     if (beginError) {
       return response.status(500).json({ error: 'Internal Server Error' });
     }
@@ -486,10 +502,10 @@ const reserveBook = (request,response)=>{
       LIMIT 1
     `;
      
-    pool.query(fetchISBNQuery, [bookId], (fetchError, fetchResult) => {
+    client.query(fetchISBNQuery, [bookId], (fetchError, fetchResult) => {
       if (fetchError) {
         // Rollback the transaction in case of an error
-        pool.query('ROLLBACK', () => {
+        client.query('ROLLBACK', () => {
           return response.status(500).json({ error: 'Internal Server Error' });
         });
       } else {
@@ -502,10 +518,10 @@ const reserveBook = (request,response)=>{
           WHERE isbn = $1
         `;
 
-        pool.query(reserveQuery, [obtainedISBN], (reserveError, reserveResult) => {
+        client.query(reserveQuery, [obtainedISBN], (reserveError, reserveResult) => {
           if (reserveError) {
             // Rollback the transaction in case of an error
-            pool.query('ROLLBACK', () => {
+            client.query('ROLLBACK', () => {
               return response.status(500).json({ error: 'Internal Server Error' });
             });
           } else {
@@ -515,15 +531,15 @@ const reserveBook = (request,response)=>{
               VALUES ($1, $2, $3)
             `;
 
-            pool.query(addReservationQuery, [userId, bookId, obtainedISBN], (addResError, addResResult) => {
+            client.query(addReservationQuery, [userId, bookId, obtainedISBN], (addResError, addResResult) => {
               if (addResError) {
                 // Rollback the transaction in case of an error
-                pool.query('ROLLBACK', () => {
+                client.query('ROLLBACK', () => {
                   return response.status(500).json({ error: 'Internal Server Error' });
                 });
               } else {
                 // Commit the transaction
-                pool.query('COMMIT', () => {
+                client.query('COMMIT', () => {
                   return response.json({ message: 'Book reserved' });
                 });
               }
@@ -539,7 +555,7 @@ const getReservedBooks = (request,response)=>{
   const userId=request.params.id;
   console.log(userId);
   const qry = `SELECT * FROM reservations_view WHERE "userId"=$1`;
-  pool.query(qry,[userId],(error,results)=>{
+  client.query(qry,[userId],(error,results)=>{
     if(error) return response.status(500).json({error:'Internal Server Eroor'})
     else 
       response.json(results.rows);
@@ -548,7 +564,7 @@ const getReservedBooks = (request,response)=>{
 
 const getAllBorrowings = async (request, response) => {
   try {
-    pool.query(`SELECT * FROM borrowings WHERE "return_status"= $1`,["no"],(error,results)=>{
+    client.query(`SELECT * FROM borrowings WHERE "return_status"= $1`,["no"],(error,results)=>{
       if(error) return response.status(500).json({error:'Internal Server Eroor'})
        
       response.status(200).json({allBorrowings: results.rows});
@@ -648,28 +664,28 @@ const deleteReservation = async (request, response) => {
 /*
   const { reservationId, isbn } = request.body;
   console.log(reservationId, isbn)
-  pool.query('BEGIN', (beginError, beginResult) => {
+  client.query('BEGIN', (beginError, beginResult) => {
     if (beginError) {
       return response.status(500).json({ error: 'Internal Server Error' });
     }
 
     const qry = `DELETE FROM reservations WHERE "res_Id"=$1`;
-    pool.query(qry, [reservationId], (error, results) => {
+    client.query(qry, [reservationId], (error, results) => {
       if (error) {
-        pool.query('ROLLBACK', () => {
+        client.query('ROLLBACK', () => {
           console.log('i m here')
           return response.status(500).json({ error: 'Internal Server Error' });
         });
       } else {
         const qry2 = `UPDATE bookdata SET res_status = 'no', timestamp = NULL WHERE isbn=$1`;
        
-        pool.query(qry2, [isbn], (error2, results2) => {
+        client.query(qry2, [isbn], (error2, results2) => {
           if (error2) {
-            pool.query('ROLLBACK', () => {
+            client.query('ROLLBACK', () => {
               return response.status(500).json({ error: 'Internal Server Error' });
             });
           } else {
-            pool.query('COMMIT', (commitError) => {
+            client.query('COMMIT', (commitError) => {
               if (commitError) {
                 return response.status(500).json({ error: 'Internal Server Error' });
               }
@@ -688,7 +704,7 @@ const deleteReservation = async (request, response) => {
     const userId=request.params.id;
     console.log(userId);
     const qry = `SELECT COUNT(*) AS reservecount FROM reservations_view WHERE "userId"=$1`;
-    pool.query(qry,[userId],(error,results)=>{
+    client.query(qry,[userId],(error,results)=>{
       if(error) return response.status(500).json({error:'Internal Server Eroor'})
       else{
         const reservecount = results.rows
@@ -701,7 +717,7 @@ const getBorrowedBooks = (request,response)=>{
    const userId=request.params.id;
     console.log(userId);
     const qry = `SELECT * FROM borrowing_view WHERE userid=$1`;
-    pool.query(qry,[userId],(error,results)=>{
+    client.query(qry,[userId],(error,results)=>{
       if(error) return response.status(500).json({error:'Internal Server Eroor'})
       else 
         response.json(results.rows);
@@ -711,7 +727,7 @@ const addExtension = (request,response)=>{
   const borrowingId=request.params.id
   console.log(borrowingId);
   const qry = `UPDATE borrowings SET extension_notes = 'yes' WHERE id=$1 `;
-  pool.query(qry,[borrowingId],(error,results)=>{
+  client.query(qry,[borrowingId],(error,results)=>{
     if(error) return response.status(500).json({error:'Internal Server Eroor'})
     else 
       response.status(200).json({message:'extension added'});
@@ -724,7 +740,7 @@ const createUser = (request, response) => {
     // console.log("Received request with password:", password);
     // console.log(request.body);
     const qry1 = `SELECT * FROM users WHERE username = $1`;
-    pool.query(qry1, [name], (error, results1) => {
+    client.query(qry1, [name], (error, results1) => {
      // console.log(qry);
       if (error) return response.json({ Message: "Error inside server" });
      // console.log(results.rows.length)
@@ -732,7 +748,7 @@ const createUser = (request, response) => {
         return response.json({ nameExist:true});
       } else {
          const qry2 = `SELECT * FROM users WHERE email = $1`;
-         pool.query(qry2, [email], (error, results2) => {
+         client.query(qry2, [email], (error, results2) => {
      // console.log(qry);
          if (error) return response.json({ Message: "Error inside server" });
      // console.log(results.rows.length)
@@ -743,7 +759,7 @@ const createUser = (request, response) => {
             if (err) return response.json({ Message: "Error inside server"
           })
           const qry = `INSERT INTO users (username,role,email,password) VALUES ($1, $2, $3,$4) RETURNING *`;
-          pool.query(qry, [name, role, email, hashedPassword], (error, results) => {
+          client.query(qry, [name, role, email, hashedPassword], (error, results) => {
             if (error) {
               return response.json({ Message: "Error inside server" })
             }
@@ -759,7 +775,7 @@ const createUser = (request, response) => {
   } else if (mode === "Login") {
     //console.log(request.body);
     const qry = `SELECT * FROM users WHERE username = $1`;
-    pool.query(qry, [name], (error, results) => {
+    client.query(qry, [name], (error, results) => {
       if (error) return response.json({ Message: "Error inside server" });
      // console.log(results.rows.length)
       if (results.rows.length > 0) {
