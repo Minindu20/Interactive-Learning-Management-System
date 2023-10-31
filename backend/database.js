@@ -813,6 +813,7 @@ const createUser = (request, response) => {
 
 module.exports = {
   pool,
+  client,
   createUser,
   getBooks,
   filterBooks,

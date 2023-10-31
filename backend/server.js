@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const db = require("./database");
-const {pool} = require("./database.js");
+const {client} = require("./database.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const {createToken} = require("./JWT");
@@ -72,7 +72,7 @@ app.put("/profile-change", validateToken, async (req, res) => {
     // Retrieve the current encrypted password from the database
     const getPasswordQuery = "SELECT password FROM users WHERE id = $1";
     
-    pool.query(getPasswordQuery, [id], async (error, result) => {
+    client.query(getPasswordQuery, [id], async (error, result) => {
       if (error) {
         return res.status(500).json({ error: 'Internal Server Error' });
       }
@@ -105,7 +105,7 @@ app.put("/profile-change", validateToken, async (req, res) => {
           WHERE id = $3
         `;
 
-        pool.query(updateQuery, [name, hashedPassword, id], (updateError, results) => {
+        client.query(updateQuery, [name, hashedPassword, id], (updateError, results) => {
           if (updateError) {
             return res.status(500).json({ error: 'Internal Server Error' });
           }
