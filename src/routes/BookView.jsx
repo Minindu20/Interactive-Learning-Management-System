@@ -46,22 +46,6 @@ const BookView = () => {
   //   fetchBookData();
   // },[bookId]);
 
-  useEffect(() => {
-    fetchBookCount();
-    fetchBookData();
-    
-  });
-  useEffect(() => { fetchAuthorDetails();
-  });
-  useEffect(() => {
-    if(user){
-      getReserveCount();
-    }
-   
-  }); 
-
-
-
   const fetchBookData = async () => {
     const user = await getUser();
     setUser(user);
@@ -104,7 +88,21 @@ const BookView = () => {
       //console.error("Error fetching author details:", error);
     }}
 
- 
+    /* eslint-disable react-hooks/exhaustive-deps */
+
+    useEffect(() => {
+      fetchBookCount();
+      fetchBookData();  
+    }, [bookId]);
+    useEffect(() => { fetchAuthorDetails();
+    }, [book]);
+    useEffect(() => {
+      if(user){
+        getReserveCount();
+      }
+    }, [user]);
+
+    /* eslint-enable react-hooks/exhaustive-deps */
 
 
     const openImagePreview = (imageUrl) => {
