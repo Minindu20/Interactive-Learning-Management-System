@@ -12,6 +12,7 @@ const PublicForum = (props) => {
   const [user, setUser] = useState(props.user);
   const [editingComment, setEditingComment] = useState(null);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     console.log(commentText);
     const fetchData = async () => {
@@ -20,7 +21,8 @@ const PublicForum = (props) => {
     };
     fetchData();
     fetchComments();
-  });
+  },[]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   const fetchComments = async () => {
     try {
