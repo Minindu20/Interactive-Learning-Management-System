@@ -579,7 +579,6 @@ const markBookAsReturned = async (request, response) => {
 
   const borrowing_Id = await request.body.borrowing_Id;
 
-  const client = await pool.connect()
     try {
         await client.query('BEGIN')
         const queryText = `UPDATE borrowings SET "return_status" = 'yes' WHERE "id" = $1 RETURNING isbn`
@@ -596,7 +595,6 @@ const markBookAsReturned = async (request, response) => {
         throw e
 
     } finally {
-        client.release()
         return response.status(200).json({ message: 'request accepted' });
     }
 }
@@ -604,7 +602,7 @@ const markBookAsReturned = async (request, response) => {
 const acceptReservation = async (request, response) => {
     const res_id = await request.body.res_Id;
 
-    const client = await pool.connect()
+    
     try {
         await client.query('BEGIN')
         const queryText = 'SELECT * FROM reservations WHERE "res_Id" = $1'
@@ -630,7 +628,6 @@ const acceptReservation = async (request, response) => {
         throw e
 
     } finally {
-        client.release()
         return response.status(200).json({ message: 'request accepted' });
     }
 }
@@ -638,7 +635,6 @@ const acceptReservation = async (request, response) => {
 const deleteReservation = async (request, response) => {
 
   const res_id = await request.body.res_Id;
-  const client = await pool.connect()
   try {
     await client.query('BEGIN')
     const queryText = 'SELECT isbn FROM reservations WHERE "res_Id" = $1'
@@ -658,7 +654,6 @@ const deleteReservation = async (request, response) => {
       throw e
 
   } finally {
-      client.release();
       return response.status(200).json({ message: 'request deleted' });
   }
 /*
